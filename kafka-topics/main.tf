@@ -1,5 +1,6 @@
 locals {
   consumers             = local.topic_enabled ? var.consumers : {}
+  # TODO: Needs to be more general for Bio, Bredband etc 
   topic_enabled         = (var.environment == "eidsivaenergitest" || var.enable_prod)
   rest_consumers_keys   = toset([ for key, value in local.consumers : key if value.enable_rest_proxy == true ])
   rest_consumers        = {for key in local.rest_consumers_keys : key => local.consumers[key]}
@@ -18,7 +19,7 @@ resource "confluent_kafka_topic" "topic" {
   kafka_cluster {
     id = local.cluster_id
   }
-  topic_name       = var.is_public ? "public.${var.domain}.${var.data_name}" : "private.${var.domain}.${var.data_name}"
+  topic_name       = var.is_public ? "public.${var.domain}.${var.system}.${var.data_name}" : "private.${var.domain}.${var.system}.${var.data_name}"
   partitions_count = var.partitions != null ? var.partitions : 1
 
   config = {
