@@ -1,9 +1,9 @@
 locals {
-  connectors            = var.connectors
-  consumers             = local.topic_enabled ? var.consumers : {}
-  topic_enabled         = var.enable_prod
-  rest_consumers_keys   = toset([ for key, value in local.consumers : key if value.enable_rest_proxy == true ])
-  rest_consumers        = {for key in local.rest_consumers_keys : key => local.consumers[key]}
+  connectors          = var.connectors
+  consumers           = local.topic_enabled ? var.consumers : {}
+  topic_enabled       = var.enable_prod
+  rest_consumers_keys = toset([for key, value in local.consumers : key if value.enable_rest_proxy == true])
+  rest_consumers      = { for key in local.rest_consumers_keys : key => local.consumers[key] }
 }
 
 
@@ -163,21 +163,21 @@ resource "confluent_connector" "connector" {
   }
 
   config_nonsensitive = {
-    "name" = each.value.name
+    "name"   = each.value.name
     "topics" = confluent_kafka_topic.topic[0].topic_name
 
-    "kafka.auth.mode" = "SERVICE_ACCOUNT"
+    "kafka.auth.mode"          = "SERVICE_ACCOUNT"
     "kafka.service.account.id" = var.service_account_map[each.value.system_name].id
-    "output.data.format" = each.value.format
+    "output.data.format"       = each.value.format
     # (each.value.is_sink ? "output.data.format" : "input.data.format") = each.value.format
-    "connector.class" = (each.value.is_sink ? "AzureBlobSink" : "AzureBlobSource")
-    "time.interval" = "HOURLY" # Valid entries are HOURLY or DAILY
-    "tasks.max" = "1"
-    "azblob.account.name" = each.value.account_name
+    "connector.class"       = (each.value.is_sink ? "AzureBlobSink" : "AzureBlobSource")
+    "time.interval"         = "HOURLY" # Valid entries are HOURLY or DAILY
+    "tasks.max"             = "1"
+    "azblob.account.name"   = each.value.account_name
     "azblob.container.name" = each.value.container_name
     # "topic.regex.list" = "${confluent_kafka_topic.topic[0].topic_name}:.*" # Only used in source connectors
   }
-  config_sensitive     = {
+  config_sensitive = {
     "azblob.account.key" = each.value.account_key
   }
 

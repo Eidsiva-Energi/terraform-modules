@@ -62,8 +62,8 @@ variable "is_public" {
 
 variable "consumers" {
   type = map(object({
-    system_name      = string
-    application_name = string
+    system_name       = string
+    application_name  = string
     enable_rest_proxy = optional(bool)
   }))
   description = "Map of consumers that can read from the topic."
@@ -112,12 +112,12 @@ variable "extra_write_access_service_account" {
 
 variable "connectors" {
   type = map(object({
-    name      = string
-    system_name = string
-    is_sink = bool
-    format = string
-    account_name = string
-    account_key = string
+    name           = string
+    system_name    = string
+    is_sink        = bool
+    format         = string
+    account_name   = string
+    account_key    = string
     container_name = string
   }))
   default = {}
