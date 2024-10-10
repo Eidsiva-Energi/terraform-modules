@@ -1,4 +1,3 @@
-variable "environment" {}
 
 variable "service_account_map" {}
 
