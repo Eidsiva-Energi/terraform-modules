@@ -103,6 +103,17 @@ resource "confluent_kafka_acl" "publisher_topic_extra_write_access_service_accou
 }
 
 ###############################
+# Schema
+###############################
+
+resource "confluent_schema" "schema" {
+  depends_on   = [confluent_kafka_topic.topic]
+  subject_name = "${confluent_kafka_topic.topic[0].topic_name}-value"
+  format       = "JSON"
+}
+
+/*
+###############################
 # Schema registry upload
 ###############################
 locals {
@@ -146,6 +157,7 @@ EOT
     schemaregistry_schema.topic_schema
   ]
 }
+*/
 
 ###############################
 # connector
