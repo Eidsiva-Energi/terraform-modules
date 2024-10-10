@@ -1,6 +1,4 @@
-variable "environment" {
-    default = "eidsivaenergitest"
-}
+variable "environment" {}
 
 variable "service_account_map" {}
 
@@ -111,3 +109,19 @@ variable "extra_write_access_service_account" {
   default     = null
   description = "Used only to give the special service account kvalitetsportalen-writer write access. "
 }
+
+variable "connectors" {
+  type = map(object({
+    name      = string
+    system_name = string
+    is_sink = bool
+    format = string
+    account_name = string
+    account_key = string
+    container_name = string
+  }))
+  default = {}
+}
+
+variable "environment_id" {}
+variable "cluster_id" {}

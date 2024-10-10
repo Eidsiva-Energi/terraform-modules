@@ -1,14 +1,11 @@
 locals {
+  connectors            = var.connectors
   consumers             = local.topic_enabled ? var.consumers : {}
-  # TODO: Needs to be more general for Bio, Bredband etc 
-  topic_enabled         = (var.environment == "eidsivaenergitest" || var.enable_prod)
+  topic_enabled         = var.enable_prod
   rest_consumers_keys   = toset([ for key, value in local.consumers : key if value.enable_rest_proxy == true ])
   rest_consumers        = {for key in local.rest_consumers_keys : key => local.consumers[key]}
 }
-locals {
-  cluster_id     = var.environment == "eidsivaenergitest" ? "lkc-zy7v8y" : file("ERROR UNSUPPORTED ENVIRONMENT ${var.environment}")
-  environment_id = var.environment == "eidsivaenergitest" ? "env-5qz96z" : file("ERROR UNSUPPORTED ENVIRONMENT ${var.environment}")
-}
+
 
 ###############################
 # topic
@@ -17,7 +14,7 @@ resource "confluent_kafka_topic" "topic" {
   count = local.topic_enabled ? 1 : 0
 
   kafka_cluster {
-    id = local.cluster_id
+    id = var.cluster_id
   }
   topic_name       = var.is_public ? "public.${var.domain}.${var.system}.${var.data_name}" : "private.${var.domain}.${var.system}.${var.data_name}"
   partitions_count = var.partitions != null ? var.partitions : 1
@@ -45,7 +42,7 @@ resource "confluent_kafka_acl" "consumers_consumer_group" {
   for_each = local.consumers
 
   kafka_cluster {
-    id = local.cluster_id
+    id = var.cluster_id
   }
   resource_name = "${confluent_kafka_topic.topic[0].topic_name}-${each.value.system_name}.${each.value.application_name}"
   resource_type = "GROUP"
@@ -61,7 +58,7 @@ resource "confluent_kafka_acl" "consumers_consumer_group_allow_topic_system_read
   for_each = local.consumers
 
   kafka_cluster {
-    id = local.cluster_id
+    id = var.cluster_id
   }
   resource_name = "${confluent_kafka_topic.topic[0].topic_name}-${each.value.system_name}.${each.value.application_name}"
   resource_type = "GROUP"
@@ -76,7 +73,7 @@ resource "confluent_kafka_acl" "consumers_topic_read" {
   for_each = local.consumers
 
   kafka_cluster {
-    id = local.cluster_id
+    id = var.cluster_id
   }
   resource_name = confluent_kafka_topic.topic[0].topic_name
   resource_type = "TOPIC"
@@ -94,7 +91,7 @@ resource "confluent_kafka_acl" "publisher_topic_extra_write_access_service_accou
   count = local.topic_enabled && var.extra_write_access_service_account != null ? 1 : 0
 
   kafka_cluster {
-    id = local.cluster_id
+    id = var.cluster_id
   }
   resource_type = "TOPIC"
   resource_name = confluent_kafka_topic.topic[0].topic_name
@@ -147,5 +144,52 @@ EOT
   }
   depends_on = [
     schemaregistry_schema.topic_schema
+  ]
+}
+
+###############################
+# connector
+###############################
+
+# NB: The connector source is not implemented yet!
+resource "confluent_connector" "connector" {
+  for_each = local.connectors
+
+  environment {
+    id = var.environment_id
+  }
+  kafka_cluster {
+    id = var.cluster_id
+  }
+
+  config_nonsensitive = {
+    "name" = each.value.name
+    "topics" = confluent_kafka_topic.topic[0].topic_name
+
+    "kafka.auth.mode" = "SERVICE_ACCOUNT"
+    "kafka.service.account.id" = var.service_account_map[each.value.system_name].id
+    "output.data.format" = each.value.format
+    # (each.value.is_sink ? "output.data.format" : "input.data.format") = each.value.format
+    "connector.class" = (each.value.is_sink ? "AzureBlobSink" : "AzureBlobSource")
+    "time.interval" = "HOURLY" # Valid entries are HOURLY or DAILY
+    "tasks.max" = "1"
+    "azblob.account.name" = each.value.account_name
+    "azblob.container.name" = each.value.container_name
+    # "topic.regex.list" = "${confluent_kafka_topic.topic[0].topic_name}:.*" # Only used in source connectors
+  }
+  config_sensitive     = {
+    "azblob.account.key" = each.value.account_key
+  }
+
+  depends_on = [
+    confluent_kafka_acl.app-connector-describe-on-cluster,
+    confluent_kafka_acl.app-connector-read-on-target-topic,
+    confluent_kafka_acl.app-connector-create-on-dlq-lcc-topics,
+    confluent_kafka_acl.app-connector-write-on-dlq-lcc-topics,
+    confluent_kafka_acl.app-connector-create-on-success-lcc-topics,
+    confluent_kafka_acl.app-connector-write-on-success-lcc-topics,
+    confluent_kafka_acl.app-connector-create-on-error-lcc-topics,
+    confluent_kafka_acl.app-connector-write-on-error-lcc-topics,
+    confluent_kafka_acl.app-connector-read-on-connect-lcc-group,
   ]
 }
