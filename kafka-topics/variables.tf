@@ -133,7 +133,7 @@ variable "cluster_id" {}
 #}
 
 variable "schema" {
-  type = json
+  type = string
   #default     = ""
   description = "The path to the schema to upload to the Schema Registry."
   #validation {
