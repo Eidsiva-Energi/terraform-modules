@@ -133,11 +133,11 @@ variable "cluster_id" {}
 #}
 
 variable "schema" {
-  type        = string
-  default     = ""
+  type = json
+  #default     = ""
   description = "The path to the schema to upload to the Schema Registry."
-  validation {
-    condition     = var.schema != "" ? contains([".json"], substr(var.schema, -5, -1)) : true
-    error_message = "The schema must be an json schema, and the value must end with .json."
-  }
+  #validation {
+  #  condition     = var.schema != "" ? contains([".json"], substr(var.schema, -5, -1)) : true
+  #  error_message = "The schema must be an json schema, and the value must end with .json."
+  #}
 }
