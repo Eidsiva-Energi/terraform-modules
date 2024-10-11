@@ -27,5 +27,17 @@ module "test-kafka" {
         application_name = "application",
       }
     }
+
+    connectors = {
+      connector = {
+        name           = "myConnector"
+        system_name    = "system"
+        is_sink        = true
+        format         = "JSON"
+        account_name   = "AzureStorageAccount"
+        account_key    = "*******"
+        container_name = "BlobContainer"
+      }
+    }
 }
 ```
