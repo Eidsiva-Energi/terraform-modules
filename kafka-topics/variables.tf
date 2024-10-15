@@ -122,22 +122,7 @@ variable "cluster_id" {}
 # Schema
 ###############################
 
-#variable "schema" {
-#  type        = string
-#  default     = ""
-#  description = "The schema to upload to the Schema Registry."
-#  validation {
-#    condition     = var.schema != "" ? contains([".avsc", ".json"], substr(var.schema, -5, -1)) : true
-#    error_message = "The schema must be an avro or json schema, and the value must end with .avsc or .json."
-#  }
-#}
-
 variable "schema" {
-  type = string
-  #default     = ""
+  type        = string
   description = "The path to the schema to upload to the Schema Registry."
-  #validation {
-  #  condition     = var.schema != "" ? contains([".json"], substr(var.schema, -5, -1)) : true
-  #  error_message = "The schema must be an json schema, and the value must end with .json."
-  #}
 }
