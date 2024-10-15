@@ -74,15 +74,7 @@ variable "enable_prod" {
 }
 
 
-variable "schema" {
-  type        = string
-  default     = ""
-  description = "The schema to upload to the Schema Registry."
-  validation {
-    condition     = var.schema != "" ? contains([".avsc", ".json"], substr(var.schema, -5, -1)) : true
-    error_message = "The schema must be an avro or json schema, and the value must end with .avsc or .json."
-  }
-}
+
 
 variable "schema_compatibility" {
   type        = string
@@ -124,3 +116,13 @@ variable "connectors" {
 
 variable "environment_id" {}
 variable "cluster_id" {}
+
+
+###############################
+# Schema
+###############################
+
+variable "schema" {
+  type        = string
+  description = "The path to the schema to upload to the Schema Registry."
+}

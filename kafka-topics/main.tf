@@ -103,49 +103,16 @@ resource "confluent_kafka_acl" "publisher_topic_extra_write_access_service_accou
 }
 
 ###############################
-# Schema registry upload
+# Schema
 ###############################
-locals {
-  schema_compatibility_default = "FULL_TRANSITIVE"
-  schema_enabled               = local.topic_enabled && var.schema != ""
-  schema_subject               = local.topic_enabled ? "${confluent_kafka_topic.topic[0].topic_name}-value" : null
-  schema_is_url                = var.schema == "" ? false : substr(var.schema, 0, 8) == "https://"
-  schema_folder                = "./topic-schemas/${var.domain}/${var.system}" # the file must be under a certain folder
-  schema_content               = var.schema == "" ? null : local.schema_is_url ? data.http.schema_url_data[0].response_body : file("${local.schema_folder}/${var.schema}")
-  schema_type                  = substr(var.schema, -4, -1) # last 4 letters (the variable has already validated that it contains a dot)
-  schema_compatibility         = local.schema_type == "json" ? "NONE" : (var.schema_compatibility == "" ? local.schema_compatibility_default : var.schema_compatibility)
-  schema_basic_auth            = base64encode("${var.schema_registry_config.username}:${var.schema_registry_config.password}")
+
+resource "confluent_schema" "schema" {
+  depends_on   = [confluent_kafka_topic.topic]
+  subject_name = "${confluent_kafka_topic.topic[0].topic_name}-value"
+  format       = "JSON"
+  schema       = var.schema
 }
 
-resource "schemaregistry_schema" "topic_schema" {
-  count       = local.schema_enabled ? 1 : 0
-  subject     = local.schema_subject
-  schema      = local.schema_content
-  schema_type = local.schema_type
-}
-
-data "http" "schema_url_data" {
-  count = local.schema_enabled && local.schema_is_url ? 1 : 0
-  url   = var.schema
-}
-
-resource "null_resource" "schema_compatibility" {
-  # only run when necessary -> when set to something else than default
-  count = (local.topic_enabled && local.schema_compatibility != local.schema_compatibility_default) ? 1 : 0
-
-  triggers = {
-    "schema_compatibility" : local.schema_compatibility
-  }
-
-  provisioner "local-exec" {
-    command = <<EOT
-    curl -X PUT --data '${jsonencode({ "compatibility" : local.schema_compatibility })}' -H 'Authorization: Basic ${local.schema_basic_auth}' -H 'Content-Type: application/vnd.schemaregistry.v1+json' ${var.schema_registry_config.url}/config/${local.schema_subject}
-EOT
-  }
-  depends_on = [
-    schemaregistry_schema.topic_schema
-  ]
-}
 
 ###############################
 # connector
