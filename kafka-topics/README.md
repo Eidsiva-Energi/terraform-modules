@@ -1,7 +1,12 @@
 # topics-terraform
+A module for defining topics, connectors, and schemas in Kafka clusters owned by the Eidsiva group and it's daugther companies
 
 
-## Example
+## Topics
+Topics are defined in `main.tf`
+
+
+### Example
 
 
 ```
