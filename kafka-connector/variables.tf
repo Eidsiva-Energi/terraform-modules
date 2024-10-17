@@ -21,28 +21,28 @@ variable "account_key" {
 }
 variable "topics" {
   type = map(object({
-    topic_name       = string
+    topic_name = string
   }))
   description = "The topics you want to store in blob storage."
 }
 variable "data_format" {
   validation {
-    condition = (contains(["JSON", "AVRO"], var.data_format))
+    condition     = (contains(["JSON", "AVRO"], var.data_format))
     error_message = "The format must be either JSON or AVRO."
   }
   default = "JSON"
 }
-variable path_format {
+variable "path_format" {
   description = "The file structure for the ."
-  default = "'year'=YYYY/'month'=MM/'day'=dd/'hour'=HH"
+  default     = "'year'=YYYY/'month'=MM/'day'=dd/'hour'=HH"
 }
 variable "time_interval" {
   validation {
-    condition = (contains(["HOURLY", "DAILY"], var.time_interval))
+    condition     = (contains(["HOURLY", "DAILY"], var.time_interval))
     error_message = "The time interval must be either HOURLY or DAILY."
   }
 }
 variable "rotate_interval_ms" {
   description = "The time interval in milliseconds to invoke file commits."
-  default = "-1"
+  default     = "-1"
 }

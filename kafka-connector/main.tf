@@ -19,7 +19,7 @@ resource "confluent_connector" "connector" {
     "kafka.auth.mode"          = "SERVICE_ACCOUNT"
     "kafka.service.account.id" = var.service_account_id
     "output.data.format"       = var.data_format
-    "connector.class"          =  "AzureBlobSink"
+    "connector.class"          = "AzureBlobSink"
     "time.interval"            = var.time_interval
     "tasks.max"                = "1"
     "azblob.account.name"      = var.account_name
