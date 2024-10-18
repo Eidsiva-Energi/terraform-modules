@@ -10,32 +10,60 @@ A module for defining topics, connectors, and schemas in Kafka clusters owned by
   * Note that consumers outside of a given domain are not blocked from consuming topics marked private.
 
 
-### Example
+### Example 1
+This example defines a topic named `public.hr.ifs.employeeworklocation` with a `mdmx-ticket-updater` as a consumer. The topic retains it's messages for 7 days.
 
 
-```
+```c
 module "test-kafka" {
     source = "github.com/Eidsiva-Energi/terraform-modules/kafka-topics"
 
+    cluster_id     = local.cluster_id
+    environment_id = local.environment_id
+
     schema_registry_config = local.schema_registry_config
-    environment = var.environment
-    service_account_map = confluent_service_account.system
+    service_account_map    = confluent_service_account.system
 
-    domain = "domain"
-    system = "system"
-    data_name = "data_name"
+    domain = "hr"
+    system = "ifs"
+    data_name = "employeeworklocation"
 
-    enable_prod = false
-    is_public = false
+    enable_prod = true
+    is_public = true
     retention_ms = 604800000 # 7 days
     partitions = 1
 
     consumers = {
-      consumer = {
-        system_name = "system",
-        application_name = "application",
+      mdmx_ticket_updater_consumer = {
+        system_name = "mdmx",
+        application_name = "ticket-updater",
       }
     }
+}
+```
+
+### Example 2
+This example defines a topic named `public.hr.ifs.employeeworklocation` with no consumers. The topic has a connector named `myConnector`. The topic retains it's messages for 7 days.
+```c
+module "test-kafka" {
+    source = "github.com/Eidsiva-Energi/terraform-modules/kafka-topics"
+
+    cluster_id     = local.cluster_id
+    environment_id = local.environment_id
+
+    schema_registry_config = local.schema_registry_config
+    service_account_map    = confluent_service_account.system
+
+    domain = "hr"
+    system = "ifs"
+    data_name = "employeeworklocation"
+
+    enable_prod = true
+    is_public = true
+    retention_ms = 604800000 # 7 days
+    partitions = 1
+
+    consumers = {}
 
     connectors = {
       connector = {
