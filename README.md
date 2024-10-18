@@ -2,4 +2,6 @@
 
 Common terraform modules availible to all Eidsiva developers.
 
-**Check out the individual folders for examples on how to use the different modules**
+## Availible modules:
+
+[Kafka Topics](kafka-topics/README.md)
