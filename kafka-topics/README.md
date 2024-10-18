@@ -1,9 +1,13 @@
-# topics-terraform
+# Kafka terraform module
 A module for defining topics, connectors, and schemas in Kafka clusters owned by the Eidsiva group and it's daugther companies
 
 
 ## Topics
-Topics are defined in `main.tf`
+* Topics are defined in `main.tf`
+* All topics are owned by a single domain e.g. HR
+* Topic names follow this convention: {public||private}.{domain}.{system}.{data_name}
+  * Public/Private signify wether or not a topic contains data that is relevant to consumers outside of the domain.
+  * Note that consumers outside of a given domain are not blocked from consuming topics marked private.
 
 
 ### Example
