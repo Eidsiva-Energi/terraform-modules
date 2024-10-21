@@ -1,5 +1,4 @@
 locals {
-  connectors          = var.connectors
   consumers           = local.topic_enabled ? var.consumers : {}
   topic_enabled       = var.enable_prod
   rest_consumers_keys = toset([for key, value in local.consumers : key if value.enable_rest_proxy == true])
@@ -111,52 +110,4 @@ resource "confluent_schema" "schema" {
   subject_name = "${confluent_kafka_topic.topic[0].topic_name}-value"
   format       = "JSON"
   schema       = var.schema
-}
-
-
-###############################
-# connector
-###############################
-
-# NB: The connector source is not implemented yet!
-resource "confluent_connector" "connector" {
-  for_each = local.connectors
-
-  environment {
-    id = var.environment_id
-  }
-  kafka_cluster {
-    id = var.cluster_id
-  }
-
-  config_nonsensitive = {
-    "name"   = each.value.name
-    "topics" = confluent_kafka_topic.topic[0].topic_name
-
-    "kafka.auth.mode"          = "SERVICE_ACCOUNT"
-    "kafka.service.account.id" = var.service_account_map[each.value.system_name].id
-    "output.data.format"       = each.value.format
-    # (each.value.is_sink ? "output.data.format" : "input.data.format") = each.value.format
-    "connector.class"       = (each.value.is_sink ? "AzureBlobSink" : "AzureBlobSource")
-    "time.interval"         = "HOURLY" # Valid entries are HOURLY or DAILY
-    "tasks.max"             = "1"
-    "azblob.account.name"   = each.value.account_name
-    "azblob.container.name" = each.value.container_name
-    # "topic.regex.list" = "${confluent_kafka_topic.topic[0].topic_name}:.*" # Only used in source connectors
-  }
-  config_sensitive = {
-    "azblob.account.key" = each.value.account_key
-  }
-
-  depends_on = [
-    confluent_kafka_acl.app-connector-describe-on-cluster,
-    confluent_kafka_acl.app-connector-read-on-target-topic,
-    confluent_kafka_acl.app-connector-create-on-dlq-lcc-topics,
-    confluent_kafka_acl.app-connector-write-on-dlq-lcc-topics,
-    confluent_kafka_acl.app-connector-create-on-success-lcc-topics,
-    confluent_kafka_acl.app-connector-write-on-success-lcc-topics,
-    confluent_kafka_acl.app-connector-create-on-error-lcc-topics,
-    confluent_kafka_acl.app-connector-write-on-error-lcc-topics,
-    confluent_kafka_acl.app-connector-read-on-connect-lcc-group,
-  ]
 }

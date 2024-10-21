@@ -74,8 +74,6 @@ variable "enable_prod" {
 }
 
 
-
-
 variable "schema_compatibility" {
   type        = string
   default     = ""
@@ -99,19 +97,6 @@ variable "schema_registry_config" {
 variable "extra_write_access_service_account" {
   default     = null
   description = "Used only to give the special service account kvalitetsportalen-writer write access. "
-}
-
-variable "connectors" {
-  type = map(object({
-    name           = string
-    system_name    = string
-    is_sink        = bool
-    format         = string
-    account_name   = string
-    account_key    = string
-    container_name = string
-  }))
-  default = {}
 }
 
 variable "environment_id" {}
