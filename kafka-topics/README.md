@@ -47,6 +47,7 @@ module "test-kafka" {
 * `domain` designates which domain the topic belongs to. It should be set from a approved set of values.
 * `system` referes to the main system producing messages on this topic.
 * `data_name` is the main title of the topic and should give potential consumers an idea of what the messages on this topic will contain.
+<!-- TODO: Update description when enable_prod functionality is implemented -->
 * `enable_prod` !!FUNCTIONALITY IS NOT IMPLEMENTED YET, BUT THE VARIABLE IS REQUIRED FOR THE MODULE TO FUNCTION!!
 * `is_public` decides if the topic will be prefixed with `public` or `private`. This prefix is used to inform potential consumers wether the topic is intended for use outside the organisation.
 * `retention_ms`. How long messages on the topic will be stored. *Example 1* stores messages for 7 days. A value of `-1` means topics will be stored forever.
