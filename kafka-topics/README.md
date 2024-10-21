@@ -1,5 +1,5 @@
 # Kafka terraform module
-A module for defining topics, connectors, and schemas in Kafka clusters owned by the Eidsiva group and it's daugther companies
+A module for defining topics and schemas in Kafka clusters owned by the Eidsiva group and it's daugther companies
 
 
 ## Topics
@@ -11,7 +11,7 @@ A module for defining topics, connectors, and schemas in Kafka clusters owned by
 
 
 ### Example 1
-This example defines a topic named `public.hr.ifs.employeeworklocation` with a `mdmx-ticket-updater` as a consumer. The topic retains it's messages for 7 days.
+This example defines a topic named `public.hr.ifs.employeeworklocation` with a `mdmx-ticket-updater` as a consumer. The topic retains its messages for 7 days.
 
 
 ```c
