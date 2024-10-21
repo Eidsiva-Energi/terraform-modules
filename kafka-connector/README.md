@@ -2,9 +2,10 @@
 
 The kafka connector will storge messages from kafka in Azure blob storage.
 
-## Example
+## Example 1
+This example defines a connector called `myconnector` that writes the contents for the topics `public.hr.ifs.companyorg` and `public.hr.companyperson` to Azure blob storage. The contents are saved daily as JSON files and the files are organized bye which day they were written.
 
-```
+```c
 module "connector" {
     source = "github.com/Eidsiva-Energi/terraform-modules/kafka-connector"
 
