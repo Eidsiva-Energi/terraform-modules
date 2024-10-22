@@ -15,7 +15,7 @@ This example defines a topic named `public.hr.ifs.employeeworklocation` with a `
 
 ```c
 module "test-kafka" {
-    source = "github.com/Eidsiva-Energi/terraform-modules/kafka-topics"
+    source = "github.com/Eidsiva-Energi/terraform-modules/confluent-kafka/topic"
 
     cluster_id     = local.cluster_id
     environment_id = local.environment_id

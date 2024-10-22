@@ -7,7 +7,7 @@ This example defines a connector called `myconnector` that writes the contents f
 
 ```c
 module "connector" {
-    source = "github.com/Eidsiva-Energi/terraform-modules/kafka-connector"
+    source = "github.com/Eidsiva-Energi/terraform-modules/confluent-kafka/connectors/azure-blob-sink"
 
     name = "myconnector"
 
