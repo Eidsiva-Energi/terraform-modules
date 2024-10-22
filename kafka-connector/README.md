@@ -43,5 +43,6 @@ module "connector" {
 * `container_name`. The name of the container in the Azure Blob Storage the connector will write to.
 * `topics`. A list of the different topics the connector should read from. Each list item is an object with a `topic_name` attribute.
 * `data_format`. The data format the connector will write to Azure Blob Storage. Availible options are: *JSON*, *Avro*, *Bytes*, and *Parquet*
-* `time_interval`. How often the connector writes to te Azure Blob Storage.
+<!-- TODO: Sjekk om det finnes flere options for time_interval -->
+* `time_interval`. How often the connector writes to te Azure Blob Storage. The availible options are *DAILY* and *HOURLY*.
 * `path_format`. How the folder structure in the Azure Blob Storage should be organized.
