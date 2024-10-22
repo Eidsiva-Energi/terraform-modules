@@ -98,7 +98,7 @@ variable "schema_registry_config" {
 
 variable "extra_write_access_service_account" {
   default     = null
-  description = "Used only to give the special service account kvalitetsportalen-writer write access. "
+  description = "Used only to give the special service accounts write access. "
 }
 
 variable "environment_id" {}
@@ -111,5 +111,5 @@ variable "cluster_id" {}
 
 variable "schema" {
   type        = string
-  description = "The path to the schema to upload to the Schema Registry."
+  description = "Schema to upload to the Schema Registry."
 }
