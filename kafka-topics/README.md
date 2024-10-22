@@ -1,12 +1,11 @@
 # Kafka terraform module
-A module for defining topics and schemas in Kafka clusters owned by the Eidsiva group and it's daugther companies
+A module for defining topics and schemas in Kafka clusters owned by the Eidsiva group and its daughter companies
 
 
 ## Topics
-* Topics are defined in `main.tf`
 * All topics are owned by a single domain e.g. HR
 * Topic names follow this convention: {public||private}.{domain}.{system}.{data_name}
-  * Public/Private signify wether or not a topic contains data that is relevant to consumers outside of the domain.
+  * Public/Private signify whether or not a topic contains data that is relevant to consumers outside of the domain.
   * Note that consumers outside of a given domain are not blocked from consuming topics marked private.
 
 
@@ -20,6 +19,7 @@ module "test-kafka" {
 
     cluster_id     = local.cluster_id
     environment_id = local.environment_id
+    environment    = var.environment
 
     schema_registry_config = local.schema_registry_config
     service_account_map    = confluent_service_account.system
@@ -31,6 +31,7 @@ module "test-kafka" {
     enable_prod = true
     is_public = true
     retention_ms = 604800000 # 7 days
+    cleanup_policy = "delete"
     partitions = 1
 
     consumers = {
@@ -39,16 +40,20 @@ module "test-kafka" {
         application_name = "ticket-updater",
       }
     }
+
+    schema = file("../schema.json")
 }
 ```
 
 #### Variables
 
-* `domain` designates which domain the topic belongs to. It should be set from a approved set of values.
-* `system` referes to the main system producing messages on this topic.
-* `data_name` is the main title of the topic and should give potential consumers an idea of what the messages on this topic will contain.
-<!-- TODO: Update description when enable_prod functionality is implemented -->
-* `enable_prod` !!FUNCTIONALITY IS NOT IMPLEMENTED YET, BUT THE VARIABLE IS REQUIRED FOR THE MODULE TO FUNCTION!!
-* `is_public` decides if the topic will be prefixed with `public` or `private`. This prefix is used to inform potential consumers wether the topic is intended for use outside the organisation.
+* `domain` The domain that owns the topic and contract.
+* `system` The system that owns the topic and contract. Only this system can publish to the topic. 
+* `data_name` The name of the data type or event type. Should give potential consumers an idea of what the messages on this topic will contain.
+* `enable_prod` Enable to create the topic in the production environment. Useful to disable prod during development.
+* `is_public` Decides if the topic will be prefixed with `public` or `private`. This prefix is used to inform potential consumers whether the topic is intended for use outside the domain.
 * `retention_ms`. How long messages on the topic will be stored. *Example 1* stores messages for 7 days. A value of `-1` means topics will be stored forever.
+* `cleanup_policy`. 'delete' or 'compact'. 'delete' will delete old segments when retentions_ms is reached. 'compact' will enable log compaction on the topic.
 * `partitions`. How many partitions should be dedicated to this topic. Each partition can handle at least 10 MB/s of traffic.
+* `consumers`. A map of consumers that will be allowed to consume messages from this topic. Each consumer is defined by a unique key and a map with the keys `system_name` and `application_name`. The consumer will be allowed to consume messages from the topic if the consumer's system and application name matches the values in the map.
+* `schema`. Relative path to the schema that will be used to validate messages on the topic.
