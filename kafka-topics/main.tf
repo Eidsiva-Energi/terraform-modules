@@ -1,6 +1,6 @@
 locals {
   consumers           = local.topic_enabled ? var.consumers : {}
-  topic_enabled       = var.enable_prod
+  topic_enabled       = (var.environment == "test" || var.enable_prod)
   rest_consumers_keys = toset([for key, value in local.consumers : key if value.enable_rest_proxy == true])
   rest_consumers      = { for key in local.rest_consumers_keys : key => local.consumers[key] }
 }

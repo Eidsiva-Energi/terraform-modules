@@ -1,6 +1,8 @@
 
 variable "service_account_map" {}
 
+variable "environment" {}
+
 variable "domain" {
   description = "The domain that owns the topic and contract."
   type        = string
