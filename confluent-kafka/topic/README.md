@@ -47,17 +47,6 @@ module "test-kafka" {
 
 #### Variables
 
-* `domain`    The domain that owns the topic and contract.
-* `system`    The system that owns the topic and contract. Only this system can publish to the topic. 
-* `data_name` The name of the data type or event type. Should give potential consumers an idea of what the messages on this topic will contain.
-* `enable_prod` Enable to create the topic in the production environment. Useful to disable prod during development.
-* `is_public` Decides if the topic will be prefixed with `public` or `private`. This prefix is used to inform potential consumers whether the topic is intended for use outside the domain.
-* `retention_ms`. How long messages on the topic will be stored. *Example 1* stores messages for 7 days. A value of `-1` means topics will be stored forever.
-* `cleanup_policy`. 'delete' or 'compact'. 'delete' will delete old segments when retentions_ms is reached. 'compact' will enable log compaction on the topic.
-* `partitions`. How many partitions should be dedicated to this topic. Each partition can handle at least 10 MB/s of traffic.
-* `consumers`. A map of consumers that will be allowed to consume messages from this topic. Each consumer is defined by a unique key and a map with the keys `system_name` and `application_name`. The  consumer will be allowed to consume messages from the topic if the consumer's system and application name matches the values in the map.
-* `schema`. Relative path to the schema that will be used to validate messages on the topic.
-
 | **Variable**              | **Description**                                                                                                 | **Type**      | **Default**                                |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------|---------------|--------------------------------------------|
 | `domain`                  | The domain that owns the topic and contract.                                                                    | `string`      | N/A                                        |
