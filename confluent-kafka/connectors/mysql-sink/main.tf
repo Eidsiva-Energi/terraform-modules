@@ -18,8 +18,8 @@ resource "confluent_connector" "connector" {
 
     "kafka.auth.mode"          = "SERVICE_ACCOUNT"
     "kafka.service.account.id" = var.service_account_id
-    "input.data.format"        = "AVRO"
-    "input.key.format"         = "AVRO"
+    "input.data.format"        = var.input_data_format
+    "input.key.format"         = var.input_key_format
     "connector.class"          = "MySqlSink"
     "tasks.max"                = "1"
     "insert.mode"              = var.mode
