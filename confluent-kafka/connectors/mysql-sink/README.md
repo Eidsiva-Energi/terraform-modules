@@ -45,13 +45,16 @@ module "connector" {
 | `connection_password`            | The password of the database.                                                   | `string`         | N/A               |
 | `topics`                         | A map of topics to be stored in blob storage, each containing a `topic_name`.   | `map(object)`    | N/A               |
 | `mode`                           | The mode of the connector. Must be either `INSERT` or `UPSERT`.                 | `string`         | `UPSERT`          |
+| `input_data_format`              | The input data format. Must be one of `AVRO`, `JSON`, `PROTOBUF`, or `STRING`.  | `string`         | `JSON`            |
+| `input_key_format`               | The input key format. Must be one of `AVRO`, `JSON`, `PROTOBUF`, or `STRING`.   | `string`         | `STRING`          |
 | `table_and_column_auto_create`   | Enables auto-creation of tables and columns. Must be either `true` or `false`.  | `string`         | `true`            |
 | `table_and_column_auto_evolve`   | Enables auto-evolution of tables and columns. Must be either `true` or `false`. | `string`         | `true`            |
 | `pk_mode`                        | The primary key mode. Must be one of `none`, `record_key`, `record_value`, or `kafka`. | `string`         | `none`            |
 
 ### Validation Constraints
 - **Mode**: Must be either `INSERT` or `UPSERT`.
+- **Input Data Format**: Must be one of `AVRO`, `JSON`, `PROTOBUF`, or `STRING`.
+- **Input Key Format**: Must be one of `AVRO`, `JSON`, `PROTOBUF`, or `STRING`.
 - **Table and Column Auto Creation/Evolution**: Must be `true` or `false`.
-- **Primary Key Mode**: Must be `none`, `record_key`, `record_value`, or `kafka`.
+- **Primary Key Mode**: Must be one of `none`, `record_key`, `record_value`, or `kafka`.
 - **Connection Host**: Do not include jdbc:xxxx:// in the connection hostname property.
-
