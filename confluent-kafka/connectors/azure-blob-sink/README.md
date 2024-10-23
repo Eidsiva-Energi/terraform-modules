@@ -35,14 +35,26 @@ module "connector" {
 }
 ```
 
-### Variables
+### Confluent Cloud Kafka to Azure Blob Storage Connector Configuration
 
-* `name`. The name of the connector
-* `account_name`. The name of the Confluent Service Account the connector will utilize.
-* `account_key`. The key to to use the Confluent Service Account. Remember to keep this value secret.
-* `container_name`. The name of the container in the Azure Blob Storage the connector will write to.
-* `topics`. A list of the different topics the connector should read from. Each list item is an object with a `topic_name` attribute.
-* `data_format`. The data format the connector will write to Azure Blob Storage. Availible options are: *JSON*, *Avro*, *Bytes*, and *Parquet*
-<!-- TODO: Sjekk om det finnes flere options for time_interval -->
-* `time_interval`. How often the connector writes to te Azure Blob Storage. The availible options are *DAILY* and *HOURLY*.
-* `path_format`. How the folder structure in the Azure Blob Storage should be organized.
+This section provides details about the configurable variables used to set up a Kafka connector for Confluent Cloud, which stores data in Azure Blob Storage.
+
+| **Variable**              | **Description**                                                                                 | **Type**         | **Default**                                |
+|---------------------------|-------------------------------------------------------------------------------------------------|------------------|--------------------------------------------|
+| `name`                    | The name of the connector.                                                                      | `string`         | N/A                                        |
+| `environment_id`           | The Confluent Cloud environment ID.                                                             | `string`         | N/A                                        |
+| `cluster_id`               | The Confluent Cloud cluster ID.                                                                 | `string`         | N/A                                        |
+| `service_account_id`       | The Confluent Cloud service account ID.                                                         | `string`         | N/A                                        |
+| `account_name`             | The Azure Storage account name.                                                                 | `string`         | N/A                                        |
+| `container_name`           | The Azure Storage account container name.                                                       | `string`         | N/A                                        |
+| `account_key`              | The value of the Azure Storage account key.                                                     | `string`         | N/A                                        |
+| `topics`                   | A map of topics to be stored in blob storage, each containing a `topic_name`.                   | `map(object)`    | N/A                                        |
+| `data_format`              | The format of the data being stored. Must be either `JSON` or `AVRO`.                           | `string`         | `JSON`                                     |
+| `path_format`              | The file structure format.                                                                     | `string`         | `'year'=YYYY/'month'=MM/'day'=dd/'hour'=HH`|
+| `time_interval`            | The time interval for file organization. Must be either `HOURLY` or `DAILY`.                    | `string`         | N/A                                        |
+| `rotate_interval_ms`       | The time interval in milliseconds to invoke file commits.                                       | `number`         | `-1`                                       |
+
+### Validation Constraints
+- **Data Format**: Must be either `JSON` or `AVRO`.
+- **Time Interval**: Must be either `HOURLY` or `DAILY`.
+
