@@ -42,17 +42,17 @@ This section provides details about the configurable variables used to set up a 
 | **Variable**              | **Description**                                                                                 | **Type**         | **Default**                                |
 |---------------------------|-------------------------------------------------------------------------------------------------|------------------|--------------------------------------------|
 | `name`                    | The name of the connector.                                                                      | `string`         | N/A                                        |
-| `environment_id`           | The Confluent Cloud environment ID.                                                             | `string`         | N/A                                        |
-| `cluster_id`               | The Confluent Cloud cluster ID.                                                                 | `string`         | N/A                                        |
-| `service_account_id`       | The Confluent Cloud service account ID.                                                         | `string`         | N/A                                        |
-| `account_name`             | The Azure Storage account name.                                                                 | `string`         | N/A                                        |
-| `container_name`           | The Azure Storage account container name.                                                       | `string`         | N/A                                        |
-| `account_key`              | The value of the Azure Storage account key.                                                     | `string`         | N/A                                        |
-| `topics`                   | A map of topics to be stored in blob storage, each containing a `topic_name`.                   | `map(object)`    | N/A                                        |
-| `data_format`              | The format of the data being stored. Must be either `JSON` or `AVRO`.                           | `string`         | `JSON`                                     |
-| `path_format`              | The file structure format.                                                                     | `string`         | `'year'=YYYY/'month'=MM/'day'=dd/'hour'=HH`|
-| `time_interval`            | The time interval for file organization. Must be either `HOURLY` or `DAILY`.                    | `string`         | N/A                                        |
-| `rotate_interval_ms`       | The time interval in milliseconds to invoke file commits.                                       | `number`         | `-1`                                       |
+| `environment_id`          | The Confluent Cloud environment ID.                                                             | `string`         | N/A                                        |
+| `cluster_id`              | The Confluent Cloud cluster ID.                                                                 | `string`         | N/A                                        |
+| `service_account_id`      | The Confluent Cloud service account ID.                                                         | `string`         | N/A                                        |
+| `account_name`            | The Azure Storage account name.                                                                 | `string`         | N/A                                        |
+| `container_name`          | The Azure Storage account container name.                                                       | `string`         | N/A                                        |
+| `account_key`             | The value of the Azure Storage account key.                                                     | `string`         | N/A                                        |
+| `topics`                  | A map of topics to be stored in blob storage, each containing a `topic_name`.                   | `map(object)`    | N/A                                        |
+| `data_format`             | The format of the data being stored. Must be either `JSON` or `AVRO`.                           | `string`         | `JSON`                                     |
+| `path_format`             | The file structure format.                                                                      | `string`         | `'year'=YYYY/'month'=MM/'day'=dd/'hour'=HH`|
+| `time_interval`           | The time interval for file organization. Must be either `HOURLY` or `DAILY`.                    | `string`         | N/A                                        |
+| `rotate_interval_ms`      | The time interval in milliseconds to invoke file commits.                                       | `number`         | `-1`                                       |
 
 ### Validation Constraints
 - **Data Format**: Must be either `JSON` or `AVRO`.
