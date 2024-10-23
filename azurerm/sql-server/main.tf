@@ -7,7 +7,7 @@ resource "azurerm_sql_server" "sqlserver" {
   name                         = var.name_override != "" ? var.name_override : local.standard_name
   resource_group_name          = var.resource_group.name
   location                     = local.location
-  version                      = var.version
+  version                      = var.server_version
   administrator_login          = var.sqlserver_login_name
   administrator_login_password = var.sqlserver_login_password
   identity {

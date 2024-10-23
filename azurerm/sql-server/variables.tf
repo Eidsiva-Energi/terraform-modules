@@ -1,7 +1,7 @@
 variable "name" {
 }
 
-variable "version" {
+variable "server_version" {
   default = "12.0"
 }
 
