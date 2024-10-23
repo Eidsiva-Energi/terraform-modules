@@ -55,24 +55,6 @@ variable "mode" {
   default = "UPSERT"
 }
 
-variable "input_data_format" {
-  description = "The input data format."
-  validation {
-    condition     = (contains(["AVRO", "JSON", "PROTOBUF", "STRING"], var.input_data_format))
-    error_message = "The input data format must be either AVRO, JSON, PROTOBUF, or STRING."
-  }
-  default = "JSON"
-}
-
-variable "input_key_format" {
-  description = "The input key format."
-  validation {
-    condition     = (contains(["AVRO", "JSON", "PROTOBUF", "STRING"], var.input_key_format))
-    error_message = "The input key format must be either AVRO, JSON, PROTOBUF, or STRING."
-  }
-  default = "STRING"
-}
-
 variable "table_and_column_auto_create" {
   description = "The table and column auto creation setting."
   validation {
