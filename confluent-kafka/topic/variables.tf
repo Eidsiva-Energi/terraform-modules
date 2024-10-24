@@ -72,7 +72,7 @@ variable "consumers" {
 
 variable "enable_prod" {
   description = "Enable to create the topic in production. Useful to disable prod during development. "
-  default     = true
+  default     = false
 }
 
 
