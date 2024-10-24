@@ -1,4 +1,4 @@
 output "azurerm_mssql_database" {
-  value     = length(azurerm_mssql_database.mssqldatabase) > 0 ? azurerm_mssql_database.mssqldatabase[0] : null
+  value     = azurerm_mssql_database.mssqldatabase
   sensitive = true
 }
