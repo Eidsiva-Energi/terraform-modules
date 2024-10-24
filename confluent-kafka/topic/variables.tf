@@ -34,29 +34,36 @@ variable "partitions" {
 }
 
 variable "retention_ms" {
+  type        = number
   description = "How long data will be kept on the topic in milliseconds. Set to -1 to keep data forever. This only applies if cleanup_policy is 'delete'."
+  validation {
+    condition     = var.retention_ms >= -1
+    error_message = "The value must be larger than the min limit -1 (-1 indicates retaining data forever)."
+  }
 }
 
 variable "cleanup_policy" {
+  type        = string
+  description = "'delete' or 'compact'. 'delete' will delete old segments when retentions_ms is reached. 'compact' will enable log compaction on the topic. "
+  default     = "delete"
   validation {
     condition     = contains(["delete", "compact"], var.cleanup_policy)
     error_message = "Variable cleanup_policy must be 'delete' or 'compact'."
   }
-  description = "'delete' or 'compact'. 'delete' will delete old segments when retentions_ms is reached. 'compact' will enable log compaction on the topic. "
-  default     = "delete"
 }
 
 variable "compacting_max_lag_ms" {
-  type    = number
-  default = 604800000 # 1w
+  type        = number
+  description = "The maximum time before a new item is considered for compacting. Default: 1w"
+  default     = 604800000 # 1w
   validation {
     condition     = var.compacting_max_lag_ms >= 604800000
     error_message = "The value must be larger than the min limit 604800000 (1w)."
   }
-  description = "The maximum time before a new item is considered for compacting. Default: 1w"
 }
 
 variable "is_public" {
+  type        = bool
   description = "True if this topic is used outside its domain."
   default     = true
 }
@@ -88,11 +95,6 @@ variable "schema_registry_config" {
       password = string
     }
   )
-}
-
-variable "extra_write_access_service_account" {
-  default     = null
-  description = "Used only to give the special service accounts write access. "
 }
 
 variable "environment_id" {}

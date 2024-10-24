@@ -81,25 +81,6 @@ resource "confluent_kafka_acl" "consumers_topic_read" {
 }
 
 
-# ##############################################################
-# # write access to extra_write_access_service_account
-# ##############################################################
-resource "confluent_kafka_acl" "publisher_topic_extra_write_access_service_account" {
-  count = var.extra_write_access_service_account != null ? 1 : 0
-
-  kafka_cluster {
-    id = var.cluster_id
-  }
-  resource_type = "TOPIC"
-  resource_name = confluent_kafka_topic.topic.topic_name
-  pattern_type  = "LITERAL"
-  principal     = "User:${var.extra_write_access_service_account.id}"
-  host          = "*"
-  operation     = "WRITE"
-  permission    = "ALLOW"
-}
-
-
 ###############################
 # Schema
 ###############################
