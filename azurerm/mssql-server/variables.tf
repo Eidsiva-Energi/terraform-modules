@@ -21,9 +21,6 @@ variable "connection_policy" {
 variable "mssqlserver_login_name" {
 }
 
-variable "mssqlserver_login_password" {
-}
-
 variable "location_override" {
   default = ""
 }
