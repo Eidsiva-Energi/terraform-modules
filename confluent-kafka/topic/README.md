@@ -46,21 +46,21 @@ module "test-kafka" {
 ```
 
 #### Variables
+NOTE: All variables without a default value needs to be given a value in your terraform definition
 
-| **Variable**              | **Description**                                                                                                 | **Type**      | **Default**                                |
-|---------------------------|-----------------------------------------------------------------------------------------------------------------|---------------|--------------------------------------------|
-| `domain`                  | The domain that owns the topic and contract.                                                                    | `string`      | N/A                                        |
-| `system`                  | The system that owns the topic and contract. Only this system can publish to the topic.                         | `string`      | N/A                                        |
-| `data_name`               | The name of the data or event type. Should describe the contents of the topic to potential consumers.           | `string`      | N/A                                        |
-| `enable_prod`             | Allows topic to be created in the production environment.                                                       | `boolean`     | N/A                                        |
-| `is_public`               | Prefixes topic with `public` or `private`. Informs potentials consumers if the  topic is intended for use outside the domain.   | `boolean` | N/A                            |
-| `retention_ms`            | How long messages are stored. *Example 1* store messages for 7 days -1 means stored indefinitely.               | `number`      | N/A                                        |
-| `cleanup_policy`          | 'delete' or 'compact'. 'delete' removes old data; 'compact' enables log compaction.                             | `string`      | N/A                                        |
-| `partitions`              | Number of partitions dedicated to the topic. Each can handle at least ~10 MB/s of traffic.                      | `number`      | N/A                                        |
-| `consumers`               | Map of allowed consumers. Each consumer is defined bu a unique key and a map with the keys `system_name` and `application_name`.| `map(object)` | N/A                        |
-| `schema`                  | Relative path to the schema that will be used to validate messages on the topic.                                | `string`      | N/A                                        |
+| **Variable**              | **Description**                                                                                                 | **Type**      | **Default**               |
+|---------------------------|-----------------------------------------------------------------------------------------------------------------|---------------|---------------------------|
+| `domain`                  | The domain that owns the topic and contract.                                                                    | `string`      | N/A                       |
+| `system`                  | The system that owns the topic and contract. Only this system can publish to the topic.                         | `string`      | N/A                       |
+| `data_name`               | The name of the data or event type. Should describe the contents of the topic to potential consumers.           | `string`      | N/A                       |
+| `is_public`               | Prefixes topic with `public` or `private`. Informs potentials consumers if the  topic is intended for use outside the domain.   | `boolean` | `true`        |
+| `retention_ms`            | How long messages are stored. *Example 1* store messages for 7 days -1 means stored indefinitely.               | `number`      | N/A                       |
+| `cleanup_policy`          | 'delete' or 'compact'. 'delete' removes old data; 'compact' enables log compaction.                             | `string`      | 'delete'                  |
+| `partitions`              | Number of partitions dedicated to the topic. Each can handle at least ~10 MB/s of traffic.                      | `number`      | 1                         |
+| `consumers`               | Map of allowed consumers. Each consumer is defined bu a unique key and a map with the keys `system_name` and `application_name`.| `map(object)` | N/A       |
+| `schema`                  | Relative path to the schema that will be used to validate messages on the topic.                                | `string`      | N/A                       |
 
-<!--->
-### Validation Constraints
-- **Data Format**: Must be either `JSON` or `AVRO`.
-- **Time Interval**: Must be either `HOURLY` or `DAILY`.
+
+#### Validation Constraints
+- `data_name`: Can only contain lowercase letters [a-z], digits [0-9], and underscores. Must begin with a lowercase letter. 
+- `cleanup_policy`: Must be either *'delete'* or *'compact'*
