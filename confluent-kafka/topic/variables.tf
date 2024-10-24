@@ -89,6 +89,10 @@ variable "consumers" {
     enable_rest_proxy = optional(bool)
   }))
   description = "Map of consumers that can read from the topic."
+  validation {
+    condition     = length(keys(var.consumers)) > 0
+    error_message = "At least one consumer must be provided."
+  }
 }
 
 variable "schema_compatibility" {
@@ -109,6 +113,18 @@ variable "schema_registry_config" {
       password = string
     }
   )
+  validation {
+    condition     = var.schema_registry_config.url != ""
+    error_message = "The schema_registry_config.url must be set."
+  }
+  validation {
+    condition     = var.schema_registry_config.username != ""
+    error_message = "The schema_registry_config.username must be set."
+  }
+  validation {
+    condition     = var.schema_registry_config.password != ""
+    error_message = "The schema_registry_config.password must be set."
+  }
 }
 
 variable "environment_id" {
