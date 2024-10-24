@@ -56,7 +56,7 @@ module "test-kafka" {
 | `is_public`               | Prefixes topic with `public` or `private`. Informs potentials consumers if the  topic is intended for use outside the domain.   | `boolean` | N/A                            |
 | `retention_ms`            | How long messages are stored. *Example 1* store messages for 7 days -1 means stored indefinitely.               | `number`      | N/A                                        |
 | `cleanup_policy`          | 'delete' or 'compact'. 'delete' removes old data; 'compact' enables log compaction.                             | `string`      | N/A                                        |
-| `partitions`              | Number of partitions dedicated to the topic. Each can handle at least ~10 MB/s of traffic.                      | `number`      | N/A                                             |
+| `partitions`              | Number of partitions dedicated to the topic. Each can handle at least ~10 MB/s of traffic.                      | `number`      | N/A                                        |
 | `consumers`               | Map of allowed consumers. Each consumer is defined bu a unique key and a map with the keys `system_name` and `application_name`.| `map(object)` | N/A                        |
 | `schema`                  | Relative path to the schema that will be used to validate messages on the topic.                                | `string`      | N/A                                        |
 
