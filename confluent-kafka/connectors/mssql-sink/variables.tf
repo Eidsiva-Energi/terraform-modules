@@ -99,3 +99,7 @@ variable "pk_mode" {
   }
   default = "none"
 }
+
+variable "table_name" {
+  description = "The name of the table."
+}
