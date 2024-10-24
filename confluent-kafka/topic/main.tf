@@ -1,6 +1,5 @@
 locals {
-  consumers           = local.topic_enabled ? var.consumers : {}
-  topic_enabled       = (var.environment == "test" || var.enable_prod)
+  consumers           = var.consumers
   rest_consumers_keys = toset([for key, value in local.consumers : key if value.enable_rest_proxy == true])
   rest_consumers      = { for key in local.rest_consumers_keys : key => local.consumers[key] }
 }
@@ -10,8 +9,6 @@ locals {
 # topic
 ###############################
 resource "confluent_kafka_topic" "topic" {
-  count = local.topic_enabled ? 1 : 0
-
   kafka_cluster {
     id = var.cluster_id
   }
@@ -83,11 +80,12 @@ resource "confluent_kafka_acl" "consumers_topic_read" {
   permission    = "ALLOW"
 }
 
+
 # ##############################################################
 # # write access to extra_write_access_service_account
 # ##############################################################
 resource "confluent_kafka_acl" "publisher_topic_extra_write_access_service_account" {
-  count = local.topic_enabled && var.extra_write_access_service_account != null ? 1 : 0
+  count = var.extra_write_access_service_account != null ? 1 : 0
 
   kafka_cluster {
     id = var.cluster_id
@@ -100,6 +98,7 @@ resource "confluent_kafka_acl" "publisher_topic_extra_write_access_service_accou
   operation     = "WRITE"
   permission    = "ALLOW"
 }
+
 
 ###############################
 # Schema
