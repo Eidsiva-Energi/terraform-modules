@@ -97,8 +97,15 @@ variable "schema_registry_config" {
   )
 }
 
-variable "environment_id" {}
-variable "cluster_id" {}
+variable "environment_id" {
+  type        = string
+  description = "The Cofluent Cloud environment id."
+}
+
+variable "cluster_id" {
+  type        = string
+  description = "The Confluent Cloud cluster id."
+}
 
 
 ###############################
