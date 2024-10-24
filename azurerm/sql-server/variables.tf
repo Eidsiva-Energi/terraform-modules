@@ -24,3 +24,8 @@ variable "sqlserver_login_password" {
 variable "location_override" {
   default = ""
 }
+
+variable "name_override" {
+  description = "Set this to force a name of the resource. Should normally not be used. "
+  default     = ""
+}

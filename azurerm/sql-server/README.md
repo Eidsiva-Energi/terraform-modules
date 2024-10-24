@@ -9,3 +9,4 @@
 | `sqlserver_login_name`      | The login name for the SQL Server.            | `string`   | N/A           |
 | `sqlserver_login_password`  | The login password for the SQL Server.        | `string`   | N/A           |
 | `location_override`         | An optional location override for resources.  | `string`   | `""`          |
+| `name_override`             | An optional name override for resources.      | `string`   | `""`          |
