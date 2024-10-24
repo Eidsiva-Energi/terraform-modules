@@ -10,8 +10,6 @@ variable "service_account_map" {
   }
 }
 
-variable "environment" {}
-
 variable "domain" {
   type        = string
   description = "The domain that owns the topic and contract."
