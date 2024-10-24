@@ -70,12 +70,6 @@ variable "consumers" {
   description = "Map of consumers that can read from the topic."
 }
 
-variable "enable_prod" {
-  description = "Enable to create the topic in production. Useful to disable prod during development. "
-  default     = false
-}
-
-
 variable "schema_compatibility" {
   type        = string
   default     = ""
