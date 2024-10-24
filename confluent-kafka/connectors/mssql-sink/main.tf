@@ -20,7 +20,7 @@ resource "confluent_connector" "connector" {
     "kafka.service.account.id" = var.service_account_id
     "input.data.format"        = var.input_data_format
     "input.key.format"         = var.input_key_format
-    "connector.class"          = "MsSqlSink"
+    "connector.class"          = "MicrosoftSqlServerSink"
     "tasks.max"                = "1"
     "insert.mode"              = var.mode
     "auto.create"              = var.table_and_column_auto_create
