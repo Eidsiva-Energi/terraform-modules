@@ -40,7 +40,7 @@ resource "confluent_kafka_acl" "consumers_consumer_group" {
   kafka_cluster {
     id = var.cluster_id
   }
-  resource_name = "${confluent_kafka_topic.topic[0].topic_name}-${each.value.system_name}.${each.value.application_name}"
+  resource_name = "${confluent_kafka_topic.topic.topic_name}-${each.value.system_name}.${each.value.application_name}"
   resource_type = "GROUP"
   pattern_type  = "LITERAL"
   principal     = "User:${var.service_account_map[each.value.system_name].id}"
@@ -56,7 +56,7 @@ resource "confluent_kafka_acl" "consumers_consumer_group_allow_topic_system_read
   kafka_cluster {
     id = var.cluster_id
   }
-  resource_name = "${confluent_kafka_topic.topic[0].topic_name}-${each.value.system_name}.${each.value.application_name}"
+  resource_name = "${confluent_kafka_topic.topic.topic_name}-${each.value.system_name}.${each.value.application_name}"
   resource_type = "GROUP"
   pattern_type  = "LITERAL"
   principal     = "User:${var.service_account_map[var.system].id}"
@@ -71,7 +71,7 @@ resource "confluent_kafka_acl" "consumers_topic_read" {
   kafka_cluster {
     id = var.cluster_id
   }
-  resource_name = confluent_kafka_topic.topic[0].topic_name
+  resource_name = confluent_kafka_topic.topic.topic_name
   resource_type = "TOPIC"
   pattern_type  = "LITERAL"
   principal     = "User:${var.service_account_map[each.value.system_name].id}"
@@ -91,7 +91,7 @@ resource "confluent_kafka_acl" "publisher_topic_extra_write_access_service_accou
     id = var.cluster_id
   }
   resource_type = "TOPIC"
-  resource_name = confluent_kafka_topic.topic[0].topic_name
+  resource_name = confluent_kafka_topic.topic.topic_name
   pattern_type  = "LITERAL"
   principal     = "User:${var.extra_write_access_service_account.id}"
   host          = "*"
@@ -106,7 +106,7 @@ resource "confluent_kafka_acl" "publisher_topic_extra_write_access_service_accou
 
 resource "confluent_schema" "schema" {
   depends_on   = [confluent_kafka_topic.topic]
-  subject_name = "${confluent_kafka_topic.topic[0].topic_name}-value"
+  subject_name = "${confluent_kafka_topic.topic.topic_name}-value"
   format       = "JSON"
   schema       = var.schema
 }
