@@ -6,6 +6,7 @@ variable "environment" {
 
 variable "service_account_map" {
   type = map(object({
+    id           = string
     display_name = string
     description  = string
   }))
