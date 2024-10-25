@@ -1,3 +1,10 @@
+// NOTE: environment 
+
+variable "environment" {
+  type        = string
+  description = "The environment to deploy the topic to."
+}
+
 variable "service_account_map" {
   type = map(object({
     display_name = string
