@@ -1,5 +1,4 @@
-// NOTE: environment 
-
+// NOTE: environment variable is currently unused, but it is included as we expect to use it in the future.
 variable "environment" {
   type        = string
   description = "The environment to deploy the topic to."
