@@ -1,17 +1,34 @@
+// NOTE: environment variable is currently unused, but it is included as we expect to use it in the future.
+variable "environment" {
+  type        = string
+  description = "The environment to deploy the topic to."
+}
 
-variable "service_account_map" {}
-
-variable "environment" {}
+variable "service_account_map" {
+  type = map(object({
+    id           = string
+    display_name = string
+    description  = string
+  }))
+  description = "Map of service accounts to assosiate with the topic. Each service account will be able to publish to the topic."
+  validation {
+    condition     = length(keys(var.service_account_map)) > 0
+    error_message = "At least one service account must be provided."
+  }
+}
 
 variable "domain" {
-  description = "The domain that owns the topic and contract."
   type        = string
-
+  description = "The domain that owns the topic and contract."
+  validation {
+    condition     = length(regexall("^[-_a-z]+$", var.domain)) > 0
+    error_message = "The domain must be from lowercase a-z, hypher, and underscore only."
+  }
 }
 
 variable "system" {
-  description = "The system that owns the topic and contract. Only this system can publish to the topic. "
   type        = string
+  description = "The system that owns the topic and contract. Only this system can publish to the topic. "
   validation {
     condition     = length(regexall("^[-_a-z]+$", var.system)) > 0
     error_message = "The system must be from lowercase a-z, hypher, and underscore only."
@@ -19,9 +36,8 @@ variable "system" {
 }
 
 variable "data_name" {
-  description = "The name of the data type or event type."
   type        = string
-
+  description = "The name of the data type or event type."
   validation {
     condition     = length(regexall("^[a-z][_a-z0-9]+$", var.data_name)) > 0
     error_message = "The data_name must be from lowercase letters [a-z], digits [0-9], and underscore only. It must start with a lowercase letter."
@@ -29,8 +45,13 @@ variable "data_name" {
 }
 
 variable "partitions" {
+  type        = number
   description = "Number of partitions. Defaults to 1. Kafka can handle at least 10 MB/s per partition. Increase to scale up consumers in a consumer group."
   default     = 1
+  validation {
+    condition     = var.partitions > 0
+    error_message = "The value must be larger than the min limit 1."
+  }
 }
 
 variable "retention_ms" {
@@ -95,10 +116,29 @@ variable "schema_registry_config" {
       password = string
     }
   )
+  validation {
+    condition     = var.schema_registry_config.url != ""
+    error_message = "The schema_registry_config.url must be set."
+  }
+  validation {
+    condition     = var.schema_registry_config.username != ""
+    error_message = "The schema_registry_config.username must be set."
+  }
+  validation {
+    condition     = var.schema_registry_config.password != ""
+    error_message = "The schema_registry_config.password must be set."
+  }
 }
 
-variable "environment_id" {}
-variable "cluster_id" {}
+variable "environment_id" {
+  type        = string
+  description = "The Cofluent Cloud environment id."
+}
+
+variable "cluster_id" {
+  type        = string
+  description = "The Confluent Cloud cluster id."
+}
 
 
 ###############################
