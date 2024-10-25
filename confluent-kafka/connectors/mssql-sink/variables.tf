@@ -91,15 +91,22 @@ variable "table_and_column_auto_evolve" {
   default = "true"
 }
 
+variable "table_name_format" {
+  description = "The table name format."
+  type        = string
+}
+
 variable "pk_mode" {
   description = "The primary key mode."
   validation {
     condition     = (contains(["none", "record_key", "record_value", "kafka"], var.pk_mode))
     error_message = "The primary key mode must be either none, record_key, record_value, or kafka."
   }
-  default = "none"
+  default = "kafka"
 }
 
-variable "table_name" {
-  description = "The name of the table."
+variable "pk_fields" {
+  description = "List of comma-separated primary key field names. Its interpretation depends on pk.mode."
+  type        = list(string)
+  default     = ["__connect_topic", "__connect_partition", "__connect_offset"]
 }
