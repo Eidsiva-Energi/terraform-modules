@@ -95,10 +95,6 @@ variable "consumers" {
     enable_rest_proxy = optional(bool)
   }))
   description = "Map of consumers that can read from the topic."
-  validation {
-    condition     = length(keys(var.consumers)) > 0
-    error_message = "At least one consumer must be provided."
-  }
 }
 
 variable "schema_compatibility" {
