@@ -25,7 +25,9 @@ resource "confluent_connector" "connector" {
     "insert.mode"              = var.mode
     "auto.create"              = var.table_and_column_auto_create
     "auto.evolve"              = var.table_and_column_auto_evolve
+    "table.name.format"        = var.table_name_format
     "pk.mode"                  = var.pk_mode
+    "pk.fields"                = var.pk_fields
   }
   config_sensitive = {
     "db.name"             = var.db_name
