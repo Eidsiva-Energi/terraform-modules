@@ -3,6 +3,7 @@
 ###############################
 
 resource "confluent_kafka_acl" "app-connector-describe-on-cluster" {
+  count = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? 1 : 0
 
   kafka_cluster {
     id = var.cluster_id
@@ -17,6 +18,7 @@ resource "confluent_kafka_acl" "app-connector-describe-on-cluster" {
 }
 
 resource "confluent_kafka_acl" "app-connector-read-on-target-topic" {
+  count    = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? 1 : 0
   for_each = var.topics
 
   kafka_cluster {
@@ -32,6 +34,7 @@ resource "confluent_kafka_acl" "app-connector-read-on-target-topic" {
 }
 
 resource "confluent_kafka_acl" "app-connector-create-on-dlq-lcc-topics" {
+  count = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? 1 : 0
 
   kafka_cluster {
     id = var.cluster_id
@@ -46,6 +49,7 @@ resource "confluent_kafka_acl" "app-connector-create-on-dlq-lcc-topics" {
 }
 
 resource "confluent_kafka_acl" "app-connector-write-on-dlq-lcc-topics" {
+  count = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? 1 : 0
 
   kafka_cluster {
     id = var.cluster_id
@@ -60,7 +64,7 @@ resource "confluent_kafka_acl" "app-connector-write-on-dlq-lcc-topics" {
 }
 
 resource "confluent_kafka_acl" "app-connector-create-on-success-lcc-topics" {
-
+  count = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? 1 : 0
   kafka_cluster {
     id = var.cluster_id
   }
@@ -74,7 +78,7 @@ resource "confluent_kafka_acl" "app-connector-create-on-success-lcc-topics" {
 }
 
 resource "confluent_kafka_acl" "app-connector-write-on-success-lcc-topics" {
-
+  count = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? 1 : 0
   kafka_cluster {
     id = var.cluster_id
   }
@@ -88,6 +92,7 @@ resource "confluent_kafka_acl" "app-connector-write-on-success-lcc-topics" {
 }
 
 resource "confluent_kafka_acl" "app-connector-create-on-error-lcc-topics" {
+  count = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? 1 : 0
 
   kafka_cluster {
     id = var.cluster_id
@@ -102,6 +107,7 @@ resource "confluent_kafka_acl" "app-connector-create-on-error-lcc-topics" {
 }
 
 resource "confluent_kafka_acl" "app-connector-write-on-error-lcc-topics" {
+  count = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? 1 : 0
 
   kafka_cluster {
     id = var.cluster_id
@@ -116,6 +122,7 @@ resource "confluent_kafka_acl" "app-connector-write-on-error-lcc-topics" {
 }
 
 resource "confluent_kafka_acl" "app-connector-read-on-connect-lcc-group" {
+  count = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? 1 : 0
 
   kafka_cluster {
     id = var.cluster_id

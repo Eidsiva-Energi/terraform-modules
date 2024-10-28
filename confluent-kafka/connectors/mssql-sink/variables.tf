@@ -10,8 +10,39 @@ variable "cluster_id" {
   description = "The Confluent Cloud cluster ID."
 }
 
+variable "kafka_auth_mode" {
+  description = "The Kafka authentication mode."
+  type        = string
+  validation {
+    condition     = contains(["KAFKA_API_KEY", "SERVICE_ACCOUNT"], var.kafka_auth_mode)
+    error_message = "The Kafka authentication mode must be KAFKA_API_KEY or SERVICE_ACCOUNT."
+  }
+}
+
 variable "service_account_id" {
   description = "The Confluent Cloud service account ID."
+  type        = string
+  validation {
+    condition     = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? (var.service_account_id != null && var.service_account_id != "") : true
+    error_message = "service_account_id is required when kafka_auth_mode is SERVICE_ACCOUNT."
+  }
+}
+variable "kafka_api_key" {
+  description = "The Kafka API key."
+  type        = string
+  validation {
+    condition     = var.kafka_auth_mode == "KAFKA_API_KEY" ? (var.kafka_api_key != null && var.kafka_api_key != "") : true
+    error_message = "kafka_api_key is required when kafka_auth_mode is KAFKA_API_KEY."
+  }
+}
+
+variable "kafka_api_secret" {
+  description = "The Kafka API secret."
+  type        = string
+  validation {
+    condition     = var.kafka_auth_mode == "KAFKA_API_KEY" ? (var.kafka_api_secret != null && var.kafka_api_secret != "") : true
+    error_message = "kafka_api_secret is required when kafka_auth_mode is KAFKA_API_KEY."
+  }
 }
 
 variable "db_name" {
@@ -53,6 +84,12 @@ variable "mode" {
     error_message = "The mode must be either INSERT or UPSERT."
   }
   default = "UPSERT"
+}
+
+variable "tasks_max" {
+  description = "The maximum number of tasks."
+  type        = number
+  default     = 1
 }
 
 variable "input_data_format" {
