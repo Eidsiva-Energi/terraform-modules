@@ -152,4 +152,8 @@ variable "schema_path" {
     condition     = fileexists(var.schema_path)
     error_message = "Path must point to an existing file."
   }
+  validation {
+    condition     = can(regex(".*\\.json$", var.schema_path))
+    error_message = "The schema_path must point to a .json file."
+  }
 }
