@@ -85,9 +85,12 @@ resource "confluent_kafka_acl" "consumers_topic_read" {
 # Schema
 ###############################
 
+locals {
+  schema = file(var.schema_path)
+}
 resource "confluent_schema" "schema" {
   depends_on   = [confluent_kafka_topic.topic]
   subject_name = "${confluent_kafka_topic.topic.topic_name}-value"
   format       = "JSON"
-  schema       = var.schema
+  schema       = local.schema
 }

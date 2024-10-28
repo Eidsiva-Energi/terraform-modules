@@ -145,7 +145,7 @@ variable "cluster_id" {
 # Schema
 ###############################
 
-variable "schema" {
+variable "schema_path" {
   type        = string
-  description = "Schema to upload to the Schema Registry."
+  description = "Relative path to the schema file to upload to the Schema Registry."
 }
