@@ -29,7 +29,7 @@ This section provides details about the configurable variables used to set up a 
 
 ### Validation Constraints
 - **Kafka Authentication Mode**: Must be either `KAFKA_API_KEY` or `SERVICE_ACCOUNT`.
-- **Connector Mode**: Must be either `INSERT` or `UPSERT`.
+- **Mode**: Must be either `INSERT` or `UPSERT`.
 - **Input Data Format**: Must be `AVRO`, `JSON_SR`, or `PROTOBUF`.
 - **Input Key Format**: Must be `AVRO`, `JSON_SR`, `PROTOBUF`, or `STRING`.
 - **Table and Column Auto Create**: Must be either `true` or `false`.
