@@ -18,8 +18,7 @@ resource "confluent_kafka_acl" "app-connector-describe-on-cluster" {
 }
 
 resource "confluent_kafka_acl" "app-connector-read-on-target-topic" {
-  count    = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? 1 : 0
-  for_each = var.topics
+  for_each = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? var.topics : {}
 
   kafka_cluster {
     id = var.cluster_id

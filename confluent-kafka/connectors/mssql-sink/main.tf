@@ -4,7 +4,6 @@ locals {
 
 
 resource "confluent_connector" "connector" {
-
   environment {
     id = var.environment_id
   }
@@ -17,9 +16,9 @@ resource "confluent_connector" "connector" {
     "topics" = local.topics
 
     "kafka.auth.mode"          = var.kafka_auth_mode
-    "kafka.service.account.id" = var.kafka_auth_mode == "SERVICE_ACCOUNT" ? var.service_account_id : null
-    "kafka.api.key"            = var.kafka_auth_mode == "KAFKA_API_KEY" ? var.kafka_api_key : null
-    "kafka.api.secret"         = var.kafka_auth_mode == "KAFKA_API_KEY" ? var.kafka_api_secret : null
+    "kafka.service.account.id" = var.kafka_auth_mode == "SERVICE_ACCOUNT" && var.service_account_id != "" ? var.service_account_id : null
+    "kafka.api.key"            = var.kafka_auth_mode == "KAFKA_API_KEY" && var.kafka_api_key != "" ? var.kafka_api_key : null
+    "kafka.api.secret"         = var.kafka_auth_mode == "KAFKA_API_KEY" && var.kafka_api_secret != "" ? var.kafka_api_secret : null
 
     "input.data.format" = var.input_data_format
     "input.key.format"  = var.input_key_format
@@ -31,9 +30,8 @@ resource "confluent_connector" "connector" {
     "table.name.format" = var.table_name_format
     "pk.mode"           = var.pk_mode
     "pk.fields"         = var.pk_fields
-
-
   }
+
   config_sensitive = {
     "db.name"             = var.db_name
     "connection.host"     = var.connection_host
@@ -54,3 +52,5 @@ resource "confluent_connector" "connector" {
     confluent_kafka_acl.app-connector-read-on-connect-lcc-group,
   ]
 }
+
+
