@@ -148,4 +148,8 @@ variable "cluster_id" {
 variable "schema_path" {
   type        = string
   description = "Relative path to the schema file to upload to the Schema Registry."
+  validation {
+    condition     = fileexists(var.schema_path)
+    error_message = "Path must point to an existing file."
+  }
 }
