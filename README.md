@@ -10,6 +10,8 @@ Common terraform modules available to all Eidsiva developers.
 
 [Confluent Kafka MsSQL Sink Connector](confluent-kafka/connectors/mssql-sink/README.md)
 
+[Confluent Kafka Flink Compute Pool](confluent-kafka/flink/compute-pool/README.md)
+
 [Azure Resource Group](azurerm/resource-group/README.md)
 
 [Azure  MS SQL Server](azurerm/mssql-server/README.md)

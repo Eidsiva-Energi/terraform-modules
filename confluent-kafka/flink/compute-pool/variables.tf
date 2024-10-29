@@ -7,16 +7,6 @@ variable "display_name" {
   type        = string
 }
 
-variable "cloud" {
-  description = "The cloud provider of the compute pool."
-  type        = string
-  validation {
-    condition     = contains(["AWS", "AZURE", "GCP"], var.cloud)
-    error_message = "The cloud provider must be AWS, AZURE, or GCP."
-  }
-  default = "AZURE"
-}
-
 variable "region" {
   description = "The region of the compute pool."
   type        = string
@@ -26,7 +16,11 @@ variable "region" {
 variable "max_cfu" {
   description = "The maximum number of CFUs for the compute pool."
   type        = number
-  default     = 5
+  validation {
+    condition     = contains([5, 10, 20, 30, 40, 50], var.max_cfu)
+    error_message = "The maximum number of CFUs must 5, 10, 20, 30, 40 or 50."
+  }
+  default = 5
 }
 
 

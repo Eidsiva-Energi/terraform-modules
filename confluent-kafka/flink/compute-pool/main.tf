@@ -4,7 +4,7 @@ resource "confluent_flink_compute_pool" "compute_pool" {
   }
 
   display_name = var.display_name
-  cloud        = var.cloud
+  cloud        = "AZURE"
   region       = var.region
   max_cfu      = var.max_cfu
 }
