@@ -161,7 +161,7 @@ variable "schema_path" {
     error_message = "The schema file must be a valid JSON file."
   }
   validation {
-    condition     = (length(var.schema_format) < 0) && (length(var.schema_path) < 0)
+    condition     = (contains(["JSON", "AVRO"], var.schema_format)) && (length(var.schema_path) < 0)
     error_message = "The schema file must be a valid AVRO file with type = 'Record'"
   }
 }
@@ -169,8 +169,10 @@ variable "schema_path" {
 variable "schema_format" {
   type        = string
   description = "The type of schema. Must be either 'JSON' or 'AVRO'."
+  /*
   validation {
     condition     = contains(["JSON", "AVRO"], var.schema_format) && length(var.schema_format) == 4
     error_message = "The schema_type must be either 'JSON' or 'AVRO'."
   }
+  */
 }
