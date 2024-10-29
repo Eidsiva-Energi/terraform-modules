@@ -157,7 +157,7 @@ variable "schema_path" {
     error_message = "The schema_path must point to a .json or .avro file."
   }
   validation {
-    condition     = length(var.schema_path)
+    condition     = length(var.schema_format) > 0
     error_message = "TEST"
   }
 }
