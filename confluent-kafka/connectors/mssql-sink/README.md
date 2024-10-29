@@ -25,7 +25,7 @@ This section provides details about the configurable variables used to set up a 
 | `table_and_column_auto_evolve`   | Enables automatic evolution of tables and columns. Must be `true` or `false`.                       | `string`         | `true`                                           |
 | `table_name_format`              | The format for naming tables in the database.                                                       | `string`         | N/A                                              |
 | `pk_mode`                        | The primary key mode. Must be `none`, `record_key`, `record_value`, or `kafka`.                     | `string`         | `kafka`                                          |
-| `pk_fields`                      | Comma-separated list of primary key field names, based on `pk_mode`.                                | `string`         | `__connect_topic,__connect_partition,__connect_offset` |
+| `pk_fields`                      | Comma-separated list of primary key field names, based on `pk_mode`.                                | `string`         | `""` |
 
 ### Validation Constraints
 - **Kafka Authentication Mode**: Must be either `KAFKA_API_KEY` or `SERVICE_ACCOUNT`.

@@ -137,5 +137,5 @@ variable "pk_mode" {
 variable "pk_fields" {
   description = "Comma-separated string of primary key field names. Its interpretation depends on pk.mode."
   type        = string
-  default     = "__connect_topic,__connect_partition,__connect_offset"
+  default     = ""
 }
