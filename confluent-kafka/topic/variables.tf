@@ -165,7 +165,7 @@ variable "schema_path" {
     error_message = "The schema file must be a valid JSON file."
   }
   validation {
-    condition     = var.schema_format == "AVRO" ? schema_file.type == "record" : true
+    condition     = var.schema_format == "AVRO" ? jsondecode(file(var.schema_path)).type == "record" : true
     error_message = "The schema file must be a valid AVRO file with type = 'Record'"
   }
 }
