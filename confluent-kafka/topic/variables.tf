@@ -165,7 +165,7 @@ variable "schema_path" {
     error_message = "The schema file must be a valid JSON file."
   }
   validation {
-    condition     = false && length(var.schema_path) > 0
+    condition     = (var.schema_format) && (length(var.schema_path) > 0)
     error_message = "The schema file must be a valid AVRO file with type = 'Record'"
   }
 }
