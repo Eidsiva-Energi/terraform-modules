@@ -156,6 +156,10 @@ variable "schema_path" {
     condition     = can(regex(".*\\.(json|avro)$", var.schema_path))
     error_message = "The schema_path must point to a .json or .avro file."
   }
+  validation {
+    condition     = can(jsondecode(file(var.schema_path)))
+    error_message = "The schema file must be a valid JSON file."
+  }
 }
 
 variable "schema_format" {
