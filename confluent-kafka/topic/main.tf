@@ -91,6 +91,6 @@ locals {
 resource "confluent_schema" "schema" {
   depends_on   = [confluent_kafka_topic.topic]
   subject_name = "${confluent_kafka_topic.topic.topic_name}-value"
-  format       = "JSON"
+  format       = "AVRO"
   schema       = local.schema
 }
