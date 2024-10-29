@@ -145,10 +145,6 @@ variable "cluster_id" {
 # Schema
 ###############################
 
-locals {
-  schema_file = jsondecode(file(var.schema_path))
-}
-
 variable "schema_path" {
   type        = string
   description = "Relative path to the schema file to upload to the Schema Registry."
@@ -165,7 +161,7 @@ variable "schema_path" {
     error_message = "The schema file must be a valid JSON file."
   }
   validation {
-    condition     = (length(var.schema_format) < 0) && (length(var.schema_path) > 0)
+    condition     = (length(var.schema_format) < 0) && (length(var.schema_path) < 0)
     error_message = "The schema file must be a valid AVRO file with type = 'Record'"
   }
 }
