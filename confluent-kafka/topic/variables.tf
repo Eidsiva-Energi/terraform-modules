@@ -153,7 +153,12 @@ variable "schema_path" {
     error_message = "Path must point to an existing file."
   }
   validation {
-    condition     = can(regex(".*\\.json$", var.schema_path))
-    error_message = "The schema_path must point to a .json file."
+    condition     = can(regex(".*\\.(json|avro)$", var.schema_path))
+    error_message = "The schema_path must point to a .json or .avro file."
   }
+}
+
+variable "schema_type" {
+  type        = string
+  description = "The type of schema. Must be either 'JSON' or 'AVRO'."
 }
