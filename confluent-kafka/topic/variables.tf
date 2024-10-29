@@ -158,7 +158,7 @@ variable "schema_path" {
   }
 }
 
-variable "schema_type" {
+variable "schema_format" {
   type        = string
   description = "The type of schema. Must be either 'JSON' or 'AVRO'."
   validation {
