@@ -145,6 +145,10 @@ variable "cluster_id" {
 # Schema
 ###############################
 
+locals {
+  schema_file = jsondecode(file(var.schema_path))
+}
+
 variable "schema_path" {
   type        = string
   description = "Relative path to the schema file to upload to the Schema Registry."
