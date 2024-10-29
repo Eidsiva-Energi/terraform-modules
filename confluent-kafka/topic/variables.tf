@@ -161,4 +161,8 @@ variable "schema_path" {
 variable "schema_type" {
   type        = string
   description = "The type of schema. Must be either 'JSON' or 'AVRO'."
+  validation {
+    condition     = contains(["JSON", "AVRO"], var.schema_type) && length(var.schema_type) == 4
+    error_message = "The schema_type must be either 'JSON' or 'AVRO'."
+  }
 }
