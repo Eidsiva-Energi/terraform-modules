@@ -24,17 +24,17 @@ variable "output_topic_name" {
 variable "key_type" {
   description = "The type of the key."
   type        = string
-  default = "VARCHAR"
+  default     = "VARCHAR"
 }
 
 variable "value_format" {
   description = "The value format."
   type        = string
-  default = "AVRO"
+  default     = "AVRO"
 }
 
 variable "partitions" {
   description = "The number of partitions."
   type        = number
-  default = 1
+  default     = 1
 }

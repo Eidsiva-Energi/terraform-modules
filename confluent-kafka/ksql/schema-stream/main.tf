@@ -15,7 +15,7 @@ resource "ksql_stream" "stream-to-table" {
 }
 
 resource "ksql_stream" "stream-to-topic" {
-  name  = "OUT_${var.stream_name}"
-  query = "WITH (VALUE_FORMAT='${var.value_format}', KAFKA_TOPIC='${var.output_topic_name}', PARTITIONS=${var.partitions}) AS SELECT * FROM ${ ksql_stream.stream-to-table.name };"
-  depends_on = [ ksql_stream.stream-to-table ]
+  name       = "OUT_${var.stream_name}"
+  query      = "WITH (VALUE_FORMAT='${var.value_format}', KAFKA_TOPIC='${var.output_topic_name}', PARTITIONS=${var.partitions}) AS SELECT * FROM ${ksql_stream.stream-to-table.name};"
+  depends_on = [ksql_stream.stream-to-table]
 }
