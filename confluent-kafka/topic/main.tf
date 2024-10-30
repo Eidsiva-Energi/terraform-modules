@@ -96,8 +96,8 @@ resource "confluent_schema" "schema" {
 
   lifecycle {
     precondition {
-      condition     = length(var.schema_path) < 0
-      error_message = "TEST"
+      condition     = var.schema_format != "AVRO" || jsondecode(local.schema).type == "record"
+      error_message = "Schema must be a valid AVRO schema."
     }
   }
 }
