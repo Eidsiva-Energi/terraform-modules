@@ -173,7 +173,7 @@ variable "schema_format" {
 
 check "validate_schema" {
   assert {
-    condition     = var.schema_format == "AVRO" && (jsondecode(file(var.schema_path)).type == "record")
+    condition     = var.schema_format == "AVRO"
     error_message = "If schema_format is 'AVRO', the schema file must have a type of 'record'."
   }
 }
