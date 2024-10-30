@@ -170,10 +170,3 @@ variable "schema_format" {
     error_message = "The schema_type must be either 'JSON' or 'AVRO'."
   }
 }
-
-check "validate_schema" {
-  assert {
-    condition     = var.schema_format == "AVRO"
-    error_message = "If schema_format is 'AVRO', the schema file must have a type of 'record'."
-  }
-}
