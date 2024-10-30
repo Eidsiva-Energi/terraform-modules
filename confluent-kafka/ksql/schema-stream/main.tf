@@ -1,10 +1,3 @@
-# provider "ksql" {
-#   # Configuration options
-#   url = var.endpoint
-#   username = var.username
-#   password = var.password
-# }
-
 locals {
   schema = join(",", [for schema in values(var.schema) : "${schema.schema_name}  ${schema.schema_type}"])
 }
