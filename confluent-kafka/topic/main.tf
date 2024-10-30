@@ -93,4 +93,11 @@ resource "confluent_schema" "schema" {
   subject_name = "${confluent_kafka_topic.topic.topic_name}-value"
   format       = var.schema_format
   schema       = local.schema
+
+  lifecycle {
+    precondition {
+      condition     = length(var.schema_path) < 0
+      error_message = "TEST"
+    }
+  }
 }
