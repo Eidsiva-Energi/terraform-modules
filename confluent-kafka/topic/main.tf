@@ -101,7 +101,6 @@ resource "confluent_schema" "schema" {
   lifecycle {
 
     # General schema validation
-
     precondition {
       condition     = contains(keys(local.schemaJson), "type")
       error_message = "Schema is not valid. Must contain key 'type'"
