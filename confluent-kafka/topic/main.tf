@@ -86,7 +86,8 @@ resource "confluent_kafka_acl" "consumers_topic_read" {
 ###############################
 
 locals {
-  schema = file(var.schema_path)
+  schema     = file(var.schema_path)
+  schemaJson = jsondecode(local.schema)
 }
 resource "confluent_schema" "schema" {
   depends_on   = [confluent_kafka_topic.topic]
@@ -96,8 +97,24 @@ resource "confluent_schema" "schema" {
 
   lifecycle {
     precondition {
+      condition     = var.schema_format != "AVRO" || contains(keys(local.schemaJson), "fields")
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'fields'."
+    }
+    precondition {
+      condition     = var.schema_format != "AVRO" || contains(keys(local.schemaJson), "name")
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'name'"
+    }
+    precondition {
+      condition     = var.schema_format != "AVRO" || contains(keys(local.schemaJson), "namespace")
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'namespace'"
+    }
+    precondition {
+      condition     = var.schema_format != "AVRO" || contains(keys(local.schemaJson), "type")
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'type'"
+    }
+    precondition {
       condition     = var.schema_format != "AVRO" || jsondecode(local.schema).type == "record"
-      error_message = "Schema must be a valid AVRO schema."
+      error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'record'"
     }
   }
 }
