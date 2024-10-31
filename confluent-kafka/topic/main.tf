@@ -113,6 +113,10 @@ resource "confluent_schema" "schema" {
       error_message = "Schema must be a valid AVRO schema. Must contain key 'type'"
     }
     precondition {
+      condition     = var.schema_format != "AVRO" || contains(keys(local.schemaJson), "description")
+      error_message = "A description of topic's schema is required. Must contain key 'description'"
+    }
+    precondition {
       condition     = var.schema_format != "AVRO" || jsondecode(local.schema).type == "record"
       error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'record'"
     }
