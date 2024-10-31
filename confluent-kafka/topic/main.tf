@@ -86,11 +86,72 @@ resource "confluent_kafka_acl" "consumers_topic_read" {
 ###############################
 
 locals {
-  schema = file(var.schema_path)
+  schema     = file(var.schema_path)
+  schemaJson = jsondecode(local.schema)
 }
 resource "confluent_schema" "schema" {
   depends_on   = [confluent_kafka_topic.topic]
   subject_name = "${confluent_kafka_topic.topic.topic_name}-value"
   format       = var.schema_format
   schema       = local.schema
+
+
+  # Schema file validation
+  # (The validation is done using preconditions due to conditional logic based on multiple variables not being properly supported in validation blocks in Terraform) 
+  lifecycle {
+
+    # General schema validation
+    precondition {
+      condition     = contains(keys(local.schemaJson), "type")
+      error_message = "Schema is not valid. Must contain key 'type'"
+    }
+
+    # AVRO schema validation
+    precondition {
+      condition     = var.schema_format != "AVRO" || contains(keys(local.schemaJson), "namespace")
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'namespace'"
+    }
+    precondition {
+      condition     = var.schema_format != "AVRO" || contains(keys(local.schemaJson), "name")
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'name'"
+    }
+    precondition {
+      condition     = var.schema_format != "AVRO" || contains(keys(local.schemaJson), "fields")
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'fields'."
+    }
+    precondition {
+      condition     = var.schema_format != "AVRO" || contains(keys(local.schemaJson), "doc")
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'doc'."
+    }
+    precondition {
+      condition     = var.schema_format != "AVRO" || jsondecode(local.schema).type == "record"
+      error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'record'"
+    }
+
+    # JSON schema validation
+    precondition {
+      condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "$schema")
+      error_message = "Schema must be a valid JSON schema. Must contain key '$schema'."
+    }
+    precondition {
+      condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "$id")
+      error_message = "Schema must be a valid JSON schema. Must contain key '$id'"
+    }
+    precondition {
+      condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "title")
+      error_message = "Schema must be a valid JSON schema. Must contain key 'title'"
+    }
+    precondition {
+      condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "properties")
+      error_message = "Schema must be a valid JSON schema. Must contain key 'properties'"
+    }
+    precondition {
+      condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "description")
+      error_message = "Schema must be a valid JSON schema. Must contain key 'description'"
+    }
+    precondition {
+      condition     = var.schema_format != "JSON" || jsondecode(local.schema).type == "object"
+      error_message = "Schema must be a valid JSON schema. Key 'Type' must have value 'object'"
+    }
+  }
 }
