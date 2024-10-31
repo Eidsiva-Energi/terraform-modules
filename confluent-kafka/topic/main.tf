@@ -128,7 +128,6 @@ resource "confluent_schema" "schema" {
       error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'record'"
     }
 
-
     # JSON schema validation
     precondition {
       condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "$schema")
