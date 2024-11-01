@@ -152,8 +152,18 @@ variable "schema_configuration" {
     use_producer_defined_schema = optional(bool, false)
   })
   description = "The schema configuration for the topic."
-}
 
+  validation {
+    condition = (
+      can([
+        var.schema_configuration.schema_path,
+        var.schema_configuration.schema_format
+      ]) ||
+      can(var.schema_configuration.use_producer_defined_schema)
+    )
+    error_message = "Either schema_path and schema_format must be set, or use_producer_defined_schema must be set."
+  }
+}
 
 variable "schema_path" {
   type        = string
