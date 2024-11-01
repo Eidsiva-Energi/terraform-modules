@@ -189,8 +189,8 @@ variable "schema_format" {
   }
 }
 
-#variable "use_producer_defined_schema" {
-#  type        = bool
-#  description = "True if the producer defines the schema. This is technically a way of circumventing the schema requiremet, please define the schema using the producer's first message."
-#  default     = false
-#}
+variable "use_producer_defined_schema" {
+  type        = bool
+  description = "True if the producer defines the schema. This is technically a way of circumventing the schema requiremet, please define the schema using the producer's first message."
+  default     = false
+}
