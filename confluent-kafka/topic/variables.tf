@@ -158,11 +158,9 @@ variable "schema_configuration" {
     error_message = "Schema_path and schema_format must be set if use_producer_defined_schema is false."
   }
   validation {
-    condition     = (var.schema_configuration.schema_path == null && var.schema_configuration.schema_format == null && var.schema_configuration.b == true)
+    condition     = (var.schema_configuration.schema_path == null && var.schema_configuration.schema_format == null && var.schema_configuration.use_producer_defined_schema == true)
     error_message = "If use_producer_defined_schema is true, schema_path and schema_format must not be set."
   }
-
-
 }
 
 variable "schema_path" {
