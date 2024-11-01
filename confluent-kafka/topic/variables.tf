@@ -154,12 +154,12 @@ variable "schema_configuration" {
   description = "The schema configuration for the topic."
 
   validation {
-    condition     = (var.schema_configuration.schema_path != null && var.schema_configuration.schema_format != null && var.schema_configuration.use_producer_defined_schema == false)
-    error_message = "Condition A" #"Schema_path and schema_format must be set if use_producer_defined_schema is false."
-  }
-  validation {
-    condition     = (var.schema_configuration.schema_path == null && var.schema_configuration.schema_format == null && var.schema_configuration.use_producer_defined_schema == true)
-    error_message = "Condition B" #"If use_producer_defined_schema is true, schema_path and schema_format must not be set."
+    condition = (
+      (var.schema_configuration.schema_path != null && var.schema_configuration.schema_format != null && var.schema_configuration.use_producer_defined_schema == false)
+      ||
+      (var.schema_configuration.schema_path != null && var.schema_configuration.schema_format != null && var.schema_configuration.use_producer_defined_schema == true)
+    )
+    error_message = "Either schema_path and schema_format must be set, or use_producer_defined_schema must be set."
   }
 }
 
