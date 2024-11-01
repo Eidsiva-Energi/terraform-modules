@@ -145,6 +145,16 @@ variable "cluster_id" {
 # Schema
 ###############################
 
+variable "schema_configuration" {
+  type = object({
+    schema_path                 = optional(string, null)
+    schema_format               = optional(string, null)
+    use_producer_defined_schema = optional(bool, false)
+  })
+  description = "The schema configuration for the topic."
+}
+
+
 variable "schema_path" {
   type        = string
   description = "Relative path to the schema file to upload to the Schema Registry."
