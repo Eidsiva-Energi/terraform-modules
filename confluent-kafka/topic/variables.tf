@@ -147,19 +147,19 @@ variable "cluster_id" {
 
 variable "schema_configuration" {
   type = object({
-    schema_path                 = optional(string)
-    schema_format               = optional(string)
-    use_producer_defined_schema = optional(bool)
+    schema_path                 = optional(string, null)
+    schema_format               = optional(string, null)
+    use_producer_defined_schema = optional(bool, false)
   })
   description = "The schema configuration for the topic."
 
   validation {
     condition = (
       can([
-        var.schema_configuration.schema_path,
-        var.schema_configuration.schema_format
+        var.schema_configuration.schema_path != null,
+        var.schema_configuration.schema_format != null
       ]) ||
-      can(var.schema_configuration.use_producer_defined_schema)
+      can(var.schema_configuration.use_producer_defined_schema != false)
     )
     error_message = "Either schema_path and schema_format must be set, or use_producer_defined_schema must be set."
   }
