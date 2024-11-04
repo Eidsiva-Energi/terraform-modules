@@ -176,7 +176,7 @@ variable "schema_configuration" {
   }
 
   validation {
-    condition     = (contains(["JSON", "AVRO"], var.schema_format) && length(var.schema_format) == 4) || var.schema_configuration.schema_format == null
+    condition     = (contains(["JSON", "AVRO"], var.schema_configuration.schema_format) && length(var.schema_format) == 4) || var.schema_configuration.schema_format == null
     error_message = "The schema_type must be either 'JSON' or 'AVRO'."
   }
 }
