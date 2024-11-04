@@ -163,7 +163,7 @@ variable "schema_configuration" {
   }
 
   validation {
-    condition     = fileexists(var.schema_configuration.schema_path) || var.schema_configuration.use_producer_defined_schema
+    condition     = fileexists(var.schema_configuration.schema_path) || var.schema_configuration.schema_path == null
     error_message = "Schema_path must point to an existing file."
   }
 }
