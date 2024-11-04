@@ -183,7 +183,7 @@ variable "schema_configuration" {
   }
 
   validation {
-    condition     = var.schema_configuration.schema_format == null || contains(keys(schema_file), "type")
+    condition     = var.schema_configuration.schema_format == null || contains(keys(local.schema_file), "type")
     error_message = "Schema is not valid. Must contain key 'type'"
   }
 }
