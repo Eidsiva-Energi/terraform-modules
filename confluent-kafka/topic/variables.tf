@@ -144,7 +144,9 @@ variable "cluster_id" {
 ###############################
 # Schema
 ###############################
+locals {
 
+}
 variable "schema_configuration" {
   type = object({
     schema_path                 = optional(string, null)
@@ -178,6 +180,11 @@ variable "schema_configuration" {
   validation {
     condition     = var.schema_configuration.schema_format == null || (contains(["JSON", "AVRO"], var.schema_configuration.schema_format) && length(var.schema_configuration.schema_format) == 4)
     error_message = "The schema_type must be either 'JSON' or 'AVRO'."
+  }
+
+  validation {
+    condition     = var.schema_configuration.schema_format == null || contains(keys(jsondecode(var.schema_configuration.schema_path)), "type")
+    error_message = "Schema is not valid. Must contain key 'type'"
   }
 }
 
