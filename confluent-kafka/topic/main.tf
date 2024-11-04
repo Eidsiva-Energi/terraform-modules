@@ -90,6 +90,8 @@ locals {
   schemaJson = jsondecode(local.schema)
 }
 resource "confluent_schema" "schema" {
+  count = use_producer_defined_schema ? 0 : 1
+
   depends_on   = [confluent_kafka_topic.topic]
   subject_name = "${confluent_kafka_topic.topic.topic_name}-value"
   format       = var.schema_configuration.schema_format
