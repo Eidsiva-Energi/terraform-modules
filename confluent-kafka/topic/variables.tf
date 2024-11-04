@@ -174,6 +174,11 @@ variable "schema_configuration" {
     condition     = can(jsondecode(file(var.schema_configuration.schema_path))) || var.schema_configuration.schema_path == null
     error_message = "The schema file must be a valid JSON file."
   }
+
+  validation {
+    condition     = (contains(["JSON", "AVRO"], var.schema_format) && length(var.schema_format) == 4) || var.schema_configuration.schema_format == null
+    error_message = "The schema_type must be either 'JSON' or 'AVRO'."
+  }
 }
 
 variable "schema_path" {
