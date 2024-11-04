@@ -190,32 +190,54 @@ variable "schema_configuration" {
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "AVRO" ||
-    contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "namespace"))
+      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "namespace")
+    )
     error_message = "Schema must be a valid AVRO schema. Must contain key 'namespace'"
   }
-  /*
-  precondition {
-    condition     = var.schema_format != "AVRO" || contains(keys(local.schemaJson), "name")
+  validation {
+    condition = (
+      var.schema_configuration.schema_path == null ||
+      var.schema_configuration.schema_format == null ||
+      var.schema_configuration.schema_format != "AVRO" ||
+      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "name")
+    )
     error_message = "Schema must be a valid AVRO schema. Must contain key 'name'"
   }
-  precondition {
-    condition     = var.schema_format != "AVRO" || contains(keys(local.schemaJson), "fields")
+  validation {
+    condition = (
+      var.schema_configuration.schema_path == null ||
+      var.schema_configuration.schema_format == null ||
+      var.schema_configuration.schema_format != "AVRO" ||
+      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "fields")
+    )
     error_message = "Schema must be a valid AVRO schema. Must contain key 'fields'."
   }
-  precondition {
-    condition     = var.schema_format != "AVRO" || contains(keys(local.schemaJson), "doc")
+  validation {
+    condition = (
+      var.schema_configuration.schema_path == null ||
+      var.schema_configuration.schema_format == null ||
+      var.schema_configuration.schema_format != "AVRO" ||
+      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "doc")
+    )
     error_message = "Schema must be a valid AVRO schema. Must contain key 'doc'."
   }
-  precondition {
-    condition     = var.schema_format != "AVRO" || jsondecode(local.schema).type == "record"
+  validation {
+    condition = (
+      var.schema_configuration.schema_path == null ||
+      var.schema_configuration.schema_format == null ||
+      var.schema_configuration.schema_format != "AVRO" ||
+      jsondecode(local.schema).type == "record"
+    )
     error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'record'"
   }
 
+  /*
   # JSON schema validation
   precondition {
     condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "$schema")
     error_message = "Schema must be a valid JSON schema. Must contain key '$schema'."
   }
+
   precondition {
     condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "$id")
     error_message = "Schema must be a valid JSON schema. Must contain key '$id'"
