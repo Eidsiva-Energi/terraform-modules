@@ -226,7 +226,7 @@ variable "schema_configuration" {
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "AVRO" ||
-      jsondecode(local.schema).type == "record"
+      jsondecode(file(var.schema_configuration.schema_path)).type == "record"
     )
     error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'record'"
   }
