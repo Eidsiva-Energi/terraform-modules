@@ -161,6 +161,11 @@ variable "schema_configuration" {
     )
     error_message = "Either schema_path and schema_format must be set, or use_producer_defined_schema must be true."
   }
+
+  validation {
+    condition     = fileexists(var.schema_configuration.schema_path) || var.schema_configuration.use_producer_defined_schema
+    error_message = "Schema_path must point to an existing file."
+  }
 }
 
 variable "schema_path" {
