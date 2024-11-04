@@ -159,7 +159,7 @@ variable "schema_configuration" {
       ||
       (var.schema_configuration.schema_path != null && var.schema_configuration.schema_format != null && var.schema_configuration.use_producer_defined_schema == true)
     )
-    error_message = "Either schema_path and schema_format must be set, or use_producer_defined_schema must be set."
+    error_message = "Either schema_path and schema_format must be set, or use_producer_defined_schema must be true."
   }
 }
 
