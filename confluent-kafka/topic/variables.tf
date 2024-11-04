@@ -183,7 +183,7 @@ variable "schema_configuration" {
   }
 
   validation {
-    condition     = var.schema_configuration.schema_format == null || contains(keys(jsondecode(var.schema_configuration.schema_path)), "type")
+    condition     = var.schema_configuration.schema_format == null || contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "type")
     error_message = "Schema is not valid. Must contain key 'type'"
   }
 }
