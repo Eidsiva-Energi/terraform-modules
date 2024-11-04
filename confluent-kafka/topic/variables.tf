@@ -231,34 +231,61 @@ variable "schema_configuration" {
     error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'record'"
   }
 
-  /*
   # JSON schema validation
-  precondition {
-    condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "$schema")
+  validation {
+    condition = (
+      var.schema_configuration.schema_path == null ||
+      var.schema_configuration.schema_format == null ||
+      var.schema_configuration.schema_format != "JSON" ||
+      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "$schema")
+    )
     error_message = "Schema must be a valid JSON schema. Must contain key '$schema'."
   }
-
-  precondition {
-    condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "$id")
+  validation {
+    condition = (
+      var.schema_configuration.schema_path == null ||
+      var.schema_configuration.schema_format == null ||
+      var.schema_configuration.schema_format != "JSON" ||
+      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "$id")
+    )
     error_message = "Schema must be a valid JSON schema. Must contain key '$id'"
   }
-  precondition {
-    condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "title")
+  validation {
+    condition = (
+      var.schema_configuration.schema_path == null ||
+      var.schema_configuration.schema_format == null ||
+      var.schema_configuration.schema_format != "JSON" ||
+      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "title")
+    )
     error_message = "Schema must be a valid JSON schema. Must contain key 'title'"
   }
-  precondition {
-    condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "properties")
+  validation {
+    condition = (
+      var.schema_configuration.schema_path == null ||
+      var.schema_configuration.schema_format == null ||
+      var.schema_configuration.schema_format != "JSON" ||
+      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "properties")
+    )
     error_message = "Schema must be a valid JSON schema. Must contain key 'properties'"
   }
-  precondition {
-    condition     = var.schema_format != "JSON" || contains(keys(local.schemaJson), "description")
+  validation {
+    condition = (
+      var.schema_configuration.schema_path == null ||
+      var.schema_configuration.schema_format == null ||
+      var.schema_configuration.schema_format != "JSON" ||
+      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "description")
+    )
     error_message = "Schema must be a valid JSON schema. Must contain key 'description'"
   }
-  precondition {
-    condition     = var.schema_format != "JSON" || jsondecode(local.schema).type == "object"
+  validation {
+    condition = (
+      var.schema_configuration.schema_path == null ||
+      var.schema_configuration.schema_format == null ||
+      var.schema_configuration.schema_format != "JSON" ||
+      jsondecode(file(var.schema_configuration.schema_path)).type == "object"
+    )
     error_message = "Schema must be a valid JSON schema. Key 'Type' must have value 'object'"
   }
-  */
 }
 
 variable "schema_path" {
