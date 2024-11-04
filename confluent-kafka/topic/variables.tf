@@ -166,6 +166,14 @@ variable "schema_configuration" {
     condition     = fileexists(var.schema_configuration.schema_path) || var.schema_configuration.schema_path == null
     error_message = "Schema_path must point to an existing file."
   }
+  validation {
+    condition     = can(regex(".*\\.(json|avro)$", var.schema_configuration.schema_path)) || var.schema_configuration.schema_path == null
+    error_message = "Schema_path must point to a .json or .avro file."
+  }
+  validation {
+    condition     = can(jsondecode(file(var.schema_configuration.schema_path)))
+    error_message = "The schema file must be a valid JSON file."
+  }
 }
 
 variable "schema_path" {
