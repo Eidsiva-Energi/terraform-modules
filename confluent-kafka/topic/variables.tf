@@ -287,37 +287,3 @@ variable "schema_configuration" {
     error_message = "Schema must be a valid JSON schema. Key 'Type' must have value 'object'"
   }
 }
-
-variable "schema_path" {
-  type        = string
-  description = "Relative path to the schema file to upload to the Schema Registry."
-  /*
-  validation {
-    condition     = fileexists(var.schema_path)
-    error_message = "Path must point to an existing file."
-  }
-  validation {
-    condition     = can(regex(".*\\.(json|avro)$", var.schema_path))
-    error_message = "The schema_path must point to a .json or .avro file."
-  }
-  validation {
-    condition     = can(jsondecode(file(var.schema_path)))
-    error_message = "The schema file must be a valid JSON file."
-  }
-  */
-}
-
-variable "schema_format" {
-  type        = string
-  description = "The type of schema. Must be either 'JSON' or 'AVRO'."
-  validation {
-    condition     = contains(["JSON", "AVRO"], var.schema_format) && length(var.schema_format) == 4
-    error_message = "The schema_type must be either 'JSON' or 'AVRO'."
-  }
-}
-
-variable "use_producer_defined_schema" {
-  type        = bool
-  description = "True if the producer defines the schema. This is technically a way of circumventing the schema requiremet, please define the schema using the producer's first message."
-  default     = false
-}
