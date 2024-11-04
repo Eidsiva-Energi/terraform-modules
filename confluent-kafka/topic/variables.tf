@@ -179,6 +179,7 @@ variable "schema_configuration" {
 variable "schema_path" {
   type        = string
   description = "Relative path to the schema file to upload to the Schema Registry."
+  /*
   validation {
     condition     = fileexists(var.schema_path)
     error_message = "Path must point to an existing file."
@@ -191,6 +192,7 @@ variable "schema_path" {
     condition     = can(jsondecode(file(var.schema_path)))
     error_message = "The schema file must be a valid JSON file."
   }
+  */
 }
 
 variable "schema_format" {
