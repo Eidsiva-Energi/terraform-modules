@@ -171,7 +171,7 @@ variable "schema_configuration" {
     error_message = "Schema_path must point to a .json or .avro file."
   }
   validation {
-    condition     = can(jsondecode(file(var.schema_configuration.schema_path)))
+    condition     = can(jsondecode(file(var.schema_configuration.schema_path))) || var.schema_configuration.schema_path == null
     error_message = "The schema file must be a valid JSON file."
   }
 }
