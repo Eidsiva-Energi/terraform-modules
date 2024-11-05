@@ -86,7 +86,7 @@ resource "confluent_kafka_acl" "consumers_topic_read" {
 ###############################
 
 locals {
-  schema     = file(var.schema_configuration.schema_path)
+  schema     = var.schema_configuration.use_producer_defined_schema ? "" : file(var.schema_configuration.schema_path)
   schemaJson = jsondecode(local.schema)
 }
 resource "confluent_schema" "schema" {
