@@ -192,7 +192,7 @@ variable "schema_configuration" {
 
   # Schema file content validation
   validation {
-    condition     = (var.schema_configuration.schema_path == null && !can(file(var.schema_configuration.schema_path))) ? true : contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "type")
+    condition     = (var.schema_configuration.schema_path == null && !can(file(var.schema_configuration.schema_path))) ? true : false #contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "type")
     error_message = "Schema is not valid. Must contain key 'type'"
   }
 
