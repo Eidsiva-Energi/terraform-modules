@@ -146,9 +146,9 @@ variable "cluster_id" {
 ###############################
 variable "schema" {
   type = object({
-    path                        = optional(string, null)
-    format                      = optional(string, null)
-    use_producer_defined_schema = optional(bool, false)
+    path                 = optional(string, null)
+    format               = optional(string, null)
+    use_producer_defined = optional(bool, false)
   })
   description = "The schema configuration for the topic."
 
@@ -157,16 +157,16 @@ variable "schema" {
       (
         var.schema.path != null &&
         var.schema.format != null &&
-        var.schema.use_producer_defined_schema == false
+        var.schema.use_producer_defined == false
       )
       ||
       (
         var.schema.path == null &&
         var.schema.format == null &&
-        var.schema.use_producer_defined_schema == true
+        var.schema.use_producer_defined == true
       )
     )
-    error_message = "Either path and format must be set, or use_producer_defined_schema must be true."
+    error_message = "Either path and format must be set, or use_producer_defined must be true."
   }
 
   validation {
