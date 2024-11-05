@@ -170,50 +170,35 @@ variable "schema_configuration" {
   }
 
   validation {
-    condition = (
-      var.schema_configuration.schema_path == null ||
-      fileexists(var.schema_configuration.schema_path)
-    )
+    condition     = var.schema_configuration.schema_path == null ? true : fileexists(var.schema_configuration.schema_path)
     error_message = "Schema_path must point to an existing file."
   }
   validation {
-    condition = (
-      var.schema_configuration.schema_path == null ||
-      can(regex(".*\\.(json|avro)$", var.schema_configuration.schema_path))
-    )
+    condition     = var.schema_configuration.schema_path == null ? true : can(regex(".*\\.(json|avro)$", var.schema_configuration.schema_path))
     error_message = "Schema_path must point to a .json or .avro file."
   }
   validation {
-    condition = (
-      var.schema_configuration.schema_path == null ||
-      can(jsondecode(file(var.schema_configuration.schema_path)))
-    )
+    condition     = var.schema_configuration.schema_path == null ? true : can(jsondecode(file(var.schema_configuration.schema_path)))
     error_message = "The schema file must be a valid JSON file."
   }
 
   validation {
-    condition = (
-      var.schema_configuration.schema_format == null ||
-      (
-        contains(["JSON", "AVRO"], var.schema_configuration.schema_format) &&
-        length(var.schema_configuration.schema_format) == 4
-      )
+    condition = var.schema_configuration.schema_format == null ? true : (
+      contains(["JSON", "AVRO"], var.schema_configuration.schema_format) &&
+      length(var.schema_configuration.schema_format) == 4
     )
     error_message = "The schema_type must be either 'JSON' or 'AVRO'."
   }
 
   # Schema file content validation
   validation {
-    condition = (
-      var.schema_configuration.schema_format == null ||
-      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "type")
-    )
+    condition     = var.schema_configuration.schema_path == null ? true : contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "type")
     error_message = "Schema is not valid. Must contain key 'type'"
   }
 
   ## AVRO schema validation
   validation {
-    condition = (
+    condition = var.schema_configuration.schema_path == null ? true : (
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "AVRO" ||
@@ -222,7 +207,7 @@ variable "schema_configuration" {
     error_message = "Schema must be a valid AVRO schema. Must contain key 'namespace'"
   }
   validation {
-    condition = (
+    condition = var.schema_configuration.schema_path == null ? true : (
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "AVRO" ||
@@ -231,7 +216,7 @@ variable "schema_configuration" {
     error_message = "Schema must be a valid AVRO schema. Must contain key 'name'"
   }
   validation {
-    condition = (
+    condition = var.schema_configuration.schema_path == null ? true : (
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "AVRO" ||
@@ -240,7 +225,7 @@ variable "schema_configuration" {
     error_message = "Schema must be a valid AVRO schema. Must contain key 'fields'."
   }
   validation {
-    condition = (
+    condition = var.schema_configuration.schema_path == null ? true : (
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "AVRO" ||
@@ -249,7 +234,7 @@ variable "schema_configuration" {
     error_message = "Schema must be a valid AVRO schema. Must contain key 'doc'."
   }
   validation {
-    condition = (
+    condition = var.schema_configuration.schema_path == null ? true : (
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "AVRO" ||
@@ -260,7 +245,7 @@ variable "schema_configuration" {
 
   ## JSON schema validation
   validation {
-    condition = (
+    condition = var.schema_configuration.schema_path == null ? true : (
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "JSON" ||
@@ -269,7 +254,7 @@ variable "schema_configuration" {
     error_message = "Schema must be a valid JSON schema. Must contain key '$schema'."
   }
   validation {
-    condition = (
+    condition = var.schema_configuration.schema_path == null ? true : (
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "JSON" ||
@@ -278,7 +263,7 @@ variable "schema_configuration" {
     error_message = "Schema must be a valid JSON schema. Must contain key '$id'"
   }
   validation {
-    condition = (
+    condition = var.schema_configuration.schema_path == null ? true : (
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "JSON" ||
@@ -287,7 +272,7 @@ variable "schema_configuration" {
     error_message = "Schema must be a valid JSON schema. Must contain key 'title'"
   }
   validation {
-    condition = (
+    condition = var.schema_configuration.schema_path == null ? true : (
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "JSON" ||
@@ -296,7 +281,7 @@ variable "schema_configuration" {
     error_message = "Schema must be a valid JSON schema. Must contain key 'properties'"
   }
   validation {
-    condition = (
+    condition = var.schema_configuration.schema_path == null ? true : (
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "JSON" ||
@@ -305,7 +290,7 @@ variable "schema_configuration" {
     error_message = "Schema must be a valid JSON schema. Must contain key 'description'"
   }
   validation {
-    condition = (
+    condition = var.schema_configuration.schema_path == null ? true : (
       var.schema_configuration.schema_path == null ||
       var.schema_configuration.schema_format == null ||
       var.schema_configuration.schema_format != "JSON" ||
