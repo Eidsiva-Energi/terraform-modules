@@ -144,7 +144,7 @@ variable "cluster_id" {
 ###############################
 # Schema
 ###############################
-variable "schema_configuration" {
+variable "schema" {
   type = object({
     schema_path                 = optional(string, null)
     schema_format               = optional(string, null)
@@ -155,148 +155,148 @@ variable "schema_configuration" {
   validation {
     condition = (
       (
-        var.schema_configuration.schema_path != null &&
-        var.schema_configuration.schema_format != null &&
-        var.schema_configuration.use_producer_defined_schema == false
+        var.schema.schema_path != null &&
+        var.schema.schema_format != null &&
+        var.schema.use_producer_defined_schema == false
       )
       ||
       (
-        var.schema_configuration.schema_path == null &&
-        var.schema_configuration.schema_format == null &&
-        var.schema_configuration.use_producer_defined_schema == true
+        var.schema.schema_path == null &&
+        var.schema.schema_format == null &&
+        var.schema.use_producer_defined_schema == true
       )
     )
     error_message = "Either schema_path and schema_format must be set, or use_producer_defined_schema must be true."
   }
 
   validation {
-    condition     = var.schema_configuration.schema_path == null ? true : fileexists(var.schema_configuration.schema_path)
+    condition     = var.schema.schema_path == null ? true : fileexists(var.schema.schema_path)
     error_message = "Schema_path must point to an existing file."
   }
   validation {
-    condition     = var.schema_configuration.schema_path == null ? true : can(regex(".*\\.(json|avro)$", var.schema_configuration.schema_path))
+    condition     = var.schema.schema_path == null ? true : can(regex(".*\\.(json|avro)$", var.schema.schema_path))
     error_message = "Schema_path must point to a .json or .avro file."
   }
   validation {
-    condition     = var.schema_configuration.schema_path == null ? true : can(jsondecode(file(var.schema_configuration.schema_path)))
+    condition     = var.schema.schema_path == null ? true : can(jsondecode(file(var.schema.schema_path)))
     error_message = "The schema file must be a valid JSON file."
   }
 
   validation {
-    condition = var.schema_configuration.schema_format == null ? true : (
-      contains(["JSON", "AVRO"], var.schema_configuration.schema_format) &&
-      length(var.schema_configuration.schema_format) == 4
+    condition = var.schema.schema_format == null ? true : (
+      contains(["JSON", "AVRO"], var.schema.schema_format) &&
+      length(var.schema.schema_format) == 4
     )
     error_message = "The schema_type must be either 'JSON' or 'AVRO'."
   }
 
   # Schema file content validation
   validation {
-    condition = (var.schema_configuration.schema_path == null || !can(file(var.schema_configuration.schema_path))) ? true : (
-      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "type")
+    condition = (var.schema.schema_path == null || !can(file(var.schema.schema_path))) ? true : (
+      contains(keys(jsondecode(file(var.schema.schema_path))), "type")
     )
     error_message = "Schema is not valid. Must contain key 'type'"
   }
 
   ## AVRO schema validation
   validation {
-    condition = (var.schema_configuration.schema_path == null || !can(file(var.schema_configuration.schema_path))) ? true : (
-      var.schema_configuration.schema_path == null ||
-      var.schema_configuration.schema_format == null ||
-      var.schema_configuration.schema_format != "AVRO" ||
-      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "namespace")
+    condition = (var.schema.schema_path == null || !can(file(var.schema.schema_path))) ? true : (
+      var.schema.schema_path == null ||
+      var.schema.schema_format == null ||
+      var.schema.schema_format != "AVRO" ||
+      contains(keys(jsondecode(file(var.schema.schema_path))), "namespace")
     )
     error_message = "Schema must be a valid AVRO schema. Must contain key 'namespace'"
   }
   validation {
-    condition = (var.schema_configuration.schema_path == null || !can(file(var.schema_configuration.schema_path))) ? true : (
-      var.schema_configuration.schema_path == null ||
-      var.schema_configuration.schema_format == null ||
-      var.schema_configuration.schema_format != "AVRO" ||
-      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "name")
+    condition = (var.schema.schema_path == null || !can(file(var.schema.schema_path))) ? true : (
+      var.schema.schema_path == null ||
+      var.schema.schema_format == null ||
+      var.schema.schema_format != "AVRO" ||
+      contains(keys(jsondecode(file(var.schema.schema_path))), "name")
     )
     error_message = "Schema must be a valid AVRO schema. Must contain key 'name'"
   }
   validation {
-    condition = (var.schema_configuration.schema_path == null || !can(file(var.schema_configuration.schema_path))) ? true : (
-      var.schema_configuration.schema_path == null ||
-      var.schema_configuration.schema_format == null ||
-      var.schema_configuration.schema_format != "AVRO" ||
-      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "fields")
+    condition = (var.schema.schema_path == null || !can(file(var.schema.schema_path))) ? true : (
+      var.schema.schema_path == null ||
+      var.schema.schema_format == null ||
+      var.schema.schema_format != "AVRO" ||
+      contains(keys(jsondecode(file(var.schema.schema_path))), "fields")
     )
     error_message = "Schema must be a valid AVRO schema. Must contain key 'fields'."
   }
   validation {
-    condition = (var.schema_configuration.schema_path == null || !can(file(var.schema_configuration.schema_path))) ? true : (
-      var.schema_configuration.schema_path == null ||
-      var.schema_configuration.schema_format == null ||
-      var.schema_configuration.schema_format != "AVRO" ||
-      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "doc")
+    condition = (var.schema.schema_path == null || !can(file(var.schema.schema_path))) ? true : (
+      var.schema.schema_path == null ||
+      var.schema.schema_format == null ||
+      var.schema.schema_format != "AVRO" ||
+      contains(keys(jsondecode(file(var.schema.schema_path))), "doc")
     )
     error_message = "Schema must be a valid AVRO schema. Must contain key 'doc'."
   }
   validation {
-    condition = (var.schema_configuration.schema_path == null || !can(file(var.schema_configuration.schema_path))) ? true : (
-      var.schema_configuration.schema_path == null ||
-      var.schema_configuration.schema_format == null ||
-      var.schema_configuration.schema_format != "AVRO" ||
-      jsondecode(file(var.schema_configuration.schema_path)).type == "record"
+    condition = (var.schema.schema_path == null || !can(file(var.schema.schema_path))) ? true : (
+      var.schema.schema_path == null ||
+      var.schema.schema_format == null ||
+      var.schema.schema_format != "AVRO" ||
+      jsondecode(file(var.schema.schema_path)).type == "record"
     )
     error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'record'"
   }
 
   ## JSON schema validation
   validation {
-    condition = (var.schema_configuration.schema_path == null || !can(file(var.schema_configuration.schema_path))) ? true : (
-      var.schema_configuration.schema_path == null ||
-      var.schema_configuration.schema_format == null ||
-      var.schema_configuration.schema_format != "JSON" ||
-      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "$schema")
+    condition = (var.schema.schema_path == null || !can(file(var.schema.schema_path))) ? true : (
+      var.schema.schema_path == null ||
+      var.schema.schema_format == null ||
+      var.schema.schema_format != "JSON" ||
+      contains(keys(jsondecode(file(var.schema.schema_path))), "$schema")
     )
     error_message = "Schema must be a valid JSON schema. Must contain key '$schema'."
   }
   validation {
-    condition = (var.schema_configuration.schema_path == null || !can(file(var.schema_configuration.schema_path))) ? true : (
-      var.schema_configuration.schema_path == null ||
-      var.schema_configuration.schema_format == null ||
-      var.schema_configuration.schema_format != "JSON" ||
-      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "$id")
+    condition = (var.schema.schema_path == null || !can(file(var.schema.schema_path))) ? true : (
+      var.schema.schema_path == null ||
+      var.schema.schema_format == null ||
+      var.schema.schema_format != "JSON" ||
+      contains(keys(jsondecode(file(var.schema.schema_path))), "$id")
     )
     error_message = "Schema must be a valid JSON schema. Must contain key '$id'"
   }
   validation {
-    condition = (var.schema_configuration.schema_path == null || !can(file(var.schema_configuration.schema_path))) ? true : (
-      var.schema_configuration.schema_path == null ||
-      var.schema_configuration.schema_format == null ||
-      var.schema_configuration.schema_format != "JSON" ||
-      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "title")
+    condition = (var.schema.schema_path == null || !can(file(var.schema.schema_path))) ? true : (
+      var.schema.schema_path == null ||
+      var.schema.schema_format == null ||
+      var.schema.schema_format != "JSON" ||
+      contains(keys(jsondecode(file(var.schema.schema_path))), "title")
     )
     error_message = "Schema must be a valid JSON schema. Must contain key 'title'"
   }
   validation {
-    condition = (var.schema_configuration.schema_path == null || !can(file(var.schema_configuration.schema_path))) ? true : (
-      var.schema_configuration.schema_path == null ||
-      var.schema_configuration.schema_format == null ||
-      var.schema_configuration.schema_format != "JSON" ||
-      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "properties")
+    condition = (var.schema.schema_path == null || !can(file(var.schema.schema_path))) ? true : (
+      var.schema.schema_path == null ||
+      var.schema.schema_format == null ||
+      var.schema.schema_format != "JSON" ||
+      contains(keys(jsondecode(file(var.schema.schema_path))), "properties")
     )
     error_message = "Schema must be a valid JSON schema. Must contain key 'properties'"
   }
   validation {
-    condition = (var.schema_configuration.schema_path == null || !can(file(var.schema_configuration.schema_path))) ? true : (
-      var.schema_configuration.schema_path == null ||
-      var.schema_configuration.schema_format == null ||
-      var.schema_configuration.schema_format != "JSON" ||
-      contains(keys(jsondecode(file(var.schema_configuration.schema_path))), "description")
+    condition = (var.schema.schema_path == null || !can(file(var.schema.schema_path))) ? true : (
+      var.schema.schema_path == null ||
+      var.schema.schema_format == null ||
+      var.schema.schema_format != "JSON" ||
+      contains(keys(jsondecode(file(var.schema.schema_path))), "description")
     )
     error_message = "Schema must be a valid JSON schema. Must contain key 'description'"
   }
   validation {
-    condition = (var.schema_configuration.schema_path == null || !can(file(var.schema_configuration.schema_path))) ? true : (
-      var.schema_configuration.schema_path == null ||
-      var.schema_configuration.schema_format == null ||
-      var.schema_configuration.schema_format != "JSON" ||
-      jsondecode(file(var.schema_configuration.schema_path)).type == "object"
+    condition = (var.schema.schema_path == null || !can(file(var.schema.schema_path))) ? true : (
+      var.schema.schema_path == null ||
+      var.schema.schema_format == null ||
+      var.schema.schema_format != "JSON" ||
+      jsondecode(file(var.schema.schema_path)).type == "object"
     )
     error_message = "Schema must be a valid JSON schema. Key 'Type' must have value 'object'"
   }
