@@ -86,17 +86,17 @@ resource "confluent_kafka_acl" "consumers_topic_read" {
 ###############################
 
 locals {
-  schema = var.schema_configuration.use_producer_defined_schema ? "{}" : (
-    file(var.schema_configuration.schema_path)
+  schema = var.schema.use_producer_defined ? "{}" : (
+    file(var.schema.path)
   )
   schemaJson = jsondecode(local.schema)
 }
 resource "confluent_schema" "schema" {
-  count = var.schema_configuration.use_producer_defined_schema ? 0 : 1
+  count = var.schema.use_producer_defined ? 0 : 1
 
   depends_on   = [confluent_kafka_topic.topic]
   subject_name = "${confluent_kafka_topic.topic.topic_name}-value"
-  format       = var.schema_configuration.schema_format
+  format       = var.schema.schema
   schema       = local.schema
 
   //hard_delete = true
