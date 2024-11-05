@@ -96,7 +96,7 @@ resource "confluent_schema" "schema" {
 
   depends_on   = [confluent_kafka_topic.topic]
   subject_name = "${confluent_kafka_topic.topic.topic_name}-value"
-  format       = var.schema.schema
+  format       = var.schema.format
   schema       = local.schema
 
   //hard_delete = true
