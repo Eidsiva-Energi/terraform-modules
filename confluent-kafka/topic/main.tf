@@ -99,5 +99,5 @@ resource "confluent_schema" "schema" {
   format       = var.schema_configuration.schema_format
   schema       = local.schema
 
-  hard_delete = true
+  //hard_delete = true
 }
