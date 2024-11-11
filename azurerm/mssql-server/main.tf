@@ -13,7 +13,7 @@ resource "azurerm_mssql_server" "mssql_server" {
   name                         = var.name_override != "" ? var.name_override : local.standard_name
   resource_group_name          = var.resource_group.name
   location                     = local.loc
-  version                      = "12.0"
+  version                      = var.server_version
   administrator_login          = var.mssqlserver_login_name
   administrator_login_password = local.login_password
   minimum_tls_version          = "1.2"
