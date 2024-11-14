@@ -167,19 +167,19 @@ locals {
 }
 
 resource "azurerm_mssql_firewall_rule" "eidsivaenergi_test_confluent" {
-  count            = var.environment == "test" && var.organization == "eidsivaenergi" ? length(local.firewall_rules["eidsivaenergi_test"].ip_addresses) : 0
-  name             = "EidsivaEnergiTestConfluentCluster-${element(local.firewall_rules["eidsivaenergi_test"].ip_addresses, count.index)}"
+  #count            = var.environment == "test" && var.organization == "eidsivaenergi" ? length(local.firewall_rules["eidsivaenergi_test"].ip_addresses) : 0
+  name             = "Allow access to Azure services"
   server_id        = azurerm_mssql_server.mssql_server.id
-  start_ip_address = element(local.firewall_rules["eidsivaenergi_test"].ip_addresses, count.index)
-  end_ip_address   = element(local.firewall_rules["eidsivaenergi_test"].ip_addresses, count.index)
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
 }
 
 resource "azurerm_mssql_firewall_rule" "eidsivaenergi_prod_confluent" {
-  count            = var.environment == "prod" && var.organization == "eidsivaenergi" ? length(local.firewall_rules["eidsivaenergi_prod"].ip_addresses) : 0
-  name             = "EidsivaEnergiProdConfluentCluster-${element(local.firewall_rules["eidsivaenergi_prod"].ip_addresses, count.index)}"
+  #count            = var.environment == "prod" && var.organization == "eidsivaenergi" ? length(local.firewall_rules["eidsivaenergi_prod"].ip_addresses) : 0
+  name             = "Allow access to Azure services"
   server_id        = azurerm_mssql_server.mssql_server.id
-  start_ip_address = element(local.firewall_rules["eidsivaenergi_prod"].ip_addresses, count.index)
-  end_ip_address   = element(local.firewall_rules["eidsivaenergi_prod"].ip_addresses, count.index)
+  start_ip_address = "0.0.0.0"
+  end_ip_address   = "0.0.0.0"
 }
 
 resource "azurerm_mssql_firewall_rule" "bredband_test_confluent" {
