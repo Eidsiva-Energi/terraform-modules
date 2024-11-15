@@ -27,42 +27,8 @@ resource "azurerm_mssql_server" "mssql_server" {
 
 
 ## Firewall rules
-resource "azurerm_mssql_firewall_rule" "eidsivaenergi_test_confluent" {
-  name             = "Allow access to Azure services"
-  server_id        = azurerm_mssql_server.mssql_server.id
-  start_ip_address = "0.0.0.0"
-  end_ip_address   = "0.0.0.0"
-}
-
-resource "azurerm_mssql_firewall_rule" "eidsivaenergi_prod_confluent" {
-  name             = "Allow access to Azure services"
-  server_id        = azurerm_mssql_server.mssql_server.id
-  start_ip_address = "0.0.0.0"
-  end_ip_address   = "0.0.0.0"
-}
-
-resource "azurerm_mssql_firewall_rule" "bredband_test_confluent" {
-  name             = "Allow access to Azure services"
-  server_id        = azurerm_mssql_server.mssql_server.id
-  start_ip_address = "0.0.0.0"
-  end_ip_address   = "0.0.0.0"
-}
-
-resource "azurerm_mssql_firewall_rule" "bredband_prod_confluent" {
-  name             = "Allow access to Azure services"
-  server_id        = azurerm_mssql_server.mssql_server.id
-  start_ip_address = "0.0.0.0"
-  end_ip_address   = "0.0.0.0"
-}
-
-resource "azurerm_mssql_firewall_rule" "bio_test_confluent" {
-  name             = "Allow access to Azure services"
-  server_id        = azurerm_mssql_server.mssql_server.id
-  start_ip_address = "0.0.0.0"
-  end_ip_address   = "0.0.0.0"
-}
-
-resource "azurerm_mssql_firewall_rule" "bio_prod_confluent" {
+resource "azurerm_mssql_firewall_rule" "whitelist_azure_services" {
+  count            = var.firewall_whitelist_azure_services ? 1 : 0
   name             = "Allow access to Azure services"
   server_id        = azurerm_mssql_server.mssql_server.id
   start_ip_address = "0.0.0.0"
