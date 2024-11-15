@@ -28,7 +28,7 @@ resource "azurerm_mssql_server" "mssql_server" {
 
 ## Firewall rules
 resource "azurerm_mssql_firewall_rule" "whitelist_azure_services" {
-  count            = var.firewall_whitelist_azure_services ? 1 : 0
+  count            = var.whitelist_azure_services ? 1 : 0
   name             = "Allow access to Azure services"
   server_id        = azurerm_mssql_server.mssql_server.id
   start_ip_address = "0.0.0.0"
