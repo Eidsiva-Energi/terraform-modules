@@ -30,7 +30,7 @@ variable "name_override" {
   default     = ""
 }
 
-variable "firewall_whitelist_azure_services" {
+variable "whitelist_azure_services" {
   description = "Set this to true to allow all Azure services to access the database server. This can for example be used to allow Confluent Cloud Connectors to access the database server."
   default     = false
 }
