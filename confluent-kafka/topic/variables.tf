@@ -170,7 +170,13 @@ variable "schema" {
   }
 
   validation {
-    condition     = var.schema.path == null ? true : fileexists(var.schema.path)
+    condition = (
+      (
+        var.schema.path == null
+        ||
+        substr(var.schema.path, 0, 8) == "https://"
+      ) ? true : fileexists(var.schema.path)
+    )
     error_message = "path must point to an existing file."
   }
   validation {
