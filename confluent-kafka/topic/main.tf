@@ -94,8 +94,7 @@ locals {
 }
 
 data "http" "schema_url_data" {
-  count = local.schema_is_url ? 1 : 0
-  url   = var.schema.path
+  url = var.schema.path
 }
 
 resource "confluent_schema" "schema" {
