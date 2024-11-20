@@ -90,14 +90,22 @@ locals {
     file(var.schema.path)
   )
   schemaJson = jsondecode(local.schema)
+
+  schema_is_url = var.schema.path != "" ? false : substr(var.schema.path, 0, 8) == "https://"
 }
+
+data "http" "schema_url_data" {
+  count = local.schema_is_url ? 1 : 0
+  url   = var.schema.path
+}
+
 resource "confluent_schema" "schema" {
   count = var.schema.use_producer_defined ? 0 : 1
 
   depends_on   = [confluent_kafka_topic.topic]
   subject_name = "${confluent_kafka_topic.topic.topic_name}-value"
   format       = var.schema.format
-  schema       = local.schema
+  schema       = local.schema_is_url ? data.http.schema_url_data[0].response_body : local.schema
 
   //hard_delete = true
 }

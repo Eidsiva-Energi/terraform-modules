@@ -178,7 +178,13 @@ variable "schema" {
     error_message = "path must point to a .json or .avro file."
   }
   validation {
-    condition     = var.schema.path == null ? true : can(jsondecode(file(var.schema.path)))
+    condition = (
+      (
+        var.schema.path == null
+        ||
+        substr(var.schema.path, 0, 8) == "https://"
+      ) ? true : can(jsondecode(file(var.schema.path)))
+    )
     error_message = "The schema file must be a valid JSON file."
   }
 
