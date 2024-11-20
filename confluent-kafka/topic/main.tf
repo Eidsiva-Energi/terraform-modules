@@ -86,12 +86,11 @@ resource "confluent_kafka_acl" "consumers_topic_read" {
 ###############################
 
 locals {
+  schema_is_url = var.schema.path != "" ? false : substr(var.schema.path, 0, 8) == "https://"
   schema = var.schema.use_producer_defined ? "{}" : (
-    file(var.schema.path)
+    local.schema_is_url ? data.http.schema_url_data[0].response_body : file(var.schema)
   )
   schemaJson = jsondecode(local.schema)
-
-  schema_is_url = var.schema.path != "" ? false : substr(var.schema.path, 0, 8) == "https://"
 }
 
 data "http" "schema_url_data" {
