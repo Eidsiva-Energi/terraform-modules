@@ -86,15 +86,16 @@ resource "confluent_kafka_acl" "consumers_topic_read" {
 ###############################
 
 locals {
-  schema_is_url = var.schema.path != "" ? false : substr(var.schema.path, 0, 8) == "https://"
+  schema_is_url = var.schema.path == "" ? false : substr(var.schema.path, 0, 8) == "https://"
   schema = var.schema.use_producer_defined ? "{}" : (
-    true ? data.http.schema_url_data.response_body : file(var.schema.path)
+    local.schema_is_url ? data.http.schema_url_data[0].response_body : file(var.schema.path)
   )
   schemaJson = jsondecode(local.schema)
 }
 
 data "http" "schema_url_data" {
-  url = var.schema.path
+  count = local.schema_is_url ? 1 : 0
+  url   = var.schema.path
 }
 
 resource "confluent_schema" "schema" {
@@ -103,7 +104,7 @@ resource "confluent_schema" "schema" {
   depends_on   = [confluent_kafka_topic.topic]
   subject_name = "${confluent_kafka_topic.topic.topic_name}-value"
   format       = var.schema.format
-  schema       = local.schema_is_url ? data.http.schema_url_data.response_body : local.schema
+  schema       = local.schema
 
   //hard_delete = true
 }
