@@ -152,6 +152,7 @@ variable "schema" {
   })
   description = "The schema configuration for the topic."
 
+  # General validation
   validation {
     condition = (
       (
@@ -169,6 +170,7 @@ variable "schema" {
     error_message = "Either path and format must be set, or use_producer_defined must be true."
   }
 
+  # Schema file validation
   validation {
     condition = (
       (
@@ -210,7 +212,7 @@ variable "schema" {
     error_message = "Schema is not valid. Must contain key 'type'"
   }
 
-  ## AVRO schema validation
+  ## AVRO schema file content validation
   validation {
     condition = (var.schema.path == null || !can(file(var.schema.path))) ? true : (
       var.schema.path == null ||
@@ -257,7 +259,7 @@ variable "schema" {
     error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'record'"
   }
 
-  ## JSON schema validation
+  ## JSON schema file content validation
   validation {
     condition = (var.schema.path == null || !can(file(var.schema.path))) ? true : (
       var.schema.path == null ||
