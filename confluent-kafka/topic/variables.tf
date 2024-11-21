@@ -341,7 +341,7 @@ variable "schema" {
   # Schema URL validation
 
   validation {
-    // Check that the URL is a valid URL
+    // Check that the URL is https and not http
     condition     = var.schema.path == null || substr(var.schema.path, 0, 7) != "http://"
     error_message = "Http URLs are not supported. Please use https."
   }
