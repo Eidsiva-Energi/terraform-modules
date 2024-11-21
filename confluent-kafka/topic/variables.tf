@@ -179,6 +179,8 @@ variable "schema" {
         var.schema.path == null
         ||
         substr(var.schema.path, 0, 8) == "https://"
+        ||
+        substr(var.schema.path, 0, 7) == "http://"
       ) ? true : fileexists(var.schema.path)
     )
     error_message = "path must point to an existing file."
@@ -190,6 +192,8 @@ variable "schema" {
         var.schema.path == null
         ||
         substr(var.schema.path, 0, 8) == "https://"
+        ||
+        substr(var.schema.path, 0, 7) == "http://"
       ) ? true : can(regex(".*\\.(json|avro)$", var.schema.path))
     )
     error_message = "path must point to a .json or .avro file."
@@ -201,6 +205,8 @@ variable "schema" {
         var.schema.path == null
         ||
         substr(var.schema.path, 0, 8) == "https://"
+        ||
+        substr(var.schema.path, 0, 7) == "http://"
       ) ? true : can(jsondecode(file(var.schema.path)))
     )
     error_message = "The schema file must be a valid JSON file."
@@ -339,7 +345,6 @@ variable "schema" {
   }
 
   # Schema URL validation
-
   validation {
     // Check that the URL is https and not http
     condition     = var.schema.path == null || substr(var.schema.path, 0, 7) != "http://"
