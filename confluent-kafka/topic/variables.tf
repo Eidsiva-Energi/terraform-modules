@@ -337,4 +337,12 @@ variable "schema" {
     )
     error_message = "Schema must be a valid JSON schema. Key 'Type' must have value 'object'"
   }
+
+  # Schema URL validation
+
+  validation {
+    // Check that the URL is a valid URL
+    condition     = var.schema.path == null || substr(var.schema.path, 0, 7) != "http://"
+    error_message = "Http URLs are not supported. Please use https."
+  }
 }
