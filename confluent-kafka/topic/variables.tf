@@ -152,6 +152,8 @@ variable "schema" {
   })
   description = "The schema configuration for the topic."
 
+  // NOTE: Validations for url schemas are done by the use of preconditions in the schema resource.
+
   # General validation
   validation {
     // Check that either path and format are set, or use_producer_defined is true
