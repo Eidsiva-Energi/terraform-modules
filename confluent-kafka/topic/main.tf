@@ -112,10 +112,11 @@ resource "confluent_schema" "schema" {
   lifecycle {
 
     precondition {
+      // Check that the schema file contains the key 'namespace' if it is an AVRO schema
       condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "AVRO") ? true : (
         contains(keys(local.schema_content_json), "namespace")
       )
-      error_message = ""
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'namespace'"
     }
   }
 }
