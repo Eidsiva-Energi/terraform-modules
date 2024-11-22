@@ -109,14 +109,49 @@ resource "confluent_schema" "schema" {
 
   //hard_delete = true
 
+  # HTTPS schema content validation
   lifecycle {
-
+    ## AVRO schema content validation
     precondition {
       // Check that the schema file contains the key 'namespace' if it is an AVRO schema
       condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "AVRO") ? true : (
         contains(keys(local.schema_content_json), "namespace")
       )
       error_message = "Schema must be a valid AVRO schema. Must contain key 'namespace'"
+    }
+    precondition {
+      // Check that the schema file contains the key 'name' if it is an AVRO schema
+      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "AVRO") ? true : (
+        contains(keys(local.schema_content_json), "name")
+      )
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'name'"
+    }
+    precondition {
+      // Check that the schema file contains the key 'fields' if it is an AVRO schema
+      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "AVRO") ? true : (
+        contains(keys(local.schema_content_json), "fields")
+      )
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'fields'"
+    }
+    precondition {
+      // Check that the schema file contains the key 'doc' if it is an AVRO schema
+      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "AVRO") ? true : (
+        contains(keys(local.schema_content_json), "doc")
+      )
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'doc'"
+    }
+    precondition {
+      // Check that the schema file contains the key 'record' if it is an AVRO schema
+      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "AVRO") ? true : (
+        contains(keys(local.schema_content_json), "record")
+      )
+      error_message = "Schema must be a valid AVRO schema. Must contain key 'record'"
+    }
+    precondition {
+      // Check that the key 'type' has value 'record' if it is an AVRO schema
+      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "AVRO") ? true : (
+      local.schema_content_json.type == "record")
+      error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'record'"
     }
   }
 }
