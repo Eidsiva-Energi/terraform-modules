@@ -69,3 +69,4 @@ NOTE: All variables without a default value needs to be given a value in your te
 - `cleanup_policy`: Must be either *'delete'* or *'compact'*
 - `schema`: Must have either the parameters `path` and `format` defined or `use_producer_defined` defined.
 - `schema.format`: Must be either *'JSON'* or *'AVRO'*.
+- `schema.path`: If you are using an URL, it must be HTTPS.
