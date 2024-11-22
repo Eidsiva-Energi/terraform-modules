@@ -152,6 +152,7 @@ variable "schema" {
   })
   description = "The schema configuration for the topic."
 
+
   // NOTE: Validations for url schemas are done by the use of preconditions in the schema resource.
 
   # General validation
