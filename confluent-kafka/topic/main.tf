@@ -111,6 +111,15 @@ resource "confluent_schema" "schema" {
 
   # HTTPS schema content validation
   lifecycle {
+    ## General schema content validation
+    precondition {
+      // Check that the schema file contains the key 'type' if it is an JSON schema
+      condition = (!local.schema_is_url || local.schema_ignored) ? true : (
+        contains(keys(local.schema_content_json), "type")
+      )
+      error_message = "Schema is not valid. Must contain key 'type'"
+    }
+
     ## AVRO schema content validation
     precondition {
       // Check that the schema file contains the key 'namespace' if it is an AVRO schema
@@ -141,17 +150,53 @@ resource "confluent_schema" "schema" {
       error_message = "Schema must be a valid AVRO schema. Must contain key 'doc'"
     }
     precondition {
-      // Check that the schema file contains the key 'record' if it is an AVRO schema
-      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "AVRO") ? true : (
-        contains(keys(local.schema_content_json), "record")
-      )
-      error_message = "Schema must be a valid AVRO schema. Must contain key 'record'"
-    }
-    precondition {
       // Check that the key 'type' has value 'record' if it is an AVRO schema
       condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "AVRO") ? true : (
       local.schema_content_json.type == "record")
       error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'record'"
+    }
+
+    ## JSON schema content validation
+    precondition {
+      // Check that the schema file contains the key '$schema' if it is an JSON schema
+      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "JSON") ? true : (
+        contains(keys(local.schema_content_json), "$schema")
+      )
+      error_message = "Schema must be a valid JSON schema. Must contain key '$schema'"
+    }
+    precondition {
+      // Check that the schema file contains the key '$id' if it is an JSON schema
+      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "JSON") ? true : (
+        contains(keys(local.schema_content_json), "$id")
+      )
+      error_message = "Schema must be a valid JSON schema. Must contain key '$id'"
+    }
+    precondition {
+      // Check that the schema file contains the key 'title' if it is an JSON schema
+      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "JSON") ? true : (
+        contains(keys(local.schema_content_json), "title")
+      )
+      error_message = "Schema must be a valid JSON schema. Must contain key 'title'"
+    }
+    precondition {
+      // Check that the schema file contains the key 'properties' if it is an JSON schema
+      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "JSON") ? true : (
+        contains(keys(local.schema_content_json), "properties")
+      )
+      error_message = "Schema must be a valid JSON schema. Must contain key 'properties'"
+    }
+    precondition {
+      // Check that the schema file contains the key 'description' if it is an JSON schema
+      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "JSON") ? true : (
+        contains(keys(local.schema_content_json), "description")
+      )
+      error_message = "Schema must be a valid JSON schema. Must contain key 'description'"
+    }
+    precondition {
+      // Check that the key 'type' has value 'object' if it is an JSON schema
+      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "JSON") ? true : (
+      local.schema_content_json.type == "object")
+      error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'object'"
     }
   }
 }
