@@ -153,7 +153,7 @@ resource "confluent_schema" "schema" {
       // Check that the key 'type' has value 'record' if it is an AVRO schema
       condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "AVRO") ? true : (
       local.schema_content_json.type == "record")
-      error_message = "Schema must be a valid AVRO schema. Key 'Type' must have value 'record'"
+      error_message = "Schema must be a valid AVRO schema. Key 'type' must have value 'record'"
     }
 
     ## JSON schema content validation
