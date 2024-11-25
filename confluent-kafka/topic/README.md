@@ -59,7 +59,7 @@ NOTE: All variables without a default value needs to be given a value in your te
 | `partitions`              | Number of partitions dedicated to the topic. Each can handle at least ~10 MB/s of traffic.                      | `number`      | 1                         |
 | `consumers`               | Map of allowed consumers. Each consumer is defined by a unique key and a map with the keys `system_name` and `application_name`.| `map(object)` | N/A       |
 | `schema`                  | Object defining a schema's configuration. By default, all topics require a schema.                              | `object`      | N/A                       |
-| `schema.path`             | Local path to the .json file defining the schema.                                                               | `string`      | N/A                       |
+| `schema.path`             | Either a local (relative) path to the .json file defining the schema, or a URL to a file hosted on the internet (for example a public GitHub Repo)                                                                                                                                         | `string`      | N/A                       |
 | `schema.format`           | The format of the schema.                                                                                       | `string`      | N/A                       |
 | `schema.use_producer_defined` | Used to turn off the requirement for each topic to have a schema. Meant to be used with topics where the producer defines the schema. |`boolean`| false |
 
@@ -69,3 +69,4 @@ NOTE: All variables without a default value needs to be given a value in your te
 - `cleanup_policy`: Must be either *'delete'* or *'compact'*
 - `schema`: Must have either the parameters `path` and `format` defined or `use_producer_defined` defined.
 - `schema.format`: Must be either *'JSON'* or *'AVRO'*.
+- `schema.path`: If you are using an URL, it must be HTTPS.
