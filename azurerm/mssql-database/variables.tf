@@ -33,6 +33,11 @@ variable "short_term_retention_policy_in_days" {
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_database#short_term_retention_policy
   description = "(Optional) Point In Time Restore configuration. Value has to be between 7 and 35."
   default     = "7"
+
+  validation {
+    condition     = var.short_term_retention_policy_in_days >= 1 && var.short_term_retention_policy_in_days <= 35
+    error_message = "Number of retention days has to be between 1 and 35."
+  }
 }
 
 variable "auto_pause_delay_in_minutes" {
