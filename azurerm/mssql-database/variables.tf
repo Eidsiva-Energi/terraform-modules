@@ -24,7 +24,7 @@ variable "location_override" {
 
   validation {
     condition     = contains(data.azurerm_subscription.current_subscription.locations, var.location_override)
-    error_message = "Invalid location. Please choose one from: ${join(", ", data.azurerm_subscription.current.locations)}"
+    error_message = "Invalid location. Please choose one from: ${join(", ", data.azurerm_subscription.current_subscription.locations)}"
   }
 }
 
