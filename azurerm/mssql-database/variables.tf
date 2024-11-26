@@ -27,6 +27,11 @@ variable "azurerm_mssql_server" {
 variable "sku_name" {
   description = "(Optional) Specifies the name of the SKU used by the database. For example, GP_S_Gen5_2, HS_Gen4_1, BC_Gen5_2, ElasticPool, Basic, S0, P2, DW100c, DS100. Changing this from the HyperScale service tier to another service tier will create a new resource."
   default     = "GP_S_Gen5_2"
+
+  validation {
+    condition     = can(regex("^(GP_S_Gen5_2|HS_Gen4_1|BC_Gen5_2|ElasticPool|Basic|S0|P2|DW100c|DS100)$", var.sku_name))
+    error_message = "Invalid SKU name. Value must be one of the following: GP_S_Gen5_2, HS_Gen4_1, BC_Gen5_2, ElasticPool, Basic, S0, P2, DW100c, DS100."
+  }
 }
 
 variable "short_term_retention_policy_in_days" {
