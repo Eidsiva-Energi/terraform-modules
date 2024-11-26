@@ -31,7 +31,7 @@ variable "sku_name" {
 
 variable "short_term_retention_policy_in_days" {
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_database#short_term_retention_policy
-  description = "(Optional) Point In Time Restore configuration. Value has to be between 7 and 35."
+  description = "(Optional) Point In Time Restore configuration. Value has to be between 1 and 35."
   default     = "7"
 
   validation {
