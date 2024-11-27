@@ -16,14 +16,14 @@ variable "retention_policy_in_days" {
 
 variable "environment" {}
 
-data "azurerm_subscription" "current_subscription" {}
-
 variable "location_override" {
   description = "(Optional) overrides the Azure location inherrited from the resource group. Must be a valid Azure location."
   default     = ""
 
   validation {
-    condition     = contains(data.azurerm_subscription.current_subscription.locations, var.location_override)
+    condition = contains(
+      (split("\n", chomp(file("../azure-locations"))))
+    , var.location_override)
     error_message = "Invalid location. Please choose one from: ${join(", ", data.azurerm_subscription.current_subscription.locations)}"
   }
 }
