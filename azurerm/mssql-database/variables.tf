@@ -22,9 +22,9 @@ variable "location_override" {
 
   validation {
     condition = contains(
-      (split("\n", chomp(file("../azure-locations"))))
+      (split("\n", chomp(file(path.module))))
     , var.location_override)
-    error_message = "Invalid location. Please choose one from: ${(split("\n", chomp(file("../../azure-locations"))))}"
+    error_message = "Invalid location. Please choose one from:"
   }
 }
 
