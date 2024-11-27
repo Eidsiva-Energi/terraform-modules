@@ -1,4 +1,4 @@
-eastus|
-southcentralus|
-westus2|
+eastus
+southcentralus
+westus2
 westus3
