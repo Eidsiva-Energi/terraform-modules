@@ -21,7 +21,8 @@ variable "location_override" {
   default     = ""
 
   validation {
-    condition     = var.location_override == "" || contains((split("\n", chomp(file("${path.module}/azure-locations")))), var.location_override)
+    //condition     = var.location_override == "" || contains((split("\n", chomp(file("${path.module}/azure-locations")))), var.location_override)
+    condition     = can(regex("^(${replace(chomp(file("${path.module}/azure-locations")), "\n", "|")})$", var.location_override))
     error_message = "HELLO FROM ERROR MESSAGE"
   }
 }
