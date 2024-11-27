@@ -24,7 +24,7 @@ variable "location_override" {
     condition = contains(
       (split("\n", chomp(file("../azure-locations"))))
     , var.location_override)
-    error_message = "Invalid location. Please choose one from: ${join(", ", data.azurerm_subscription.current_subscription.locations)}"
+    error_message = "Invalid location. Please choose one from: ${(split("\n", chomp(file("../azure-locations"))))}"
   }
 }
 
