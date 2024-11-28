@@ -31,7 +31,7 @@ variable "azurerm_mssql_server" {
 }
 
 variable "sku_name" {
-  description = "(Optional) Specifies the name of the SKU used by the database. For example, GP_S_Gen5_2, HS_Gen4_1, BC_Gen5_2, ElasticPool, Basic, S0, P2, DW100c, DS100. Changing this from the HyperScale service tier to another service tier will create a new resource."
+  description = "(Optional) Specifies the name of the SKU used by the database. For example, GP_S_Gen5_2, HS_Gen4_1, BC_Gen5_2, ElasticPool, Basic, S0, P2, DW100c, DS100. Changing this from the HyperScale service tier to another service tier will create a new resource. Use 'az sql db list-editions --location westeurope -o table' to see all availible SKUs"
   default     = "GP_S_Gen5_2"
 
   validation {
