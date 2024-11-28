@@ -52,9 +52,14 @@ variable "short_term_retention_policy_in_days" {
 }
 
 variable "auto_pause_delay_in_minutes" {
-  description = "(Optional) Time in minutes after which database is automatically paused. A value of -1 means that automatic pause is disabled. This property is only settable for General Purpose Serverless databases. Value should be in increments of 10, e.g. `10`, `20`, `30`, etc."
+  description = "(Optional) Time in minutes after which database is automatically paused. A value of -1 means that automatic pause is disabled. This property is only settable for General Purpose Serverless databases. Value should be in increments of 10, e.g. `10`, `20`, `30`, etc. Maximum is 10080 (seven days)."
   default     = 60
   type        = number
+
+  validation {
+    condition     = var.auto_pause_delay_in_minutes == -1 || var.auto_pause_delay_in_minutes >= 15 || var.auto_pause_delay_in_minutes <= 10080
+    error_message = "Invalid Auto Pause Delay value. Value should be either -1 or between 15 and 10080 (seven days)."
+  }
 }
 
 variable "collation" {
