@@ -22,7 +22,7 @@ variable "location_override" {
 
   validation {
     condition     = can(regex("^(${replace(file("${path.module}/azure-locations.txt"), "\r\n", "|")})$", var.location_override))
-    error_message = "HELLO FROM ERROR MESSAGE"
+    error_message = "Invalid Azure location. Value must be one of the following: ${replace(file("${path.module}/azure-locations.txt"), "\r\n", ", ")}."
   }
 }
 
