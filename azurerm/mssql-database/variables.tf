@@ -57,7 +57,7 @@ variable "auto_pause_delay_in_minutes" {
   type        = number
 
   validation {
-    condition     = var.auto_pause_delay_in_minutes == -1 || var.auto_pause_delay_in_minutes >= 15 || var.auto_pause_delay_in_minutes <= 10080
+    condition     = var.auto_pause_delay_in_minutes == -1 || (var.auto_pause_delay_in_minutes >= 15 && var.auto_pause_delay_in_minutes <= 10080)
     error_message = "Invalid Auto Pause Delay value. Value should be either -1 or between 15 and 10080 (seven days)."
   }
 }
