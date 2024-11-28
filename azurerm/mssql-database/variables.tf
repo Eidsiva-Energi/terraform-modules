@@ -9,11 +9,6 @@ variable "resource_group" {
   description = "(Required) The resource group where the extended auditing policy storage account is created."
 }
 
-variable "retention_policy_in_days" {
-  description = "(Optional) Specifies the number of days that logs will be retained. Changing this forces a new resource to be created."
-  default     = 180
-}
-
 variable "environment" {}
 
 variable "location_override" {
