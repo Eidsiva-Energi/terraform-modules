@@ -1,8 +1,13 @@
 variable "name" {}
 
 variable "name_override" {
-  description = "Set this to force a name of the resource. Should normally not be used. "
+  description = "Set this to force a name of the resource. Should normally not be used. By default, the name is generated as 'name-environment'."
   default     = ""
+
+  validation {
+    condition     = var.name_override == "" || (can(regex("^[^<>*%&:\\/?]+$", var.name_override)) && !can(regex("[. ]$", var.name_override)) && length(var.name_override) <= 128 && length(var.name_override) >= 1)
+    error_message = "Invalid name_override. Name must not contain any of the following characters: <, >, *, %, &, :, \\, /, ?, ., or space. Name must be between 1 and 128 characters long."
+  }
 }
 
 variable "resource_group" {
