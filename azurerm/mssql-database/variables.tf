@@ -10,7 +10,7 @@ variable "resource_group" {
 }
 
 variable "retention_policy_in_days" {
-  description = "(Optional) Specifies the number of days that logs will be retained. Changing this forces a new resource."
+  description = "(Optional) Specifies the number of days that logs will be retained. Changing this forces a new resource to be created."
   default     = 180
 }
 
