@@ -68,6 +68,7 @@ variable "auto_pause_delay_in_minutes" {
 }
 
 variable "collation" {
+  //TODO: Sjekk om det er nødvendig å lage validation for collation
   description = "(Optional) Specifies the collation of the database. Changing this forces a new resource to be created."
   default     = "SQL_LATIN1_GENERAL_CP1_CI_AS"
 }
