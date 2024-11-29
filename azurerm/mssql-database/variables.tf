@@ -76,6 +76,11 @@ variable "collation" {
 variable "max_size_gb" {
   description = "(Optional) The max size of the database in gigabytes."
   default     = null
+
+  validation {
+    condition     = var.max_size_gb == null || var.max_size_gb >= 1
+    error_message = "Invalid Max Size (GB) value. Value should be greater than or equal to 1."
+  }
 }
 
 variable "min_capacity" {
