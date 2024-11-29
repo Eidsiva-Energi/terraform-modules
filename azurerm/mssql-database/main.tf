@@ -17,8 +17,9 @@ resource "azurerm_mssql_database" "mssqldatabase" {
   }
 
   # long_term_retention_policy is not supported if auto-pause is enabled
+  # long_term_retention_policy sequires a serverless sku, indicated by the presence of "_S_" in the sku_name
   dynamic "long_term_retention_policy" {
-    for_each = var.sku_name == "GP_S_Gen5_2" && var.auto_pause_delay_in_minutes != -1 ? [] : [1]
+    for_each = can(regex(".._S_", var.sku_name)) && var.auto_pause_delay_in_minutes != -1 ? [] : [1]
     content {
       weekly_retention = var.weekly_backup_retention_period
     }
