@@ -90,6 +90,6 @@ variable "min_capacity" {
 
 variable "weekly_backup_retention_period" {
   # https://registry.terraform.io/providers/hashicorp/azurerm/latest/docs/resources/mssql_database#long_term_retention_policy
-  description = "(Optional) The weekly retention policy for an LTR backup in an ISO 8601 format. Valid value is between 1 to 520 weeks. e.g. P1Y, P1M, P1W or P7D. This property is ignored if auto-pause is enabled in serverless mode (sku_name=GP_S_Gen5_2). "
+  description = "(Optional) The weekly retention policy for an LTR backup in an ISO 8601 format. Valid value is between 1 to 520 weeks. e.g. P1Y, P1M, P1W or P7D. This property is ignored if auto-pause is enabled in serverless mode (sku_name contains an '_S_'). "
   default     = "P4W"
 }
