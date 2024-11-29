@@ -79,8 +79,13 @@ variable "max_size_gb" {
 }
 
 variable "min_capacity" {
-  description = "(Optional) Minimal capacity that database will always have allocated, if not paused. This property is only settable for General Purpose Serverless databases."
+  description = "(Optional) Minimal capacity (vCore) that database will always have allocated, if not paused. This property is only settable for General Purpose Serverless databases."
   default     = 0.5
+
+  validation {
+    condition     = var.min_capacity >= 0.5 && var.min_capacity <= 128
+    error_message = "Invalid Min Capacity (vCore) value. Value should be between 0.5 and 128."
+  }
 }
 
 variable "weekly_backup_retention_period" {
