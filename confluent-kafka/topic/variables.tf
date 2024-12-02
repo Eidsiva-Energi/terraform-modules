@@ -235,16 +235,6 @@ variable "schema" {
 
   ## AVRO schema file content validation
   validation {
-    // Check that the schema file contains the key 'namespace' if it is an AVRO schema
-    condition = (var.schema.path == null || !can(file(var.schema.path))) ? true : (
-      var.schema.path == null ||
-      var.schema.format == null ||
-      var.schema.format != "AVRO" ||
-      contains(keys(jsondecode(file(var.schema.path))), "namespace")
-    )
-    error_message = "Schema must be a valid AVRO schema. Must contain key 'namespace'"
-  }
-  validation {
     // Check that the schema file contains the key 'name' if it is an AVRO schema
     condition = (var.schema.path == null || !can(file(var.schema.path))) ? true : (
       var.schema.path == null ||
@@ -295,16 +285,6 @@ variable "schema" {
       contains(keys(jsondecode(file(var.schema.path))), "$schema")
     )
     error_message = "Schema must be a valid JSON schema. Must contain key '$schema'."
-  }
-  validation {
-    // Check that the schema file contains the key '$id' if it is a JSON schema
-    condition = (var.schema.path == null || !can(file(var.schema.path))) ? true : (
-      var.schema.path == null ||
-      var.schema.format == null ||
-      var.schema.format != "JSON" ||
-      contains(keys(jsondecode(file(var.schema.path))), "$id")
-    )
-    error_message = "Schema must be a valid JSON schema. Must contain key '$id'"
   }
   validation {
     // Check that the schema file contains the key 'title' if it is a JSON schema

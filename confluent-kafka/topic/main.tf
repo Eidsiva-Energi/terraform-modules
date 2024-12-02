@@ -122,13 +122,6 @@ resource "confluent_schema" "schema" {
 
     ## AVRO schema content validation
     precondition {
-      // Check that the schema file contains the key 'namespace' if it is an AVRO schema
-      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "AVRO") ? true : (
-        contains(keys(local.schema_content_json), "namespace")
-      )
-      error_message = "Schema must be a valid AVRO schema. Must contain key 'namespace'"
-    }
-    precondition {
       // Check that the schema file contains the key 'name' if it is an AVRO schema
       condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "AVRO") ? true : (
         contains(keys(local.schema_content_json), "name")
@@ -163,13 +156,6 @@ resource "confluent_schema" "schema" {
         contains(keys(local.schema_content_json), "$schema")
       )
       error_message = "Schema must be a valid JSON schema. Must contain key '$schema'"
-    }
-    precondition {
-      // Check that the schema file contains the key '$id' if it is an JSON schema
-      condition = (!local.schema_is_url || local.schema_ignored || var.schema.format != "JSON") ? true : (
-        contains(keys(local.schema_content_json), "$id")
-      )
-      error_message = "Schema must be a valid JSON schema. Must contain key '$id'"
     }
     precondition {
       // Check that the schema file contains the key 'title' if it is an JSON schema
