@@ -12,7 +12,7 @@ resource "confluent_kafka_topic" "topic" {
   kafka_cluster {
     id = var.cluster_id
   }
-  topic_name       = var.is_public ? "public.${var.system}.${var.data_name}" : "private.${var.domain}.${var.system}.${var.data_name}"
+  topic_name       = var.is_public ? "public.${var.system}.${var.data_name}" : "private.${var.system}.${var.data_name}"
   partitions_count = var.partitions != null ? var.partitions : 1
 
   config = {
