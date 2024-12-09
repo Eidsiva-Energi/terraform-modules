@@ -17,15 +17,6 @@ variable "service_account_map" {
   }
 }
 
-variable "domain" {
-  type        = string
-  description = "The domain that owns the topic and contract."
-  validation {
-    condition     = length(regexall("^[-_a-z]+$", var.domain)) > 0
-    error_message = "The domain must be from lowercase a-z, hypher, and underscore only."
-  }
-}
-
 variable "system" {
   type        = string
   description = "The system that owns the topic and contract. Only this system can publish to the topic. "
