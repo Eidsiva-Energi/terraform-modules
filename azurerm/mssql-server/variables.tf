@@ -6,7 +6,7 @@ variable "server_version" {
 
   validation {
     condition     = can(regex("^(12.0|2.0)$", var.server_version))
-    error_message = "Invalid server version. Value must be one of the following: [2.0 (for a v11 server), 12.0 (for a v12 server)]"
+    error_message = "${var.server_version} is an invalid server version. Value must be one of the following: [2.0 (for a v11 server), 12.0 (for a v12 server)]"
   }
 }
 
@@ -24,7 +24,7 @@ variable "connection_policy" {
 
   validation {
     condition     = can(regex("^(Proxy|Redirect)$", var.connection_policy))
-    error_message = "${var.connection_policy} is an invalid connection policy. Value must be one of the following: [Default, Proxy, Redirect]"
+    error_message = "'${var.connection_policy}' is an invalid connection policy. Value must be one of the following: [Default, Proxy, Redirect]"
   }
 }
 
