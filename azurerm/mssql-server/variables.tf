@@ -23,8 +23,8 @@ variable "connection_policy" {
   default = "Default"
 
   validation {
-    condition     = can(regex("^(Proxy|Redirect)$", var.connection_policy))
-    error_message = "Invalid connection policy. Value must be one of the following: [Proxy, Redirect]"
+    condition     = can(regex("^(Default|Proxy|Redirect)$", var.connection_policy))
+    error_message = "${var.connection_policy} is an invalid connection policy. Value must be one of the following: [Default, Proxy, Redirect]"
   }
 }
 
