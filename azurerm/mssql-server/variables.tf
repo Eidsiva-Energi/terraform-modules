@@ -3,6 +3,11 @@ variable "name" {
 
 variable "server_version" {
   default = "12.0"
+
+  validation {
+    condition     = can(regex("^(12.0|2.0)$", var.server_version))
+    error_message = "Invalid server version. Value must be one of the following: [2.0 (for a v11 server), 12.0 (for a v12 server)]"
+  }
 }
 
 variable "environment" {
