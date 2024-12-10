@@ -21,6 +21,11 @@ variable "resource_group" {
 
 variable "connection_policy" {
   default = "Default"
+
+  validation {
+    condition     = can(regex("^(Default|Proxy|Redirect)$", var.connection_policy))
+    error_message = "Invalid connection policy. Value must be one of the following: [Default, Proxy, Redirect]"
+  }
 }
 
 variable "mssqlserver_login_name" {
