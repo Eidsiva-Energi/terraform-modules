@@ -1,4 +1,12 @@
 variable "name" {
+  validation {
+    condition     = can(regex("^[a-z0-9](?!.*--)[a-z0-9-]*[a-z0-9-]$", var.name))
+    error_message = "Name must only contain lowercase letters, numbers, and hyphens. It cannot start with a hyphen and must not contain two hyphens in a row."
+  }
+  validation {
+    condition     = length(var.name) <= 63 && length(var.name) >= 1
+    error_message = "Name has wrong length, it must be between 1 and 63 characters long."
+  }
 }
 
 variable "server_version" {
