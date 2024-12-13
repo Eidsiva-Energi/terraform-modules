@@ -36,7 +36,7 @@ variable "mssqlserver_login_name" {
   }
 
   validation {
-    condition     = !can(regex("^(admin|administrator|sa|root|dbmanager|loginmanager|dbo|guest|public)$", lower(var.connection_policy)))
+    condition     = !can(regex("^(admin|administrator|sa|root|dbmanager|loginmanager|dbo|guest|public)$", lower(var.mssqlserver_login_name)))
     error_message = "mssqlserver_login_name must not be a commonly used name such as 'admin, administrator, sa, root, public, etc.'"
   }
 }
