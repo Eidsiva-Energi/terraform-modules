@@ -40,8 +40,8 @@ variable "sku_name" {
   default     = "GP_S_Gen5_2"
 
   validation {
-    condition     = var.sku_name == "" || can(regex("^(${replace(replace(file("${path.module}/db-skus-westeurope.txt"), "\r\n", "|"), "\n", "|")})$", var.sku_name))
-    error_message = "Invalid SKU name. Value must be one of the following: [${replace(replace(file("${path.module}/db-skus-westeurope.txt"), "\r\n", ", "), "\n", ", ")}]"
+    condition     = var.sku_name == "" || can(regex("^(${replace(replace(file("${path.module}/allowed-db-skus.txt"), "\r\n", "|"), "\n", "|")})$", var.sku_name))
+    error_message = "Invalid SKU name. Value must be one of the following: [${replace(replace(file("${path.module}/allowed-db-skus.txt"), "\r\n", ", "), "\n", ", ")}]"
   }
 }
 
