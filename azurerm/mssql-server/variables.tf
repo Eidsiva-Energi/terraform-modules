@@ -29,6 +29,16 @@ variable "connection_policy" {
 }
 
 variable "mssqlserver_login_name" {
+
+  validation {
+    condition     = can(regex("^[a-zA-Z][a-zA-Z0-9_-]*$", var.mssqlserver_login_name))
+    error_message = "mssqlserver_login_name must start with a letter and contain only letters, numbers, dashes, and underscores."
+  }
+
+  validation {
+    condition     = !can(regex("^(admin|administrator|sa|root|dbmanager|loginmanager|dbo|guest|public)$", lower(var.connection_policy)))
+    error_message = "mssqlserver_login_name must not be a commonly used name such as 'admin, administrator, sa, root, public, etc.'"
+  }
 }
 
 variable "location_override" {
