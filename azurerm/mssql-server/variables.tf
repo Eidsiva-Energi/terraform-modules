@@ -61,9 +61,15 @@ variable "location_override" {
 variable "name_override" {
   description = "Set this to force a name of the resource. Should normally not be used. "
   default     = ""
+
+  validation {
+    condition     = var.name_override == "" || (can(regex("^[^<>*%&:\\/?]+$", var.name_override)) && !can(regex("[. ]$", var.name_override)) && length(var.name_override) <= 128 && length(var.name_override) >= 1)
+    error_message = "Invalid name_override. Name must not contain any of the following characters: <, >, *, %, &, :, \\, /, ?, and it must not end with a period or space. Name must be between 1 and 128 characters long."
+  }
 }
 
 variable "whitelist_azure_services" {
   description = "Set this to true to allow all Azure services to access the database server. This can for example be used to allow Confluent Cloud Connectors to access the database server."
   default     = false
+  type        = bool
 }
