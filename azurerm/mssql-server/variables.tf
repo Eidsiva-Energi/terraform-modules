@@ -1,6 +1,6 @@
 variable "name" {
   validation {
-    condition     = can(regex("^[a-z0-9](?!.*--)[a-z0-9-]*[a-z0-9-]$", var.name))
+    condition     = can(regex("^[a-z0-9][a-z0-9-]*[a-z0-9]$", var.name)) && !can(regex("--", var.name))
     error_message = "Name must only contain lowercase letters, numbers, and hyphens. It cannot start with a hyphen and must not contain two hyphens in a row."
   }
   validation {
