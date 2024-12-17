@@ -29,7 +29,11 @@ variable "organization" {
 }
 
 variable "resource_group" {
-  type = string
+  type = object({
+    name        = string
+    environment = string
+    location    = string
+  })
 }
 
 variable "connection_policy" {
