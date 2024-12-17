@@ -1,4 +1,5 @@
 variable "name" {
+  type = string
   validation {
     condition     = can(regex("^[a-z0-9][a-z0-9-]*[a-z0-9]$", var.name)) && !can(regex("--", var.name))
     error_message = "Name must only contain lowercase letters, numbers, and hyphens. It cannot start with a hyphen and must not contain two hyphens in a row."
@@ -11,6 +12,7 @@ variable "name" {
 
 variable "server_version" {
   default = "12.0"
+  type    = string
 
   validation {
     condition     = can(regex("^(12.0|2.0)$", var.server_version))
@@ -19,16 +21,20 @@ variable "server_version" {
 }
 
 variable "environment" {
+  type = string
 }
 
 variable "organization" {
+  type = string
 }
 
 variable "resource_group" {
+  type = string
 }
 
 variable "connection_policy" {
   default = "Default"
+  type    = string
 
   validation {
     condition     = can(regex("^(Default|Proxy|Redirect)$", var.connection_policy))
@@ -37,6 +43,7 @@ variable "connection_policy" {
 }
 
 variable "mssqlserver_login_name" {
+  type = string
 
   validation {
     condition     = can(regex("^[a-zA-Z][a-zA-Z0-9_-]*$", var.mssqlserver_login_name))
@@ -51,6 +58,7 @@ variable "mssqlserver_login_name" {
 
 variable "location_override" {
   default = ""
+  type    = string
 
   validation {
     condition     = var.location_override == "" || can(regex("^(${replace(replace(file("${path.module}/../allowed-azure-locations.txt"), "\r\n", "|"), "\n", "|")})$", var.location_override))
@@ -61,6 +69,7 @@ variable "location_override" {
 variable "name_override" {
   description = "Set this to force a name of the resource. Should normally not be used. "
   default     = ""
+  type        = string
 
   validation {
     condition     = var.name_override == "" || (can(regex("^[^<>*%&:\\/?]+$", var.name_override)) && !can(regex("[. ]$", var.name_override)) && length(var.name_override) <= 128 && length(var.name_override) >= 1)
