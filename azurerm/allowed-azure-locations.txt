@@ -1,92 +1,92 @@
-eastus
-southcentralus
-westus2
-westus3
-australiaeast
-southeastasia
-northeurope
-swedencentral
-uksouth
-westeurope
-centralus
-southafricanorth
-centralindia
-eastasia
-japaneast
-koreacentral
-newzealandnorth
-canadacentral
-francecentral
-germanywestcentral
-italynorth
-norwayeast
-polandcentral
-spaincentral
-switzerlandnorth
-mexicocentral
-uaenorth
-brazilsouth
-israelcentral
-qatarcentral
-centralusstage
-eastusstage
-eastus2stage
-northcentralusstage
-southcentralusstage
-westusstage
-westus2stage
-asia
-asiapacific
-australia
-brazil
-canada
-europe
-france
-germany
-global
-india
-israel
-italy
-japan
-korea
-newzealand
-norway
-poland
-qatar
-singapore
-southafrica
-sweden
-switzerland
-uae
-uk
-unitedstates
-unitedstateseuap
-eastasiastage
-southeastasiastage
-brazilus
-eastus2
-eastusstg
-northcentralus
-westus
-japanwest
-jioindiawest
-centraluseuap
-eastus2euap
-southcentralusstg
-westcentralus
-southafricawest
-australiacentral
-australiacentral2
-australiasoutheast
-jioindiacentral
-koreasouth
-southindia
-westindia
-canadaeast
-francesouth
-germanynorth
-norwaywest
-switzerlandwest
-ukwest
-uaecentral
-brazilsoutheast
+East US|eastus
+South Central US|southcentralus
+West US 2|westus2
+West US 3|westus3
+Australia East|australiaeast
+Southeast Asia|southeastasia
+North Europe|northeurope
+Sweden Central|swedencentral
+UK South|uksouth
+West Europe|westeurope
+Central US|centralus
+South Africa North|southafricanorth
+Central India|centralindia
+East Asia|eastasia
+Japan East|japaneast
+Korea Central|koreacentral
+New Zealand North|newzealandnorth
+Canada Central|canadacentral
+France Central|francecentral
+Germany West Central|germanywestcentral
+Italy North|italynorth
+Norway East|norwayeast
+Poland Central|polandcentral
+Spain Central|spaincentral
+Switzerland North|switzerlandnorth
+Mexico Central|mexicocentral
+UAE North|uaenorth
+Brazil South|brazilsouth
+Israel Central|israelcentral
+Qatar Central|qatarcentral
+Central US Stage|centralusstage
+East US Stage|eastusstage
+East US 2 Stage|eastus2stage
+North Central US Stage|northcentralusstage
+South Central US Stage|southcentralusstage
+West US Stage|westusstage
+West US 2 Stage|westus2stage
+Asia|asia
+Asia Pacific|asiapacific
+Australia|australia
+Brazil|brazil
+Canada|canada
+Europe|europe
+France|france
+Germany|germany
+Global|global
+India|india
+Israel|israel
+Italy|italy
+Japan|japan
+Korea|korea
+New Zealand|newzealand
+Norway|norway
+Poland|poland
+Qatar|qatar
+Singapore|singapore
+South Africa|southafrica
+Sweden|sweden
+Switzerland|switzerland
+UAE|uae
+UK|uk
+United States|unitedstates
+United States EUAP|unitedstateseuap
+East Asia Stage|eastasiastage
+Southeast Asia Stage|southeastasiastage
+Brazil Southeast|brazilsoutheast
+East US 2|eastus2
+East US STG|eastusstage
+North Central US|northcentralus
+West US|westus
+Japan West|japanwest
+Jio India West|jioindiawest
+Central US EUAP|centraluseuap
+East US 2 EUAP|eastus2euap
+South Central US STG|southcentralusstage
+West Central US|westcentralus
+South Africa West|southafricawest
+Australia Central|australiacentral
+Australia Central 2|australiacentral2
+Australia Southeast|australiasoutheast
+Jio India Central|jioindiacentral
+Korea South|koreasouth
+South India|southindia
+West India|westindia
+Canada East|canadaeast
+France South|francesouth
+Germany North|germanynorth
+Norway West|norwaywest
+Switzerland West|switzerlandwest
+UK West|ukwest
+UAE Central|uaecentral
+Brazil Southeast|brazilsoutheast
