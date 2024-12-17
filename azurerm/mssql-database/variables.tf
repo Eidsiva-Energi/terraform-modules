@@ -1,7 +1,11 @@
 variable "name" {
   validation {
-    condition     = var.name == "" || (can(regex("^[^<>*%&:\\/?]+$", var.name)) && length(var.name) <= 128 && length(var.name) >= 1)
-    error_message = "Invalid name. Name must not contain any of the following characters: <, >, *, %, &, :, \\, /, ?. Name must be between 1 and 128 characters long."
+    condition     = var.name == "" || (can(regex("^[^<>*%&:\\/?]+$", var.name)))
+    error_message = "Invalid name. Name must not contain any of the following characters: <, >, *, %, &, :, \\, /, ?."
+  }
+  validation {
+    condition     = var.name_override == "" || length(var.name_override) <= 128 && length(var.name_override) >= 1
+    error_message = "Wrong name length. Name must be between 1 and 128 characters long."
   }
 }
 
@@ -11,7 +15,7 @@ variable "name_override" {
 
   validation {
     condition     = var.name_override == "" || (can(regex("^[^<>*%&:\\/?]+$", var.name_override)) && !can(regex("[. ]$", var.name_override)))
-    error_message = "Invalid name_override. Name must not contain any of the following characters: <, >, *, %, &, :, \\, /, ?, and it must not end with a period or space. Name must be between 1 and 128 characters long."
+    error_message = "Invalid name_override. Name must not contain any of the following characters: <, >, *, %, &, :, \\, /, ?, and it must not end with a period or space."
   }
   validation {
     condition     = var.name_override == "" || length(var.name_override) <= 128 && length(var.name_override) >= 1
