@@ -1,7 +1,11 @@
 variable "name" {
   validation {
-    condition     = var.name == "" || (can(regex("^[^<>*%&:\\/?]+$", var.name)) && length(var.name) <= 128 && length(var.name) >= 1)
-    error_message = "Invalid name. Name must not contain any of the following characters: <, >, *, %, &, :, \\, /, ?. Name must be between 1 and 128 characters long."
+    condition     = var.name == "" || (can(regex("^[^<>*%&:\\/?]+$", var.name)))
+    error_message = "Invalid name. Name must not contain any of the following characters: <, >, *, %, &, :, \\, /, ?."
+  }
+  validation {
+    condition     = var.name_override == "" || length(var.name) <= 128 && length(var.name) >= 1
+    error_message = "Wrong name length. Name must be between 1 and 128 characters long."
   }
 }
 
@@ -10,8 +14,12 @@ variable "name_override" {
   default     = ""
 
   validation {
-    condition     = var.name_override == "" || (can(regex("^[^<>*%&:\\/?]+$", var.name_override)) && !can(regex("[. ]$", var.name_override)) && length(var.name_override) <= 128 && length(var.name_override) >= 1)
-    error_message = "Invalid name_override. Name must not contain any of the following characters: <, >, *, %, &, :, \\, /, ?, and it must not end with a period or space. Name must be between 1 and 128 characters long."
+    condition     = var.name_override == "" || (can(regex("^[^<>*%&:\\/?]+$", var.name_override)) && !can(regex("[. ]$", var.name_override)))
+    error_message = "Invalid name_override. Name must not contain any of the following characters: <, >, *, %, &, :, \\, /, ?, and it must not end with a period or space."
+  }
+  validation {
+    condition     = var.name_override == "" || length(var.name_override) <= 128 && length(var.name_override) >= 1
+    error_message = "name_override has wrong length, it must be between 1 and 128 characters long."
   }
 }
 
@@ -26,8 +34,8 @@ variable "location_override" {
   default     = ""
 
   validation {
-    condition     = var.location_override == "" || can(regex("^(${replace(replace(file("${path.module}/azure-locations.txt"), "\r\n", "|"), "\n", "|")})$", var.location_override))
-    error_message = "Invalid Azure location. Value must be one of the following: [${replace(replace(file("${path.module}/azure-locations.txt"), "\r\n", ", "), "\n", ", ")}]"
+    condition     = var.location_override == "" || can(regex("^(${replace(replace(file("${path.module}/../allowed-azure-locations.txt"), "\r\n", "|"), "\n", "|")})$", var.location_override))
+    error_message = "Invalid Azure location. Value must be one of the following: [${replace(replace(file("${path.module}/../allowed-azure-locations.txt"), "\r\n", ", "), "\n", ", ")}]"
   }
 }
 
@@ -40,8 +48,8 @@ variable "sku_name" {
   default     = "GP_S_Gen5_2"
 
   validation {
-    condition     = var.sku_name == "" || can(regex("^(${replace(replace(file("${path.module}/db-skus-westeurope.txt"), "\r\n", "|"), "\n", "|")})$", var.sku_name))
-    error_message = "Invalid SKU name. Value must be one of the following: [${replace(replace(file("${path.module}/db-skus-westeurope.txt"), "\r\n", ", "), "\n", ", ")}]"
+    condition     = var.sku_name == "" || can(regex("^(${replace(replace(file("${path.module}/allowed-db-skus.txt"), "\r\n", "|"), "\n", "|")})$", var.sku_name))
+    error_message = "Invalid SKU name. Value must be one of the following: [${replace(replace(file("${path.module}/allowed-db-skus.txt"), "\r\n", ", "), "\n", ", ")}]"
   }
 }
 
