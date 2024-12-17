@@ -4,7 +4,7 @@ variable "name" {
     error_message = "Invalid name. Name must not contain any of the following characters: <, >, *, %, &, :, \\, /, ?."
   }
   validation {
-    condition     = var.name_override == "" || length(var.name_override) <= 128 && length(var.name_override) >= 1
+    condition     = var.name_override == "" || length(var.name) <= 128 && length(var.name) >= 1
     error_message = "Wrong name length. Name must be between 1 and 128 characters long."
   }
 }
