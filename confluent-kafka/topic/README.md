@@ -3,14 +3,12 @@ A module for defining topics and schemas in Kafka clusters owned by the Eidsiva 
 
 
 ## Topics
-* All topics are owned by a single domain e.g. HR
-* Topic names follow this convention: {public||private}.{domain}.{system}.{data_name}
+* Topic names follow this convention: {public||private}.{system}.{data_name}
   * Public/Private signify whether or not a topic contains data that is relevant to consumers outside of the domain.
-  * Note that consumers outside of a given domain are not blocked from consuming topics marked private.
 
 
 ### Example 1
-This example defines a topic named `public.hr.ifs.employeeworklocation` with a `mdmx-ticket-updater` as a consumer. The topic retains its messages for 7 days.
+This example defines a topic named `public.ifs.employeeworklocation` with a `mdmx-ticket-updater` as a consumer. The topic retains its messages for 7 days.
 
 
 ```c
@@ -24,7 +22,6 @@ module "test-kafka" {
     schema_registry_config = local.schema_registry_config
     service_account_map    = confluent_service_account.system
 
-    domain = "hr"
     system = "ifs"
     data_name = "employeeworklocation"
 
@@ -50,7 +47,6 @@ NOTE: All variables without a default value needs to be given a value in your te
 
 | **Variable**              | **Description**                                                                                                 | **Type**      | **Default**               |
 |---------------------------|-----------------------------------------------------------------------------------------------------------------|---------------|---------------------------|
-| `domain`                  | The domain that owns the topic and contract.                                                                    | `string`      | N/A                       |
 | `system`                  | The system that owns the topic and contract. Only this system can publish to the topic.                         | `string`      | N/A                       |
 | `data_name`               | The name of the data or event type. Should describe the contents of the topic to potential consumers.           | `string`      | N/A                       |
 | `is_public`               | Prefixes topic with `public` or `private`. Informs potentials consumers if the  topic is intended for use outside the domain.   | `boolean` | `true`        |
