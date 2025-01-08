@@ -85,7 +85,34 @@ Below are some examples schema files.
   "type": "object",
   "additionalProperties": false,
   "properties": {
-
+    "stringPropertyName": {
+      "type": "string",
+      "description": "A description of what this string property represents"
+    },
+    "numberPropertyName": {
+      "type": "number",
+      "description": "A description of what this number property represents. This property type is meant for floating-point numbers."
+    },
+    "integerPropertyName": {
+      "type": "integer",
+      "description": "A description of what this integer property represents. This property type is meant for whole numbers."
+    },
+    "booleanPropertyName": {
+      "type": "boolean",
+      "description": "A description of what this boolean property represents. This property type is meant for true or false values."
+    },
+    "arrayPropertyName": {
+      "type": "array",
+      "description": "A description of what this array property represents. This property type represents a list of items that can be of any type, including nested arrays."
+    },
+    "objectPropertyName": {
+      "type": "object",
+      "description": "A description of what this object property represents. This property type represents a collection of key-value pairs. The keys are strings, but the values van be of any type, including nested objects."
+    },
+    "nullPropertyName": {
+      "type": "null",
+      "description": "A description of what this null property represents. This property type represents a null value. This type is intended to be used with a anyOf or oneOf keyword to represent an optional or nullable property."
+    }
   }
 }
 ```
