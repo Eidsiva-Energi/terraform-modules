@@ -169,14 +169,14 @@ The only exception to this rule is if the variable `schema.use_producer_defined`
 ```
 
 #### JSON properties
-| **Property type**         | **Description**                                                                                                                                             |
-|---------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `string`                  | A string property sotres a sequence of characters. Used for names etc.                                                                                      |
-| `number`                  | Stores floating-point numbers. If you are storing whole numbers, `integer` is perfered.                                                                     |
-| `integer`                 | Stores whole numbers.                                                                                                                                       |
-| `boolean`                 | Stores a true/false value.                                                                                                                                  |
-| `array`                   | Stores a list of items. These items can be of any type, including nested arrays.                                                                            |
-| `object`                  | Stores an object that consists of a number of key-value pairs. The keys must always be strings, but the values can be of any type, including nested objects.|
-| `null `                   | Stores a null value. This is often used in conjunction with another property type to create a nullable property.                                            |
+| **Property type** | **Description**                                                                                                                                             |
+|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `string`          | A string property sotres a sequence of characters. Used for names etc.                                                                                      |
+| `number`          | Stores floating-point numbers. If you are storing whole numbers, `integer` is perfered.                                                                     |
+| `integer`         | Stores whole numbers.                                                                                                                                       |
+| `boolean`         | Stores a true/false value.                                                                                                                                  |
+| `array`           | Stores a list of items. These items can be of any type, including nested arrays.                                                                            |
+| `object`          | Stores an object that consists of a number of key-value pairs. The keys must always be strings, but the values can be of any type, including nested objects.|
+| `null `           | Stores a null value. This is often used in conjunction with another property type to create a nullable property.                                            |
 
 TODO: https://docs.confluent.io/platform/current/schema-registry/fundamentals/serdes-develop/serdes-json.html#object-compatibility
