@@ -107,11 +107,54 @@ Below are some examples schema files.
     },
     "objectPropertyName": {
       "type": "object",
-      "description": "A description of what this object property represents. This property type represents a collection of key-value pairs. The keys are strings, but the values van be of any type, including nested objects."
+      "description": "A description of what this object property represents. This property type represents a collection of key-value pairs. The keys are strings, but the values van be of any type, including nested objects.",
+      "properties": {
+        "firstChildProperty": {
+          "type": "string"
+        },
+        "secondChildProperty": {
+          "type": "integer"
+        }
+      }
     },
     "nullPropertyName": {
       "type": "null",
       "description": "A description of what this null property represents. This property type represents a null value. This type is intended to be used with a anyOf or oneOf keyword to represent an optional or nullable property."
+    },
+    "nullablePropertyName": {
+      "type": [
+        "null",
+        "string"
+      ],
+      "description": "A description of what this nullable property represents. This property setup is used when a property is optional."
+    },
+    "objectPropertyWithMultipleSchemasName": {
+      "description": "A description of what this object property with multiple allowed schemas represents.",
+      "oneOf": [
+        {
+          "properties": {
+            "firstChildProperty": {
+              "type": "string"
+            },
+            "secondChildProperty": {
+              "type": "integer"
+            }
+          }
+        },
+        {
+          "properties": {
+            "firstChildProperty": {
+              "type": "string"
+            },
+            "secondChildProperty": {
+              "type": "number"
+            },
+            "thirdChildProperty": {
+              "type": "array"
+            }
+          }
+        }
+      ]
     }
   }
 }
