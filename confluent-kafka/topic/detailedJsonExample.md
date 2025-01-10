@@ -95,6 +95,7 @@ Below is an example of a schema that uses every property option.
 }
 ```
 ## JSON schema variables
+This table describes all the variables that are required to make a JSON schema.
 | **Variable**  | **Description**                                                                                                                                                 |
 |---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `$schema`     | Determines the version of the JSON schema specification that the validator should use to validate your schema.                                                  |
@@ -102,7 +103,7 @@ Below is an example of a schema that uses every property option.
 | `description` | A short description of what data your topic provides. This is meant to be descriptive enough to be used for discoverability by other teams in the Eidsiva Group.|
 | `type`        | The type of the message values on the topics, currently the only alowed type is `object`.                                                                       |
 | `additionalProperties` | Determines if the schema will allow message properties that are not defined in the properties variable. By default, this should be set to `false` as it leads to stricter message validation.|
-| `properties`  | The allowed properties that make up the messages sendt on the topic.                                                                                            |
+| `properties`  | The allowed properties that make up the messages sent on the topic. A list of the different types of properties can be found (here)[## JSON properties].        |
 
 ## JSON properties
 | **Property type** | **Description**                                                                                                                                             |
@@ -115,6 +116,4 @@ Below is an example of a schema that uses every property option.
 | `object`          | Stores an object that consists of a number of key-value pairs. The keys must always be strings, but the values can be of any type, including nested objects.|
 | `null `           | Stores a null value. This is often used in conjunction with another property type to create a nullable property.                                            |
 
-
-
-TODO: https://docs.confluent.io/platform/current/schema-registry/fundamentals/serdes-develop/serdes-json.html#object-compatibility
+## Nullable 
