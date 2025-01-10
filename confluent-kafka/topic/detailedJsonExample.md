@@ -103,7 +103,7 @@ This table describes all the variables that are required to make a JSON schema.
 | `description` | A short description of what data your topic provides. This is meant to be descriptive enough to be used for discoverability by other teams in the Eidsiva Group.|
 | `type`        | The type of the message values on the topics, currently the only alowed type is `object`.                                                                       |
 | `additionalProperties` | Determines if the schema will allow message properties that are not defined in the properties variable. By default, this should be set to `false` as it leads to stricter message validation.|
-| `properties`  | The allowed properties that make up the messages sent on the topic. A list of the different types of properties can be found [here](## JSON properties).        |
+| `properties`  | The allowed properties that make up the messages sent on the topic. A list of the different types of properties can be found [here](#JSON-properties).        |
 
 ## JSON properties
 | **Property type** | **Description**                                                                                                                                             |
