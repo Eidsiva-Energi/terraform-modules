@@ -61,35 +61,6 @@ Below is an example of a schema that uses every property option.
         "string"
       ],
       "description": "A description of what this nullable property represents. This property setup is used when a property is optional."
-    },
-
-    "objectPropertyWithMultipleSchemasName": {
-      "description": "A description of what this object property with multiple allowed schemas represents.",
-      "oneOf": [
-        {
-          "properties": {
-            "firstChildProperty": {
-              "type": "string"
-            },
-            "secondChildProperty": {
-              "type": "integer"
-            }
-          }
-        },
-        {
-          "properties": {
-            "firstChildProperty": {
-              "type": "string"
-            },
-            "secondChildProperty": {
-              "type": "number"
-            },
-            "thirdChildProperty": {
-              "type": "array"
-            }
-          }
-        }
-      ]
     }
   }
 }
@@ -116,4 +87,55 @@ This table describes all the variables that are required to make a JSON schema.
 | `object`          | Stores an object that consists of a number of key-value pairs. The keys must always be strings, but the values can be of any type, including nested objects.|
 | `null `           | Stores a null value. This is often used in conjunction with another property type to create a nullable property.                                            |
 
-## Nullable 
+## Nullable/optional properties
+
+You can define a nullable or optional property by combining the `null` property with any of the other property types like this:
+
+```JSON
+"properties": {
+
+  "propertyName": {
+    "description": "descriptive description",
+    "type": [
+      "null",
+      "string"
+    ]
+  }
+}
+```
+
+## Object property with multiple schemas
+Object properties can be configured to accept multiple schemas. This is done using the `oneOf` keyword. The keyword allows an array as an input with several property types.
+
+```JSON
+"properties": {
+  "objectPropertyWithMultipleSchemasName": {
+    "description": "A description of what this object property with multiple allowed schemas represents.",
+    "oneOf": [
+      {
+        "properties": {
+          "firstChildProperty": {
+            "type": "string"
+          },
+          "secondChildProperty": {
+            "type": "integer"
+          }
+        }
+      },
+      {
+        "properties": {
+          "firstChildProperty": {
+            "type": "string"
+          },
+          "secondChildProperty": {
+            "type": "number"
+          },
+          "thirdChildProperty": {
+            "type": "array"
+          }
+        }
+      }
+    ]
+  }
+}
+```
