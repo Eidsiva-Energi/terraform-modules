@@ -1,6 +1,8 @@
-### JSON
+# JSON Schema - advanced example
+In this document, we explain, in detail, all the different options availible for JSON schemas.
 
-#### JSON schema example
+## JSON schema example
+Below is an example of a schema that uses every property option.
 ```json
 {
   "$schema": "http://json-schema.org/draft-07/schema#",
@@ -92,8 +94,17 @@
   }
 }
 ```
+## JSON schema variables
+| **Variable**  | **Description**                                                                                                                                                 |
+|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `$schema`     | Determines the version of the JSON schema specification that the validator should use to validate your schema.                                                  |
+| `title`       | The name of your schema. If your topic delivers a data product, the schema title should be the name of your data product.                                       |
+| `description` | A short description of what data your topic provides. This is meant to be descriptive enough to be used for discoverability by other teams in the Eidsiva Group.|
+| `type`        | The type of the message values on the topics, currently the only alowed type is `object`.                                                                       |
+| `additionalProperties` | Determines if the schema will allow message properties that are not defined in the properties variable. By default, this should be set to `false` as it leads to stricter message validation.|
+| `properties`  | The allowed properties that make up the messages sendt on the topic.                                                                                            |
 
-#### JSON properties
+## JSON properties
 | **Property type** | **Description**                                                                                                                                             |
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `string`          | A string property sotres a sequence of characters. Used for names etc.                                                                                      |
@@ -103,5 +114,7 @@
 | `array`           | Stores a list of items. These items can be of any type, including nested arrays.                                                                            |
 | `object`          | Stores an object that consists of a number of key-value pairs. The keys must always be strings, but the values can be of any type, including nested objects.|
 | `null `           | Stores a null value. This is often used in conjunction with another property type to create a nullable property.                                            |
+
+
 
 TODO: https://docs.confluent.io/platform/current/schema-registry/fundamentals/serdes-develop/serdes-json.html#object-compatibility
