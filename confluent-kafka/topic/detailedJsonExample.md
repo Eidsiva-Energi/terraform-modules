@@ -1,4 +1,4 @@
-# JSON Schema - advanced example
+# JSON Schema - Advanced Example
 In this document, we explain, in detail, all the different options availible for JSON schemas.
 
 ## JSON schema example
