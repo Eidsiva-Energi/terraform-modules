@@ -36,7 +36,7 @@ variable "account_key" {
 
 variable "input_data_format" {
   validation {
-    condition     = (contains(["JSON", "AVRO", "JSON_SR", "BYTES"], var.data_format))
+    condition     = (contains(["JSON", "AVRO", "JSON_SR", "BYTES"], var.intout_data_format))
     error_message = "The format must be either JSON, AVRO, JSON_SR, or BYTES."
   }
   default = "JSON"
@@ -44,7 +44,7 @@ variable "input_data_format" {
 
 variable "output_data_format" {
   validation {
-    condition     = (contains(["JSON", "AVRO", "JSON_SR", "BYTES"], var.data_format))
+    condition     = (contains(["JSON", "AVRO", "JSON_SR", "BYTES"], var.output_data_format))
     error_message = "The format must be either JSON, AVRO, JSON_SR, or BYTES."
   }
   default = "JSON"
