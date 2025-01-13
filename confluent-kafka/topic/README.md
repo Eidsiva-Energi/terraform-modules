@@ -102,7 +102,6 @@ Our Kafka platform also supports AVRO schemas/messages. Below is a basic schema 
 ```JSON
 {
   "type": "record",
-  "namespace": "com.mycorp.mynamespace",
   "name": "sampleRecord",
   "doc": "Sample schema to help you get started.",
   "fields": [
