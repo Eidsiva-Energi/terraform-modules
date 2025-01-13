@@ -107,7 +107,7 @@ Our Kafka platform also supports AVRO schemas/messages. Below is a basic schema 
   "fields": [
     {
       "name": "stringFieldName",
-      "type": "string",     #Type can also be null, boolean, int, long, float, double, bytes, record, enum, array, map, date, time-millis, time-micros, timestamp-millis, timestamp-micros, decimal, uuid, or list of types like [null, string]
+      "type": "string",     #Type can also be null, boolean, int, long, float, double, bytes, record, enum, array, map, or list of types like [null, string]
       "doc": "The string is a unicode character sequence."
     }
   ]
