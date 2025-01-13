@@ -114,4 +114,6 @@ Our Kafka platform also supports AVRO schemas/messages. Below is a basic schema 
   ]
 }
 ```
+#### Advanced AVRON
+For a more detailed explination of all the different schema options, check out: [More advanced AVRO schema options](detailedAvroExample.md)
 
