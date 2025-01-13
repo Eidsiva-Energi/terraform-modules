@@ -79,7 +79,7 @@ This table describes all the variables that are required to make a JSON schema.
 ## JSON properties
 | **Property type** | **Description**                                                                                                                                             |
 |-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `string`          | A string property stores a sequence of characters. Used for names etc.                                                                                      |
+| `string`          | A string property stores a sequence of characters. Used for names, etc.                                                                                      |
 | `number`          | Stores floating-point numbers. If you are storing whole numbers, `integer` is perfered.                                                                     |
 | `integer`         | Stores whole numbers.                                                                                                                                       |
 | `boolean`         | Stores a true/false value.                                                                                                                                  |
