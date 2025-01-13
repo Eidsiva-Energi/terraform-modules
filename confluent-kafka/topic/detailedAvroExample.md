@@ -14,42 +14,105 @@ Below are three sample schemas showing of the different record fields that can b
     {
       "name": "nullFieldName",
       "type": "null",
-      "doc": "A description of what this null type represents. This type is typically used to declare a nullable or optional field."      
+      "doc": "A description of what this null field represents. This type is typically used to declare a nullable or optional field."      
     },
     {
       "name": "stringFieldName",
       "type": "string",
-      "doc": "A description of what this string type represents."      
+      "doc": "A description of what this string field represents."      
     },
     {
       "name": "booleanFieldName",
       "type": "boolean",
-      "doc": "A description of what this boolean type represents."      
+      "doc": "A description of what this boolean field represents."      
     },
     {
       "name": "intFieldName",
       "type": "int",
-      "doc": "A description of what this int type represents."      
+      "doc": "A description of what this int field represents."      
     },
     {
       "name": "longFieldName",
       "type": "long",
-      "doc": "A description of what this long type represents."      
+      "doc": "A description of what this long field represents."      
     },
     {
       "name": "floatFieldName",
       "type": "float",
-      "doc": "A description of what this float type represents."      
+      "doc": "A description of what this float field represents."      
     },
     {
       "name": "doubleFieldName",
       "type": "double",
-      "doc": "A description of what this double type represents."      
+      "doc": "A description of what this double field represents."      
     },
     {
       "name": "bytesFieldName",
       "type": "bytes",
-      "doc": "A description of what this bytes type represents."      
+      "doc": "A description of what this bytes field represents."      
+    }
+  ]
+}
+```
+
+### Complex types example
+```json
+{
+  "name": "Topic name",
+  "doc": "A consise description of what the topic contains an what it is intended to be used for.",
+  "type": "record",
+  "fields": [
+    {
+      "name": "recordFieldName",
+      "type": {
+        "type": "record",
+        "name": "recordFieldName",
+        "fields": [
+          {
+            "name": "childField_1",
+            "type": "string"
+          },
+          {
+            "name": "childField_2",
+            "type": "int"
+          }
+        ]
+      },
+      "doc": "A description of what this record field represents."
+    },
+    {
+      "name": "enumFieldName",
+      "type" : {
+        "type": "enum",
+        "name": "enumFieldName",
+        "symbols": ["ACTIVE", "INACTIVE", "PENDING"]
+      },
+      "doc": "A description of what this enum field represents."
+    },
+    {
+      "name": "arrayFieldName",
+      "type" : {
+        "type": "array",
+        "items": "string"
+      },
+      "doc": "A description of what this array field represents. This array only allows strings"
+    },
+    {
+      "name": "mapFieldName",
+      "type" : {
+        "type": "map",
+        "values": [
+          "string", 
+          "int",
+          "long"
+        ]
+      },
+      "doc": "A description of what this map field represents. This map allows strings, ints, and longs"
+    },
+    {
+      "name": "nullableFieldName",
+      "type" : ["string", "null"],
+      "doc": "A description of what this nullable field represents. The value of this field can either be a string or null"
     },
   ]
 }
