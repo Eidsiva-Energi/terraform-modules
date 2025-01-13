@@ -93,6 +93,7 @@ The most common schema type is JSON schema. Below is a basic schema example:
   }
 }
 ```
+#### Advanced JSON
 For a more detailed explination of all the different schema options, check out: [More advanced JSON schema options](detailedJsonExample.md)
 
 ### AVRO
