@@ -94,7 +94,7 @@ The most common schema type is JSON schema. Below is a basic schema example:
 }
 ```
 #### Advanced JSON
-For a more detailed explination of all the different schema options, check out: [More advanced JSON schema options](detailedJsonExample.md)
+For a more detailed explanation of all the different schema options, check out: [More advanced JSON schema options](detailedJsonExample.md)
 
 ### AVRO
 Our Kafka platform also supports AVRO schemas/messages. Below is a basic schema example:
@@ -114,5 +114,5 @@ Our Kafka platform also supports AVRO schemas/messages. Below is a basic schema 
 }
 ```
 #### Advanced AVRON
-For a more detailed explination of all the different schema options, check out: [More advanced AVRO schema options](detailedAvroExample.md)
+For a more detailed explanation of all the different schema options, check out: [More advanced AVRO schema options](detailedAvroExample.md)
 
