@@ -86,7 +86,7 @@ The most common schema type is JSON schema. Below is a basic schema example:
   "properties": {
   
     "stringPropertyName": {
-      "type": "string",     #Type can also be number, integer, boolean, array, object or list of types like [null, string]
+      "type": "string",     #Type can also be number, integer, boolean, array, object, or list of types like [null, string]
       "description": "A description of what this string property represents"
       
     }
