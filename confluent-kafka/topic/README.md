@@ -97,7 +97,7 @@ The most common schema type is JSON schema. Below is a basic schema example:
 For a more detailed explination of all the different schema options, check out: [More advanced JSON schema options](detailedJsonExample.md)
 
 ### AVRO
-Our Kafka platform also supports AVRO schemas/messages. Below is a basic schema example
+Our Kafka platform also supports AVRO schemas/messages. Below is a basic schema example:
 
 ```JSON
 {
@@ -107,18 +107,8 @@ Our Kafka platform also supports AVRO schemas/messages. Below is a basic schema 
   "doc": "Sample schema to help you get started.",
   "fields": [
     {
-      "name": "my_field1",
-      "type": "int",
-      "doc": "The int type is a 32-bit signed integer."
-    },
-    {
-      "name": "my_field2",
-      "type": "double",
-      "doc": "The double type is a double precision (64-bit) IEEE 754 floating-point number."
-    },
-    {
-      "name": "my_field3",
-      "type": "string",
+      "name": "stringFieldName",
+      "type": "string",     #Type can also be null, boolean, int, long, float, double, bytes, record, enum, array, map, date, time-millis, time-micros, timestamp-millis, timestamp-micros, decimal, uuid, or list of types like [null, string]
       "doc": "The string is a unicode character sequence."
     }
   ]
