@@ -118,106 +118,28 @@ Below are three sample schemas showing of the different record fields that can b
 }
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-## JSON schema variables
+## AVRO schema variables
 This table describes all the variables that are required to make a JSON schema.
-| **Variable**  | **Description**                                                                                                                                                 | **Default** |
-|---------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
-| `$schema`     | Determines the version of the JSON schema specification that the validator should use to validate your schema.                                                  | N/A         |
-| `title`       | The name of your schema. If your topic delivers a data product, the schema title should be the name of your data product.                                       | N/A         |
-| `description` | A short description of what data your topic provides. This is meant to be descriptive enough to be used for discoverability by other teams in the Eidsiva Group.| N/A         |
-| `type`        | The type of the message values on the topics, currently the only alowed type is `object`.                                                                       | N/A         |
-| `additionalProperties`| Determines if the schema will allow message properties that are not defined in the properties variable. This should be set to `false` as it leads to stricter message validation and prevents errors in connectors.|`true`|
-| `properties`  | The allowed properties that make up the messages sent on the topic. A list of the different types of properties can be found [here](#JSON-properties).          | N/A         |
+| **Variable** | **Description**                                                                                                                                                 | **Default** |
+|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------|
+| `type`       | The type of the message values on the topic, currently the only allowed type is `object`                                                                        | N/A         |
+| `name`       | The name of your schema. If your topic delivers a data product, the schema title should be the name of your data product.                                       | N/A         |
+| `doc`        | A hort description of what data your topic provides. This is meant to be descriptive enough to be used for discoverability by other teams in the Eidsiva Group. | N/A         |
+| `fields`     | The allowed fields that make up the messages sent on the topic. A list of the different field types can be found [here](#avro-types).                           | N/A         |
 
-## JSON properties
-| **Property type** | **Description**                                                                                                                                             |
-|-------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `string`          | A string property sotres a sequence of characters. Used for names etc.                                                                                      |
-| `number`          | Stores floating-point numbers. If you are storing whole numbers, `integer` is perfered.                                                                     |
-| `integer`         | Stores whole numbers.                                                                                                                                       |
-| `boolean`         | Stores a true/false value.                                                                                                                                  |
-| `array`           | Stores a list of items. These items can be of any type, including nested arrays.                                                                            |
-| `object`          | Stores an object that consists of a number of key-value pairs. The keys must always be strings, but the values can be of any type, including nested objects.|
-| `null `           | Stores a null value. This is often used in conjunction with another property type to create a nullable property.                                            |
 
-## Nullable/optional properties
-
-You can define a nullable or optional property by combining the `null` property with any of the other property types like this:
-
-```JSON
-"properties": {
-
-  "propertyName": {
-    "description": "descriptive description",
-    "type": [
-      "null",
-      "string"
-    ]
-  }
-}
-```
-
-## Object property with multiple schemas
-Object properties can be configured to accept multiple schemas. This is done using the `oneOf` keyword. The keyword allows an array as an input with several property types.
-
-```JSON
-"properties": {
-  "objectPropertyWithMultipleSchemasName": {
-    "description": "A description of what this object property with multiple allowed schemas represents.",
-    "oneOf": [
-      {
-        "properties": {
-          "firstChildProperty": {
-            "type": "string"
-          },
-          "secondChildProperty": {
-            "type": "integer"
-          }
-        }
-      },
-      {
-        "properties": {
-          "firstChildProperty": {
-            "type": "string"
-          },
-          "secondChildProperty": {
-            "type": "number"
-          },
-          "thirdChildProperty": {
-            "type": "array"
-          }
-        }
-      }
-    ]
-  }
-}
-```
+## AVRO types
+| **Field Type**  | **Description**                                                                                                               |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------|
+| `string`        | Stores a sequence of characters. Used for text data.                                                                          |
+| `null`          | Stores a null value. This is often used in conjunction with another field type to create a nullable/optional field.           |
+| `boolean`       | Stores a true/false value.                                                                                                    |
+| `int`           | Stores a 32-bit whole number.                                                                                                 |
+| `long`          | Stores a 64-bit whole number.                                                                                                 |
+| `float`         | Stores a single-precision 32-bit floating point number.                                                                       |
+| `double`        | Stores a single-precision 64-bit floating point number.                                                                       |
+| `bytes`         | Stores a sequence of bytes. Used for binary data.                                                                             |
+| `record`        | Stores a collection of fields (key-value pairs). The fields can be of any type, including nested records.                     |
+| `enum`          | Stores a string that has one of a set of defined values. For example OPEN, CLOSED, or INVALID.                                |
+| `array`         | Stores a collection of values of a single type.                                                                               |
+| `map`           | Stores a collection of key-value pairs. The keys must be strings, but the values can be of any type as defined by the schema. |
