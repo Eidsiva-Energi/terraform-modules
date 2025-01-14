@@ -108,12 +108,7 @@ Below are three sample schemas showing of the different record fields that can b
         ]
       },
       "doc": "A description of what this map field represents. This map allows strings, ints, and longs"
-    },
-    {
-      "name": "nullableFieldName",
-      "type" : ["string", "null"],
-      "doc": "A description of what this nullable field represents. The value of this field can either be a string or null"
-    },
+    }
   ]
 }
 ```
@@ -143,3 +138,13 @@ This table describes all the variables that are required to make a JSON schema.
 | `enum`          | Stores a string that has one of a set of defined values. For example OPEN, CLOSED, or INVALID.                                |
 | `array`         | Stores a collection of values of a single type.                                                                               |
 | `map`           | Stores a collection of key-value pairs. The keys must be strings, but the values can be of any type as defined by the schema. |
+
+## Nullable/optional fields
+Below is an example of how to create a nullable or optional field by using the `null` type:
+```JSON
+{
+  "name": "nullableFieldName",
+  "type" : ["string", "null"],
+  "doc": "A description of what this nullable field represents. The value of this field can either be a string or null"
+},
+```
