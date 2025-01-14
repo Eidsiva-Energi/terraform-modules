@@ -69,9 +69,11 @@ NOTE: All variables without a default value needs to be given a value in your te
 - `schema.path`: If you are using an URL, it must be HTTPS.
 
 ## Schema
-Every topic requires a schema. This schema can either be a JSON or AVRO schema. The schema is defined in a json-file that the topic definition needs to point to using the `schema.path` variable. 
+Every topic requires a schema, which can be either a JSON or AVRO schema. The schema is defined in a json-file that the topic definition needs to point to using the `schema.path` variable.
 
-The only exception to this rule is if the variable `schema.use_producer_defined` is set to `true`. In this case, it is expected that the producer will define the schema in the first message on the topic.
+The `schema.path` variable can point to a file in the same repository as the Terraform file using this module. It can also point to an URL where the file is hosted, such as a raw.github.com URL. In this case, the URL must be publically accessible.
+
+The only exception to this requirement is if the variable `schema.use_producer_defined` is set to `true`. In this case, it is expected that the producer will define the schema in the first message on the topic.
 
 ### JSON
 The most common schema type is JSON schema. Below is a basic schema example:
