@@ -47,5 +47,5 @@ variable "account_kind" {
 
 variable "properties" {
   default = {}
-  type    = object()
+  type    = object({})
 }
