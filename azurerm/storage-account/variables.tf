@@ -12,6 +12,9 @@ variable "location_override" {
   type    = string
 }
 
+variable "resource_group" {
+}
+
 variable "environment" {
   type = string
 }
