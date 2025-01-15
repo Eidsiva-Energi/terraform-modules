@@ -44,3 +44,8 @@ variable "account_kind" {
     error_message = "'${var.account_kind}' is an invalid account kind. Value must be one of the following: [BlobStorage, BlockBlocStorage, FileStorage, Storage, StorageV2]"
   }
 }
+
+variable "properties" {
+  default = {}
+  type    = object()
+}

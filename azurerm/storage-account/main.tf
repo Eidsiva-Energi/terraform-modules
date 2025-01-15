@@ -11,3 +11,8 @@ resource "azurerm_storage_account" "storage_account" {
   account_replication_type = var.account_replication_type
   account_kind             = var.account_kind
 }
+
+resource "azurerm_storage_data_lake_gen2_filesystem" "data_lake" {
+  name               = "${azurerm_storage_account.storage_account.name}-data-lake"
+  storage_account_id = azurerm_storage_account.storage_account.id
+}
