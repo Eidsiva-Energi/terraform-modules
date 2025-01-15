@@ -31,16 +31,16 @@ resource "confluent_kafka_topic" "topic" {
 }
 
 
-# ###############################
-# # consumer acl
-# ###############################
+###############################
+# consumer acl
+###############################
 resource "confluent_kafka_acl" "consumers_consumer_group" {
   for_each = local.consumers
 
   kafka_cluster {
     id = var.cluster_id
   }
-  resource_name = "${confluent_kafka_topic.topic.topic_name}-${each.value.system_name}.${each.value.application_name}"
+  resource_name = "${each.value.system_name}.${each.value.application_name}"
   resource_type = "GROUP"
   pattern_type  = "LITERAL"
   principal     = "User:${var.service_account_map[each.value.system_name].id}"
@@ -56,7 +56,7 @@ resource "confluent_kafka_acl" "consumers_consumer_group_allow_topic_system_read
   kafka_cluster {
     id = var.cluster_id
   }
-  resource_name = "${confluent_kafka_topic.topic.topic_name}-${each.value.system_name}.${each.value.application_name}"
+  resource_name = "${each.value.system_name}.${each.value.application_name}"
   resource_type = "GROUP"
   pattern_type  = "LITERAL"
   principal     = "User:${var.service_account_map[var.system].id}"
