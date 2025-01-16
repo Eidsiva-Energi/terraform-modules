@@ -1,5 +1,10 @@
 variable "name" {
   type = string
+
+  validation {
+    condition     = can(regex("^[a-z0-9]{3,24}$", var.name))
+    error_message = "${var.name} is an invalid name. The name must be between 3 and 24 characters long and contain only lowercase letters and numbers."
+  }
 }
 
 variable "name_override" {
@@ -53,7 +58,7 @@ variable "account_kind" {
   }
 }
 
-variable "properties" {
+variable "data_lake_properties" {
   default = {}
   type    = object({})
 }
