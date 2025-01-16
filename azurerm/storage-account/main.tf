@@ -1,10 +1,6 @@
 locals {
   standard_name = "${var.name}-${var.environment}"
-  loc           = var.location_override != "" ? var.location_override : data.resource_group.location
-}
-
-data "azurerm_resource_group" "resource_group" {
-  name = var.resource_group_name
+  loc           = var.location_override != "" ? var.location_override : var.resource_group.location
 }
 
 resource "azurerm_storage_account" "storage_account" {

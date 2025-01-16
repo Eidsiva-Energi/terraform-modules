@@ -12,8 +12,12 @@ variable "location_override" {
   type    = string
 }
 
-variable "resource_group_name" {
-  type = string
+variable "resource_group" {
+  type = object({
+    name     = string
+    id       = string
+    location = string
+  })
 }
 
 variable "environment" {
