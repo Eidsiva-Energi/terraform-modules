@@ -1,5 +1,7 @@
 ### Storage Account Configuration Variables
 
+This section provides details about the configurable variables for setting up a Storage Account resource in Azure. Variables without a default value are required.
+
 | **Variable**               | **Description**                                                                                  | **Type**     | **Default** |
 |----------------------------|--------------------------------------------------------------------------------------------------|--------------|-------------|
 | `name`                     | The name of the Storage Account. Unless the override is used, the name will have the environment name tagged on at the end of the specified name.  |`string`| N/A |
