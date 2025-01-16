@@ -10,9 +10,12 @@ resource "azurerm_storage_account" "storage_account" {
   account_tier             = var.account_tier
   account_replication_type = var.account_replication_type
   account_kind             = var.account_kind
+
+  is_hns_enabled = var.is_data_lake ? true : false
 }
 
 resource "azurerm_storage_data_lake_gen2_filesystem" "data_lake" {
+  count              = var.is_data_lake ? 1 : 0
   name               = "${azurerm_storage_account.storage_account.name}-data-lake"
   storage_account_id = azurerm_storage_account.storage_account.id
 

@@ -57,3 +57,8 @@ variable "properties" {
   default = {}
   type    = object({})
 }
+
+variable "is_data_lake" {
+  default = false
+  type    = bool
+}
