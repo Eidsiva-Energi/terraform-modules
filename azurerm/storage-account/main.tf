@@ -1,5 +1,5 @@
 locals {
-  standard_name = "${var.name}-${var.environment}"
+  standard_name = "${var.name}${var.environment}"
   loc           = var.location_override != "" ? var.location_override : var.resource_group.location
 }
 
