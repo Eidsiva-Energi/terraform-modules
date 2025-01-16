@@ -11,6 +11,6 @@ This section provides details about the configurable variables for setting up a 
 | `environment`              | The environment the Storage Account runs in (e.g., dev, prod).                                   | `string`     | N/A         |
 | `account_tier`             | Sets the Tier used by the Storage Account. Can be either `"Standard"` or `"Premium"`             | `string`     | "Standard"  |
 | `account_replication_type` | Sets the replication type used by the Storage Account.                                           | `string`     | N/A         |
-| `account_kind`             | Sets what Kind of Storage Account this will be.                                                  | `string`     | "StorageV2" |
+| `account_kind`             | Sets what Kind of Storage Account this will be. Can be `BlobStorage`, `BlockBlobStorage`, `FileStorage`, `Storage`, or `StorageV2` | `string` | "StorageV2" |
 | `is_data_lake`             | Sets whether or not this Storage Account should be a Data Lake                                   | `boolean`    | `false`     |
 | `data_lake_properties`     | A mapping of key to Base54-Encoded Values which will be assigneded to the Data Lake File System. | `object({key<string>, ... })` | `object({})` |
