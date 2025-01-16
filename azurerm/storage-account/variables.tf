@@ -13,7 +13,7 @@ variable "name_override" {
 
   validation {
     condition     = can(regex("^[a-z0-9]{3,24}$", var.name_override))
-    error_message = "${var.name} is an invalid name. The name must be between 3 and 24 characters long and contain only lowercase letters and numbers."
+    error_message = "${var.name_override} is an invalid name. The name must be between 3 and 24 characters long and contain only lowercase letters and numbers."
   }
 }
 
