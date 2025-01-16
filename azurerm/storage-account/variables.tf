@@ -68,12 +68,12 @@ variable "account_kind" {
   }
 }
 
-variable "data_lake_properties" {
-  default = {}
-  type    = object({})
-}
-
 variable "is_data_lake" {
   default = false
   type    = bool
+}
+
+variable "data_lake_properties" {
+  default = {}
+  type    = object({})
 }
