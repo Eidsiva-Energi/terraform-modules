@@ -15,7 +15,8 @@ resource "azurerm_storage_account" "storage_account" {
 }
 
 resource "azurerm_storage_data_lake_gen2_filesystem" "data_lake" {
-  count              = var.is_data_lake ? 1 : 0
+  count = var.is_data_lake ? 1 : 0
+
   name               = "${azurerm_storage_account.storage_account.name}-data-lake"
   storage_account_id = azurerm_storage_account.storage_account.id
 
