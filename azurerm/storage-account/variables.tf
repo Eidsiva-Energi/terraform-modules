@@ -20,6 +20,11 @@ variable "name_override" {
 variable "location_override" {
   default = ""
   type    = string
+
+  validation {
+    condition     = var.location_override == "" || can(regex("^(${replace(replace(file("${path.module}/../allowed-azure-locations.txt"), "\r\n", "|"), "\n", "|")})$", var.location_override))
+    error_message = "Invalid Azure location. Value must be one of the following: [${replace(replace(file("${path.module}/../allowed-azure-locations.txt"), "\r\n", ", "), "\n", ", ")}]"
+  }
 }
 
 variable "resource_group" {
