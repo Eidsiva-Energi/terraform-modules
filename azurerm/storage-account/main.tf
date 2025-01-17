@@ -14,14 +14,14 @@ resource "azurerm_storage_account" "storage_account" {
   is_hns_enabled = var.is_data_lake ? true : false
 }
 
-resource "azurerm_storage_data_lake_gen2_filesystem" "data_lake" {
-  count = var.is_data_lake ? 1 : 0
-
-  name               = "${azurerm_storage_account.storage_account.name}-data-lake"
-  storage_account_id = azurerm_storage_account.storage_account.id
-
-  properties = var.data_lake_properties
-}
+//resource "azurerm_storage_data_lake_gen2_filesystem" "data_lake" {
+//  count = var.is_data_lake ? 1 : 0
+//
+//  name               = "${azurerm_storage_account.storage_account.name}-data-lake"
+//  storage_account_id = azurerm_storage_account.storage_account.id
+//
+//  properties = var.data_lake_properties
+//}
 
 resource "azurerm_storage_container" "container" {
   count = var.is_data_lake ? 0 : for_each(var.container_names)
