@@ -24,6 +24,6 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "data_lake" {
 }
 
 resource "azurerm_storage_container" "container" {
-  name               = "testContainer123"
-  storage_account_id = azurerm_storage_account.storage_account.id
+  name                 = "testContainer123"
+  storage_account_name = azurerm_storage_account.storage_account.name
 }
