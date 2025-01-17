@@ -82,11 +82,11 @@ variable "is_data_lake" {
   description = "Whether or not to create a Data Lake Gen2 filesystem in the storage account."
 }
 
-variable "data_lake_properties" {
-  default     = {}
-  type        = object({})
-  description = "The properties to apply to the Data Lake Gen2 filesystem. Only used if is_data_lake is set to true."
-}
+//variable "data_lake_properties" {
+//  default     = {}
+//  type        = object({})
+//  description = "The properties to apply to the Data Lake Gen2 filesystem. Only used if is_data_lake is set to true."
+//}
 
 variable "container_names" {
   default     = []
