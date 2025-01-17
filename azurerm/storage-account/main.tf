@@ -22,3 +22,8 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "data_lake" {
 
   properties = var.data_lake_properties
 }
+
+resource "azurerm_storage_container" "container" {
+  name               = "testContainer123"
+  storage_account_id = azurerm_storage_account.storage_account.id
+}
