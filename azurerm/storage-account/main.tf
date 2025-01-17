@@ -24,6 +24,7 @@ resource "azurerm_storage_data_lake_gen2_filesystem" "data_lake" {
 }
 
 resource "azurerm_storage_container" "container" {
-  name                 = "testcontainer123"
-  storage_account_name = azurerm_storage_account.storage_account.name
+  count = var.is_data_lake ? 0 : for_each(var.container_names)
+
+  name = each.value
 }
