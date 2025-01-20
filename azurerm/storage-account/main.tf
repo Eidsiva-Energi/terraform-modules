@@ -28,8 +28,8 @@ resource "azurerm_storage_account" "storage_account" {
 //       but it is neccessary in the future 
 
 resource "azurerm_storage_container" "container" {
-  for_each           = toset(var.containers)
-  storage_account_id = azurerm_storage_account.storage_account.id
+  for_each             = toset(var.containers)
+  storage_account_name = azurerm_storage_account.storage_account.name
 
   name                  = each.value.name
   container_access_type = can(each.value.container_access_type) ? each.value.container_access_type : "private"
