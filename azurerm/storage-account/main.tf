@@ -23,8 +23,14 @@ resource "azurerm_storage_account" "storage_account" {
 //  properties = var.data_lake_properties
 //}
 
-resource "azurerm_storage_container" "container" {
-  count = var.is_data_lake ? 0 : for_each(var.container_names)
+// NOTE: This approach does not allow the use of the azure data lake properties argument
+//       at time of writing, we think that it is not neccessary to support this,
+//       but it is neccessary in the future 
 
-  name = each.value
+resource "azurerm_storage_container" "container" {
+  for_each           = toset(var.containers)
+  storage_account_id = azurerm_storage_account.storage_account.id
+
+  name                  = each.value.name
+  container_access_type = can(each.value.container_access_type) ? each.value.container_access_type : "private"
 }
