@@ -23,9 +23,11 @@ resource "azurerm_storage_account" "storage_account" {
 //  properties = var.data_lake_properties
 //}
 
-// NOTE: This approach does not allow the use of the azure data lake properties argument
-//       at time of writing, we think that it is not neccessary to support this,
-//       but it is neccessary in the future 
+// // // //
+// NOTE: This approach does not support the use of the Azure Data Lake properties argument.
+//       Currently, we believe it is unnecessary to support this feature.
+//       If needed in the future, this section can be modified to include support for it.
+// // // //
 
 resource "azurerm_storage_container" "container" {
   for_each             = { for container in var.containers : container.name => container }

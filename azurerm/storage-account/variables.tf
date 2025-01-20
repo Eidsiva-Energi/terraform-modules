@@ -96,9 +96,3 @@ variable "containers" {
   }))
   description = "The containers to create in the storage account."
 }
-
-variable "data_lake_container_properties" {
-  default     = []
-  type        = list(object({}))
-  description = "The properties to apply to the Data Lake Gen2 filesystem containers. Only used if is_data_lake is set to true."
-}
