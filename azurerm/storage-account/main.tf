@@ -27,6 +27,8 @@ resource "azurerm_storage_account" "storage_account" {
 // NOTE: This approach does not support the use of the Azure Data Lake properties argument.
 //       Currently, we believe it is unnecessary to support this feature.
 //       If needed in the future, this section can be modified to include support for it.
+//
+//       If you need to support this feature, add a system for creating azurerm_storage_data_lake_gen2_filesystem resources when is_data_lake is set to true.
 // // // //
 
 resource "azurerm_storage_container" "container" {
