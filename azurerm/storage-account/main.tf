@@ -28,7 +28,7 @@ resource "azurerm_storage_account" "storage_account" {
 //       but it is neccessary in the future 
 
 resource "azurerm_storage_container" "container" {
-  for_each             = toset(var.containers)
+  for_each             = { for container in var.containers : container.name => container }
   storage_account_name = azurerm_storage_account.storage_account.name
 
   name                  = each.value.name
