@@ -76,18 +76,19 @@ variable "account_kind" {
   }
 }
 
+// // // //
+// NOTE: This approach does not support the use of the Azure Data Lake properties argument.
+//       Currently, we believe it is unnecessary to support this feature.
+//       If needed in the future, this section can be modified to include support for it.
+//
+//       If you need to support this feature, add a system for creating azurerm_storage_data_lake_gen2_filesystem resources when is_data_lake is set to true.
+// // // //
+
 variable "is_data_lake" {
   default     = false
   type        = bool
   description = "Whether or not to create a Data Lake Gen2 filesystem in the storage account."
 }
-
-//variable "data_lake_properties" {
-//  default     = {}
-//  type        = object({})
-//  description = "The properties to apply to the Data Lake Gen2 filesystem. Only used if is_data_lake is set to true."
-//}
-
 variable "containers" {
   default = []
   type = list(object({
