@@ -16,6 +16,8 @@ Common terraform modules available to all Eidsiva developers.
 
 [Azure Resource Group](azurerm/resource-group/README.md)
 
-[Azure  MS SQL Server](azurerm/mssql-server/README.md)
+[Azure MS SQL Server](azurerm/mssql-server/README.md)
 
 [Azure MS SQL Database](azurerm/mssql-database/README.md)
+
+[Azure Storage Account/Data Lake](azurerm/storage-account/README.md)
