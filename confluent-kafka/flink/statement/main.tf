@@ -19,6 +19,8 @@ resource "confluent_flink_statement" "statement" {
 
   stopped = var.stopped
 
+  rest_endpoint = var.rest_endpoint
+
   credentials {
     key    = var.key
     secret = var.secret

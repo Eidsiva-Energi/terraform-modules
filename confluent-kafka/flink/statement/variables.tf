@@ -29,6 +29,11 @@ variable "properties" {
   type        = map(string)
 }
 
+variable "rest_endpoint" {
+  description = "The REST endpoint of Flink Region."
+  type        = string
+}
+
 variable "stopped" {
   description = "Whether the statement is stopped."
   type        = bool
