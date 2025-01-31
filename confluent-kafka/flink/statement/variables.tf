@@ -48,13 +48,3 @@ variable "secret" {
   description = "The secret for the Service Account running the statement."
 }
 
-variable "topics" {
-  type = map(object({
-    topic_name = string
-  }))
-  description = "The topics you to read/write."
-}
-
-variable "cluster_id" {
-  description = "The Confluent Cloud cluster ID."
-}
