@@ -94,3 +94,10 @@ variable "tasks_max" {
   default     = 1
 }
 
+variable "transforms" {
+  description = "A map of transform configurations"
+  type        = map(map(string))
+  default     = {}
+}
+
+
