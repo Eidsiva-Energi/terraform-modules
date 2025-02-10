@@ -30,10 +30,17 @@ module "connector" {
         }
     }
 
-    input_data_format = "JSON"
+    input_data_format = "JSON_SR"
     output_data_format = "JSON"
     time_interval = "DAILY"
     path_format = "'year'=YYYY/'month'=MM/'day'=dd"
+
+    transforms = {
+        insertKafkaTimestamp = {
+        type              = "org.apache.kafka.connect.transforms.InsertField$Value"
+        "timestamp.field" = "kafka_timestamp"
+        }
+    }
 }
 ```
 ### Confluent Cloud Kafka to Azure Blob Storage Connector Configuration
@@ -61,6 +68,6 @@ This section provides details about the configurable variables used to set up a 
 | `max_poll_interval_ms`    | The maximum amount of time in milliseconds the connector will wait between polling the topics.      | `number`         | `300000`                                   |
 | `max_poll_records`        | The maximum number of records to consume from Kafka in a single request.                            | `number`         | `500`                                      |
 | `tasks_max`               | The maximum number of tasks to use for this connector.                                              | `number`         | `1`                                        |
-
+| `transforms`               | A map of transform configurations                                             | `map(map(string))`         | `{}`   
 ### Validation Constraints
 - **Input and Output Data Format**: Must be either `JSON`, `AVRO`, `JSON_SR`, or `BYTES`.
