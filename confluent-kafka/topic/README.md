@@ -46,19 +46,19 @@ module "test-kafka" {
 #### Variables
 NOTE: All variables without a default value needs to be given a value in your terraform definition
 
-| **Variable**              | **Description**                                                                                                 | **Type**      | **Default**               |
-|---------------------------|-----------------------------------------------------------------------------------------------------------------|---------------|---------------------------|
-| `system`                  | The system that owns the topic and contract. Only this system can publish to the topic.                         | `string`      | N/A                       |
-| `data_name`               | The name of the data or event type. Should describe the contents of the topic to potential consumers.           | `string`      | N/A                       |
-| `is_public`               | Prefixes topic with `public` or `private`. Informs potentials consumers if the  topic is intended for use outside the domain.   | `boolean` | `true`        |
-| `retention_ms`            | How long messages are stored. *Example 1* store messages for 7 days -1 means stored indefinitely.               | `number`      | N/A                       |
-| `cleanup_policy`          | 'delete' or 'compact'. 'delete' removes old data; 'compact' enables log compaction.                             | `string`      | 'delete'                  |
-| `partitions`              | Number of partitions dedicated to the topic. Each can handle at least ~10 MB/s of traffic.                      | `number`      | 1                         |
-| `consumers`               | Map of allowed consumers. Each consumer is defined by a unique key and a map with the keys `system_name` and `application_name`.| `map(object)` | N/A       |
-| `schema`                  | Object defining a schema's configuration. By default, all topics require a schema.                              | `object`      | N/A                       |
-| `schema.path`             | Either a local (relative) path to the .json file defining the schema, or a URL to a file hosted on the internet (for example a public GitHub Repo)                                                                                                                                         | `string`      | N/A                       |
-| `schema.format`           | The format of the schema.                                                                                       | `string`      | N/A                       |
-| `schema.use_producer_defined` | Used to turn off the requirement for each topic to have a schema. Meant to be used with topics where the producer defines the schema. |`boolean`| `false` |
+| **Variable**                  | **Description**                                                                                                                                    | **Type**      | **Default** |
+|-------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|---------------|-------------|
+| `system`                      | The system that owns the topic and contract. Only this system can publish to the topic.                                                            | `string`      | N/A         |
+| `data_name`                   | The name of the data or event type. Should describe the contents of the topic to potential consumers.                                              | `string`      | N/A         |
+| `is_public`                   | Prefixes topic with `public` or `private`. Informs potentials consumers if the  topic is intended for use outside the domain.                      | `boolean`     | `true`      |
+| `retention_ms`                | How long messages are stored. *Example 1* store messages for 7 days -1 means stored indefinitely.                                                  | `number`      | N/A         |
+| `cleanup_policy`              | 'delete' or 'compact'. 'delete' removes old data; 'compact' enables log compaction.                                                                | `string`      | 'delete'    |
+| `partitions`                  | Number of partitions dedicated to the topic. Each can handle at least ~10 MB/s of traffic.                                                         | `number`      | 1           |
+| `consumers`                   | Map of allowed consumers. Each consumer is defined by a unique key and a map with the keys `system_name` and `application_name`.                   | `map(object)` | N/A         |
+| `schema`                      | Object defining a schema's configuration. By default, all topics require a schema.                                                                 | `object`      | N/A         |
+| `schema.path`                 | Either a local (relative) path to the .json file defining the schema, or a URL to a file hosted on the internet (for example a public GitHub Repo) | `string`      | N/A         |
+| `schema.format`               | The format of the schema.                                                                                                                          | `string`      | N/A         |
+| `schema.use_producer_defined` | Used to turn off the requirement for each topic to have a schema. Meant to be used with topics where the producer defines the schema.              | `boolean`     | `false`     |
 
 
 #### Validation Constraints
