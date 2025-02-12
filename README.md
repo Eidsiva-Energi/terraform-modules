@@ -6,8 +6,6 @@ Common terraform modules available to all Eidsiva developers.
 
 [Confluent Kafka Topic](confluent-kafka/topic/README.md)
 
-[Confluent Kafka Azure Blob Sink Connector](confluent-kafka/connectors/azure-blob-sink/README.md)
-
 [Confluent Kafka Azure Data Lake Gen2 Sink Connector](confluent-kafka/connectors/azure-data-lake-gen2-sink/README.md)
 
 [Confluent Kafka MsSQL Sink Connector](confluent-kafka/connectors/mssql-sink/README.md)
